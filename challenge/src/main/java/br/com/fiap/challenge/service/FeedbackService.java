@@ -10,5 +10,5 @@ public interface FeedbackService {
     Feedback buscarPorId(String id);
     List<Feedback> buscarTodos();
     Feedback atualizar(String id, Feedback feedback);
-    void deletar(String id);
+    boolean deletar(String id);
 }

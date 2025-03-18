@@ -6,6 +6,7 @@ import br.com.fiap.challenge.domains.Especialidade;
 import br.com.fiap.challenge.gateways.repository.ClinicaRepository;
 import br.com.fiap.challenge.gateways.repository.EspecialidadeRepository;
 import br.com.fiap.challenge.gateways.request.DentistaRequest;
+import br.com.fiap.challenge.gateways.request.DentistaUpdateRequest;
 import br.com.fiap.challenge.gateways.response.DentistaResponse;
 import br.com.fiap.challenge.service.DentistaService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -44,7 +44,15 @@ public class DentistaController {
                 .build();
 
         Dentista dentistaSalvo = dentistaService.criar(dentista);
-        DentistaResponse dentistaResponse = new DentistaResponse(dentistaSalvo);
+        DentistaResponse dentistaResponse = DentistaResponse.builder()
+                .nome(dentistaSalvo.getNome())
+                .sobrenome(dentistaSalvo.getSobrenome())
+                .telefone(dentistaSalvo.getTelefone())
+                .clinica(dentistaSalvo.getClinica())
+                .especialidade(dentistaSalvo.getEspecialidade())
+                .avaliacao(dentistaSalvo.getAvaliacao())
+                .build();
+
         return ResponseEntity.status(HttpStatus.CREATED).body(dentistaResponse);
     }
 
@@ -56,7 +64,14 @@ public class DentistaController {
         }
 
         List<DentistaResponse> dentistaResponses = dentistas.stream()
-                .map(DentistaResponse::new)
+                .map(dentista -> DentistaResponse.builder()
+                        .nome(dentista.getNome())
+                        .sobrenome(dentista.getSobrenome())
+                        .telefone(dentista.getTelefone())
+                        .clinica(dentista.getClinica())
+                        .especialidade(dentista.getEspecialidade())
+                        .avaliacao(dentista.getAvaliacao())
+                        .build())
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(dentistaResponses);
@@ -64,8 +79,15 @@ public class DentistaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DentistaResponse> buscarPorId(@PathVariable String id) {
-        Optional<Dentista> dentistaOptional = dentistaService.buscarPorId(id);
-        return dentistaOptional.map(dentista -> ResponseEntity.ok(new DentistaResponse(dentista)))
+        return dentistaService.buscarPorId(id)
+                .map(dentista -> ResponseEntity.ok(DentistaResponse.builder()
+                        .nome(dentista.getNome())
+                        .sobrenome(dentista.getSobrenome())
+                        .telefone(dentista.getTelefone())
+                        .clinica(dentista.getClinica())
+                        .especialidade(dentista.getEspecialidade())
+                        .avaliacao(dentista.getAvaliacao())
+                        .build()))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
@@ -85,8 +107,15 @@ public class DentistaController {
                 .avaliacao(dentistaRequest.getAvaliacao())
                 .build();
 
-        Optional<Dentista> dentistaAtualizado = dentistaService.atualizar(id, dentista);
-        return dentistaAtualizado.map(d -> ResponseEntity.ok(new DentistaResponse(d)))
+        return dentistaService.atualizar(id, dentista)
+                .map(dentistaAtualizado -> ResponseEntity.ok(DentistaResponse.builder()
+                        .nome(dentistaAtualizado.getNome())
+                        .sobrenome(dentistaAtualizado.getSobrenome())
+                        .telefone(dentistaAtualizado.getTelefone())
+                        .clinica(dentistaAtualizado.getClinica())
+                        .especialidade(dentistaAtualizado.getEspecialidade())
+                        .avaliacao(dentistaAtualizado.getAvaliacao())
+                        .build()))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
@@ -95,5 +124,36 @@ public class DentistaController {
         return dentistaService.deletar(id)
                 ? ResponseEntity.ok().build()
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<DentistaResponse> atualizarParcialmente(@PathVariable String id, @RequestBody DentistaUpdateRequest dentistaUpdateRequest) {
+        return dentistaService.buscarPorId(id)
+                .map(dentista -> {
+                    if (dentistaUpdateRequest.getNome() != null) {
+                        dentista.setNome(dentistaUpdateRequest.getNome());
+                    }
+                    if (dentistaUpdateRequest.getSobrenome() != null) {
+                        dentista.setSobrenome(dentistaUpdateRequest.getSobrenome());
+                    }
+                    if (dentistaUpdateRequest.getTelefone() != null) {
+                        dentista.setTelefone(dentistaUpdateRequest.getTelefone());
+                    }
+                    if (dentistaUpdateRequest.getAvaliacao() != null) {
+                        dentista.setAvaliacao(dentistaUpdateRequest.getAvaliacao());
+                    }
+
+                    return dentistaService.atualizar(id, dentista)
+                            .map(dentistaAtualizado -> ResponseEntity.ok(DentistaResponse.builder()
+                                    .nome(dentistaAtualizado.getNome())
+                                    .sobrenome(dentistaAtualizado.getSobrenome())
+                                    .telefone(dentistaAtualizado.getTelefone())
+                                    .clinica(dentistaAtualizado.getClinica())
+                                    .especialidade(dentistaAtualizado.getEspecialidade())
+                                    .avaliacao(dentistaAtualizado.getAvaliacao())
+                                    .build()))
+                            .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
+                })
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }

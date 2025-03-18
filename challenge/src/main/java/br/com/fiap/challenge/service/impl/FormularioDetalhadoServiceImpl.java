@@ -41,11 +41,12 @@ public class FormularioDetalhadoServiceImpl implements FormularioDetalhadoServic
     }
 
     @Override
-    public void deletar(String id) {
+    public boolean deletar(String id) {
         if (formularioDetalhadoRepository.existsById(id)) {
             formularioDetalhadoRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Formulário Detalhado não encontrado");
+            return true;
         }
+        return false;
     }
+
 }

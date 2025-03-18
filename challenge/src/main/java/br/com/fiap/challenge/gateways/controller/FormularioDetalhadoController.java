@@ -9,43 +9,23 @@ import br.com.fiap.challenge.gateways.request.FormularioDetalhadoRequest;
 import br.com.fiap.challenge.gateways.request.FormularioDetalhadoUpdateRequest;
 import br.com.fiap.challenge.gateways.response.FormularioDetalhadoResponse;
 import br.com.fiap.challenge.service.FormularioDetalhadoService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/formularios")
 @RequiredArgsConstructor
-@Tag(name = "formulario", description = "Operações relacionadas a formulários detalhados")
 public class FormularioDetalhadoController {
 
     private final FormularioDetalhadoService formularioDetalhadoService;
     private final ClienteRepository clienteRepository;
     private final EstadoCivilRepository estadoCivilRepository;
 
-    @Operation(summary = "Cria um novo formulário detalhado", description = "Cria um novo formulário detalhado com base nos dados informados")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Formulário criado com sucesso",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = FormularioDetalhadoResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = @Content)
-    })
     @PostMapping("/criar")
     public ResponseEntity<?> criar(@Valid @RequestBody FormularioDetalhadoRequest formularioRequest) {
         try {
@@ -100,16 +80,12 @@ public class FormularioDetalhadoController {
                     .preferenciaDeContato(formularioSalvo.getPreferenciaDeContato())
                     .build();
 
-            Link link = linkTo(FormularioDetalhadoController.class).slash("formularios").slash(formularioSalvo.getIdFormulario()).withSelfRel();
-            formularioResponse.add(link);
-
             return ResponseEntity.status(HttpStatus.CREATED).body(formularioResponse);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar o formulário: " + e.getMessage());
         }
     }
 
-    @Operation(summary = "Buscar todos os formulários", description = "Retorna uma lista de todos os formulários detalhados")
     @GetMapping
     public ResponseEntity<?> buscarTodos() {
         try {
@@ -118,16 +94,12 @@ public class FormularioDetalhadoController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum formulário encontrado.");
             }
 
-            Link selfLink = linkTo(methodOn(FormularioDetalhadoController.class).buscarTodos()).withSelfRel();
-            CollectionModel<List<FormularioDetalhado>> result = CollectionModel.of(Collections.singleton(formularios), selfLink);
-
             return ResponseEntity.ok(formularios);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar formulários: " + e.getMessage());
         }
     }
 
-    @Operation(summary = "Buscar formulário por ID", description = "Retorna um formulário detalhado com base no ID fornecido")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable String id) {
         try {
@@ -155,7 +127,6 @@ public class FormularioDetalhadoController {
                     .preferenciaDeContato(formulario.getPreferenciaDeContato())
                     .build();
 
-            formularioDetalhadoResponse.add(linkTo(methodOn(FormularioDetalhadoController.class).buscarPorId(id)).withSelfRel());
             return ResponseEntity.ok(formularioDetalhadoResponse);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Formulário com ID " + id + " não encontrado.");
@@ -165,7 +136,6 @@ public class FormularioDetalhadoController {
     }
 
 
-    @Operation(summary = "Atualizar formulário", description = "Atualiza os dados de um formulário detalhado com base no ID fornecido")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable String id, @Valid @RequestBody FormularioDetalhadoRequest formularioRequest) {
         try {
@@ -221,9 +191,6 @@ public class FormularioDetalhadoController {
                     .preferenciaDeContato(formularioAtualizado.getPreferenciaDeContato())
                     .build();
 
-            Link link = linkTo(methodOn(FormularioDetalhadoController.class).buscarPorId(id)).withSelfRel();
-            formularioResponse.add(link);
-
             return ResponseEntity.ok(formularioResponse);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Formulário com ID " + id + " não encontrado.");
@@ -233,7 +200,6 @@ public class FormularioDetalhadoController {
     }
 
 
-    @Operation(summary = "Deletar formulário", description = "Deleta um formulário detalhado com base no ID fornecido")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable String id) {
         try {
@@ -246,13 +212,6 @@ public class FormularioDetalhadoController {
         }
     }
 
-    @Operation(summary = "Atualizar campos específicos do formulário detalhado", description = "Atualiza campos específicos de um formulário detalhado com base no ID fornecido")
-    @PatchMapping("/{id}")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Formulário atualizado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Formulário não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
-    })
     public ResponseEntity<?> atualizarParcialmente(@PathVariable String id, @RequestBody FormularioDetalhadoUpdateRequest formularioDetalhadoUpdateRequest) {
         try {
             FormularioDetalhado formulario = formularioDetalhadoService.buscarPorId(id);
@@ -327,9 +286,6 @@ public class FormularioDetalhadoController {
                     .historicoDeMudancasDeEndereco(formularioAtualizado.getHistoricoDeMudancasDeEndereco())
                     .preferenciaDeContato(formularioAtualizado.getPreferenciaDeContato())
                     .build();
-
-            Link link = linkTo(methodOn(FormularioDetalhadoController.class).buscarPorId(id)).withSelfRel();
-            formularioResponse.add(link);
 
             return ResponseEntity.ok(formularioAtualizado);
         } catch (RuntimeException e) {

@@ -41,11 +41,11 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void deletar(String id) {
+    public boolean deletar(String id) {
         if (feedbackRepository.existsById(id)) {
             feedbackRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Feedback não encontrado");
+            return true;
         }
+        return false;
     }
 }

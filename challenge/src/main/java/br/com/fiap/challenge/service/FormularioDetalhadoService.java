@@ -10,6 +10,6 @@ public interface FormularioDetalhadoService {
     FormularioDetalhado buscarPorId(String id);
     List<FormularioDetalhado> buscarTodos();
     FormularioDetalhado atualizar(String id, FormularioDetalhado formulario);
-    void deletar(String id);
+    boolean deletar(String id);
 
 }
