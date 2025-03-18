@@ -2,10 +2,9 @@ package br.com.fiap.challenge.gateways.request;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 @Data
-public class FeedbackUpdateRequest extends RepresentationModel<FeedbackUpdateRequest> {
+public class FeedbackUpdateRequest {
 
     private Float avaliacao;
 

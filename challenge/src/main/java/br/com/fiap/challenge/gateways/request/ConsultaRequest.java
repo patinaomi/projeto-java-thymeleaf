@@ -1,18 +1,14 @@
 package br.com.fiap.challenge.gateways.request;
 
-import br.com.fiap.challenge.domains.Cliente;
-import br.com.fiap.challenge.domains.Clinica;
-import br.com.fiap.challenge.domains.Dentista;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @Data
-public class ConsultaRequest extends RepresentationModel<ConsultaRequest> {
+public class ConsultaRequest {
 
     @NotNull(message = "ID do Cliente não pode ser nulo")
     private String clienteId;

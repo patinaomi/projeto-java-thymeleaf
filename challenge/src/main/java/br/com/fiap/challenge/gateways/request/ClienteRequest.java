@@ -4,15 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @Data
-public class ClienteRequest extends RepresentationModel<ClienteRequest> {
+public class ClienteRequest {
 
     @NotNull(message = "O nome do cliente não pode ser nulo")
     @Size(max = 100, message = "O nome do cliente deve ter no máximo 100 caracteres")

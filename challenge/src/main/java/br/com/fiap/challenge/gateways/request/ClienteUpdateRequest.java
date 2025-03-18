@@ -2,15 +2,13 @@ package br.com.fiap.challenge.gateways.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @Data
-public class ClienteUpdateRequest extends RepresentationModel<ClienteUpdateRequest> {
+public class ClienteUpdateRequest {
 
     @Size(max = 100, message = "O nome do cliente deve ter no máximo 100 caracteres")
     private String nome;

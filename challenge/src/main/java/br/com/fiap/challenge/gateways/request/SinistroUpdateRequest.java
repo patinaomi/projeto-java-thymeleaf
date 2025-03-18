@@ -3,12 +3,11 @@ package br.com.fiap.challenge.gateways.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @Data
-public class SinistroUpdateRequest extends RepresentationModel<SinistroUpdateRequest> {
+public class SinistroUpdateRequest {
 
     @Size(max = 100, message = "O nome do sinistro deve ter no máximo 100 caracteres")
     private String nome;

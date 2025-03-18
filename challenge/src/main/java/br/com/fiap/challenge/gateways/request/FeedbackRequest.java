@@ -4,10 +4,9 @@ package br.com.fiap.challenge.gateways.request;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 @Data
-public class FeedbackRequest extends RepresentationModel<FeedbackRequest> {
+public class FeedbackRequest {
 
     @NotNull(message = "Cliente não pode ser nulo")
     private String cliente;

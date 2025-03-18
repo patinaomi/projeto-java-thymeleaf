@@ -2,13 +2,12 @@ package br.com.fiap.challenge.gateways.response;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @Builder
 @Data
-public class ClienteResponse extends RepresentationModel<ClienteResponse> {
+public class ClienteResponse {
 
     String nome;
     String sobrenome;

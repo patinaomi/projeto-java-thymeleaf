@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +21,8 @@ public class ConsultaServiceImpl implements ConsultaService {
     }
 
     @Override
-    public Consulta buscarPorId(String id) {
-        return consultaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Consulta não encontrada"));
+    public Optional<Consulta> buscarPorId(String id) {
+        return consultaRepository.findById(id);
     }
 
     @Override
@@ -31,21 +31,18 @@ public class ConsultaServiceImpl implements ConsultaService {
     }
 
     @Override
-    public Consulta atualizar(String id, Consulta consulta) {
-        if (consultaRepository.existsById(id)) {
+    public Optional<Consulta> atualizar(String id, Consulta consulta) {
+        return consultaRepository.findById(id).map(consultaExistente -> {
             consulta.setIdConsulta(id);
             return consultaRepository.save(consulta);
-        } else {
-            throw new RuntimeException("Consulta não encontrada");
-        }
+        });
     }
 
     @Override
-    public void deletar(String id) {
-        if (consultaRepository.existsById(id)) {
+    public boolean deletar(String id) {
+        return consultaRepository.findById(id).map(consulta -> {
             consultaRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Consulta não encontrada");
-        }
+            return true;
+        }).orElse(false);
     }
 }

@@ -3,12 +3,11 @@ package br.com.fiap.challenge.gateways.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @Data
-public class ConsultaUpdateRequest extends RepresentationModel<ConsultaUpdateRequest> {
+public class ConsultaUpdateRequest {
 
     private String tipoServico;
 

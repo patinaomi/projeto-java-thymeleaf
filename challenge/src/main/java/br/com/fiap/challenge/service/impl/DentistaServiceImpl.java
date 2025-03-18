@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +22,8 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
-    public Dentista buscarPorId(String id) {
-        return dentistaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Dentista não encontrado"));
+    public Optional<Dentista> buscarPorId(String id) {
+        return dentistaRepository.findById(id);
     }
 
     @Override
@@ -32,25 +32,21 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
-    public Dentista atualizar(String id, Dentista dentista) {
-        if (dentistaRepository.existsById(id)) {
+    public Optional<Dentista> atualizar(String id, Dentista dentista) {
+        return dentistaRepository.findById(id).map(dentistaExistente -> {
             dentista.setIdDentista(id);
             return dentistaRepository.save(dentista);
-        } else {
-            throw new RuntimeException("Dentista não encontrado");
-        }
+        });
     }
 
     @Override
-    public void deletar(String id) {
-        if (dentistaRepository.existsById(id)) {
+    public boolean deletar(String id) {
+        return dentistaRepository.findById(id).map(dentista -> {
             dentistaRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Dentista não encontrado");
-        }
+            return true;
+        }).orElse(false);
     }
 
-    // Método utilitário para limpar caracteres não numéricos do telefone
     private String limparCaracteresTel(String telefone) {
         return telefone != null ? telefone.replaceAll("\\D", "") : null;
     }

@@ -3,12 +3,13 @@ package br.com.fiap.challenge.service;
 import br.com.fiap.challenge.domains.Consulta;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ConsultaService {
 
     Consulta criar(Consulta consulta);
-    Consulta buscarPorId(String id);
+    Optional<Consulta> buscarPorId(String id);
     List<Consulta> buscarTodas();
-    Consulta atualizar(String id, Consulta consulta);
-    void deletar(String id);
+    Optional<Consulta> atualizar(String id, Consulta consulta);
+    boolean deletar(String id);
 }
