@@ -7,8 +7,8 @@ import java.util.List;
 public interface FeedbackService {
 
     Feedback criar(Feedback feedback);
-    Feedback buscarPorId(String id);
+    Feedback buscarPorId(Integer id);
     List<Feedback> buscarTodos();
-    Feedback atualizar(String id, Feedback feedback);
-    boolean deletar(String id);
+    Feedback atualizar(Integer id, Feedback feedback);
+    boolean deletar(Integer id);
 }

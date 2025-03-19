@@ -7,8 +7,8 @@ import java.util.List;
 public interface ClienteService {
 
     Cliente criar(Cliente cliente);
-    Cliente buscarPorId(String id);
+    Cliente buscarPorId(Integer id);
     List<Cliente> buscarTodos();
-    Cliente atualizar(String id, Cliente cliente);
-    void deletar(String id);
+    Cliente atualizar(Integer id, Cliente cliente);
+    void deletar(Integer id);
 }

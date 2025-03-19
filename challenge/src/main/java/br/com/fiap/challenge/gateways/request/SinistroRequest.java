@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class SinistroRequest {
 
     @NotNull(message = "Consulta não pode ser nula")
-    private String consulta;
+    private Integer consulta;
 
     @NotNull(message = "Nome não pode ser nulo")
     @Size(max = 100, message = "O nome do sinistro deve ter no máximo 100 caracteres")

@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface ConsultaService {
 
     Consulta criar(Consulta consulta);
-    Optional<Consulta> buscarPorId(String id);
+    Optional<Consulta> buscarPorId(Integer id);
     List<Consulta> buscarTodas();
-    Optional<Consulta> atualizar(String id, Consulta consulta);
-    boolean deletar(String id);
+    Optional<Consulta> atualizar(Integer id, Consulta consulta);
+    boolean deletar(Integer id);
 }

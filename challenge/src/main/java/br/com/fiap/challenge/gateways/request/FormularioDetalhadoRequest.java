@@ -11,10 +11,10 @@ import java.time.LocalDate;
 public class FormularioDetalhadoRequest {
 
     @NotNull(message = "Cliente não pode ser nulo")
-    private String cliente;
+    private Integer cliente;
 
     @NotNull(message = "Estado civil não pode ser nulo")
-    private String estadoCivil;
+    private Integer estadoCivil;
 
     @Size(max = 250, message = "O histórico familiar deve ter no máximo 250 caracteres")
     private String historicoFamiliar;

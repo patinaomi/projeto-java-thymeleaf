@@ -68,7 +68,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteResponse> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<ClienteResponse> buscarPorId(@PathVariable Integer id) {
         try {
             Cliente cliente = clienteService.buscarPorId(id);
             ClienteResponse clienteResponse = ClienteResponse.builder()
@@ -87,7 +87,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteResponse> atualizar(@PathVariable String id, @Valid @RequestBody ClienteRequest clienteRequest) {
+    public ResponseEntity<ClienteResponse> atualizar(@PathVariable Integer id, @Valid @RequestBody ClienteRequest clienteRequest) {
         try {
             Cliente cliente = Cliente.builder()
                     .nome(clienteRequest.getNome())
@@ -116,7 +116,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable String id) {
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         try {
             clienteService.deletar(id);
             return ResponseEntity.ok().build();
@@ -126,7 +126,7 @@ public class ClienteController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ClienteResponse> atualizarParcialmente(@PathVariable String id, @RequestBody ClienteUpdateRequest clienteUpdateRequest) {
+    public ResponseEntity<ClienteResponse> atualizarParcialmente(@PathVariable Integer id, @RequestBody ClienteUpdateRequest clienteUpdateRequest) {
         try {
             Cliente cliente = clienteService.buscarPorId(id);
 

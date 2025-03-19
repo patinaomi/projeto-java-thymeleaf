@@ -76,7 +76,7 @@ public class SinistroController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
         try {
             Sinistro sinistro = sinistroService.buscarPorId(id);
             SinistroResponse sinistroResponse = SinistroResponse.builder()
@@ -100,7 +100,7 @@ public class SinistroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable String id, @Valid @RequestBody SinistroRequest sinistroRequest) {
+    public ResponseEntity<?> atualizar(@PathVariable Integer id, @Valid @RequestBody SinistroRequest sinistroRequest) {
         try {
             Consulta consulta = consultaRepository.findById(sinistroRequest.getConsulta())
                     .orElseThrow(() -> new RuntimeException("Consulta não encontrada"));
@@ -140,7 +140,7 @@ public class SinistroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable String id) {
+    public ResponseEntity<?> deletar(@PathVariable Integer id) {
         try {
             sinistroService.deletar(id);
             return ResponseEntity.ok("Sinistro com ID " + id + " foi deletado com sucesso.");
@@ -151,7 +151,7 @@ public class SinistroController {
         }
     }
 
-    public ResponseEntity<?> atualizarParcialmente(@PathVariable String id, @RequestBody SinistroUpdateRequest sinistroUpdateRequest) {
+    public ResponseEntity<?> atualizarParcialmente(@PathVariable Integer id, @RequestBody SinistroUpdateRequest sinistroUpdateRequest) {
         try {
             Sinistro sinistro = sinistroService.buscarPorId(id);
 

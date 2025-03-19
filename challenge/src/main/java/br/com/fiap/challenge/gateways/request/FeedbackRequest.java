@@ -9,13 +9,13 @@ import lombok.Data;
 public class FeedbackRequest {
 
     @NotNull(message = "Cliente não pode ser nulo")
-    private String cliente;
+    private Integer cliente;
 
     @NotNull(message = "Dentista não pode ser nulo")
-    private String dentista;
+    private Integer dentista;
 
     @NotNull(message = "Clínica não pode ser nula")
-    private String clinica;
+    private Integer clinica;
 
     @NotNull(message = "Avaliação não pode ser nula")
     private Float avaliacao;

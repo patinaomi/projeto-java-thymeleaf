@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 public class Especialidade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_especialidade", nullable = false)
-    private String idEspecialidade;
+    private Integer idEspecialidade;
 
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;

@@ -102,7 +102,7 @@ public class ConsultaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ConsultaResponse> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<ConsultaResponse> buscarPorId(@PathVariable Integer id) {
         return consultaService.buscarPorId(id)
                 .map(consulta -> ResponseEntity.ok(
                         ConsultaResponse.builder()
@@ -123,7 +123,7 @@ public class ConsultaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ConsultaResponse> atualizar(@PathVariable String id, @Valid @RequestBody ConsultaRequest consultaRequest) {
+    public ResponseEntity<ConsultaResponse> atualizar(@PathVariable Integer id, @Valid @RequestBody ConsultaRequest consultaRequest) {
         Cliente cliente = clienteRepository.findById(consultaRequest.getClienteId())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         Clinica clinica = clinicaRepository.findById(consultaRequest.getClinicaId())
@@ -166,7 +166,7 @@ public class ConsultaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable String id) {
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         return consultaService.deletar(id)
                 ? ResponseEntity.ok().build()
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();

@@ -20,7 +20,7 @@ public class FormularioDetalhadoServiceImpl implements FormularioDetalhadoServic
     }
 
     @Override
-    public FormularioDetalhado buscarPorId(String id) {
+    public FormularioDetalhado buscarPorId(Integer id) {
         return formularioDetalhadoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Formulário Detalhado não encontrado"));
     }
@@ -31,7 +31,7 @@ public class FormularioDetalhadoServiceImpl implements FormularioDetalhadoServic
     }
 
     @Override
-    public FormularioDetalhado atualizar(String id, FormularioDetalhado formulario) {
+    public FormularioDetalhado atualizar(Integer id, FormularioDetalhado formulario) {
         if (formularioDetalhadoRepository.existsById(id)) {
             formulario.setIdFormulario(id);
             return formularioDetalhadoRepository.save(formulario);
@@ -41,7 +41,7 @@ public class FormularioDetalhadoServiceImpl implements FormularioDetalhadoServic
     }
 
     @Override
-    public boolean deletar(String id) {
+    public boolean deletar(Integer id) {
         if (formularioDetalhadoRepository.existsById(id)) {
             formularioDetalhadoRepository.deleteById(id);
             return true;

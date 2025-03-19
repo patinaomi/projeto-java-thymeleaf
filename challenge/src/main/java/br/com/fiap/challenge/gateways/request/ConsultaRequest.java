@@ -11,13 +11,13 @@ import java.time.LocalDate;
 public class ConsultaRequest {
 
     @NotNull(message = "ID do Cliente não pode ser nulo")
-    private String clienteId;
+    private Integer clienteId;
 
     @NotNull(message = "ID da Clínica não pode ser nulo")
-    private String clinicaId;
+    private Integer clinicaId;
 
     @NotNull(message = "ID do Dentista não pode ser nulo")
-    private String dentistaId;
+    private Integer dentistaId;
 
     @NotNull(message = "Tipo de serviço não pode ser nulo")
     private String tipoServico;

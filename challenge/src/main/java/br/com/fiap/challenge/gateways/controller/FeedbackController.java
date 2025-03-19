@@ -82,7 +82,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FeedbackResponse> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<FeedbackResponse> buscarPorId(@PathVariable Integer id) {
         Optional<Feedback> feedbackOptional = Optional.ofNullable(feedbackService.buscarPorId(id));
         return feedbackOptional.map(feedback -> ResponseEntity.ok(
                 FeedbackResponse.builder()
@@ -96,7 +96,7 @@ public class FeedbackController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FeedbackResponse> atualizar(@PathVariable String id, @Valid @RequestBody FeedbackRequest feedbackRequest) {
+    public ResponseEntity<FeedbackResponse> atualizar(@PathVariable Integer id, @Valid @RequestBody FeedbackRequest feedbackRequest) {
         Cliente cliente = clienteRepository.findById(feedbackRequest.getCliente())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         Dentista dentista = dentistaRepository.findById(feedbackRequest.getDentista())
@@ -126,14 +126,14 @@ public class FeedbackController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable String id) {
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         return feedbackService.deletar(id)
                 ? ResponseEntity.ok().build()
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<FeedbackResponse> atualizarParcialmente(@PathVariable String id, @RequestBody FeedbackUpdateRequest feedbackUpdateRequest) {
+    public ResponseEntity<FeedbackResponse> atualizarParcialmente(@PathVariable Integer id, @RequestBody FeedbackUpdateRequest feedbackUpdateRequest) {
         Feedback feedback = feedbackService.buscarPorId(id);
 
         if (feedbackUpdateRequest.getAvaliacao() != null) {

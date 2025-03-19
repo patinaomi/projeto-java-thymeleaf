@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-        public void enviarEmailErroTransacao(String clienteId, String mensagemErro) {
+        public void enviarEmailErroTransacao(Integer clienteId, String mensagemErro) {
         Cliente cliente = clienteRepository.findById(clienteId).orElse(null);
 
         if (cliente != null) {

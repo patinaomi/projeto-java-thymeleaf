@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface DentistaService {
 
     Dentista criar(Dentista dentista);
-    Optional<Dentista> buscarPorId(String id);
+    Optional<Dentista> buscarPorId(Integer id);
     List<Dentista> buscarTodos();
-    Optional<Dentista> atualizar(String id, Dentista dentista);
-    boolean deletar(String id);
+    Optional<Dentista> atualizar(Integer id, Dentista dentista);
+    boolean deletar(Integer id);
 }

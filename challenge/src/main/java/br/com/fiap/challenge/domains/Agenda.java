@@ -17,9 +17,9 @@ import java.sql.Timestamp;
 public class Agenda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_agenda", nullable = false)
-    private String idAgenda;
+    private Integer idAgenda;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)

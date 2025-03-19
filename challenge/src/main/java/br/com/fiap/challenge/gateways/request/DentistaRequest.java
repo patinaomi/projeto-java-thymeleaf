@@ -20,10 +20,10 @@ public class DentistaRequest {
     private String telefone;
 
     @NotNull(message = "Clínica não pode ser nula")
-    private String clinica;
+    private Integer clinica;
 
     @NotNull(message = "Especialidade não pode ser nula")
-    private String especialidade;
+    private Integer especialidade;
 
     @NotNull(message = "Avaliação não pode ser nula")
     private Float avaliacao;

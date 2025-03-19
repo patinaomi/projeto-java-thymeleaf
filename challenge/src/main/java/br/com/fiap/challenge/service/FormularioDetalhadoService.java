@@ -7,9 +7,9 @@ import java.util.List;
 public interface FormularioDetalhadoService {
 
     FormularioDetalhado criar(FormularioDetalhado formulario);
-    FormularioDetalhado buscarPorId(String id);
+    FormularioDetalhado buscarPorId(Integer id);
     List<FormularioDetalhado> buscarTodos();
-    FormularioDetalhado atualizar(String id, FormularioDetalhado formulario);
-    boolean deletar(String id);
+    FormularioDetalhado atualizar(Integer id, FormularioDetalhado formulario);
+    boolean deletar(Integer id);
 
 }

@@ -22,7 +22,7 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
-    public Optional<Dentista> buscarPorId(String id) {
+    public Optional<Dentista> buscarPorId(Integer id) {
         return dentistaRepository.findById(id);
     }
 
@@ -32,7 +32,7 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
-    public Optional<Dentista> atualizar(String id, Dentista dentista) {
+    public Optional<Dentista> atualizar(Integer id, Dentista dentista) {
         return dentistaRepository.findById(id).map(dentistaExistente -> {
             dentista.setIdDentista(id);
             return dentistaRepository.save(dentista);
@@ -40,7 +40,7 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
-    public boolean deletar(String id) {
+    public boolean deletar(Integer id) {
         return dentistaRepository.findById(id).map(dentista -> {
             dentistaRepository.deleteById(id);
             return true;

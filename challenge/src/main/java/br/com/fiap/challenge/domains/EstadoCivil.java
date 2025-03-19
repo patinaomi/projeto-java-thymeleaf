@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 public class EstadoCivil {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estado_civil", nullable = false)
-    private String idEstadoCivil;
+    private Integer idEstadoCivil;
 
     @Column(name = "descricao", length = 50, nullable = false)
     private String descricao;

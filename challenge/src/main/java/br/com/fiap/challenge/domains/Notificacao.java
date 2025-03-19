@@ -17,9 +17,9 @@ import java.time.LocalDate;
 public class Notificacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_notificacao", nullable = false)
-    private String idNotificacao;
+    private Integer idNotificacao;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)

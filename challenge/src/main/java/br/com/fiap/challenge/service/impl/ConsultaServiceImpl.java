@@ -21,7 +21,7 @@ public class ConsultaServiceImpl implements ConsultaService {
     }
 
     @Override
-    public Optional<Consulta> buscarPorId(String id) {
+    public Optional<Consulta> buscarPorId(Integer id) {
         return consultaRepository.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class ConsultaServiceImpl implements ConsultaService {
     }
 
     @Override
-    public Optional<Consulta> atualizar(String id, Consulta consulta) {
+    public Optional<Consulta> atualizar(Integer id, Consulta consulta) {
         return consultaRepository.findById(id).map(consultaExistente -> {
             consulta.setIdConsulta(id);
             return consultaRepository.save(consulta);
@@ -39,7 +39,7 @@ public class ConsultaServiceImpl implements ConsultaService {
     }
 
     @Override
-    public boolean deletar(String id) {
+    public boolean deletar(Integer id) {
         return consultaRepository.findById(id).map(consulta -> {
             consultaRepository.deleteById(id);
             return true;

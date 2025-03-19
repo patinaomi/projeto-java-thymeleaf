@@ -101,7 +101,7 @@ public class FormularioDetalhadoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
         try {
             FormularioDetalhado formulario = formularioDetalhadoService.buscarPorId(id);
 
@@ -137,7 +137,7 @@ public class FormularioDetalhadoController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable String id, @Valid @RequestBody FormularioDetalhadoRequest formularioRequest) {
+    public ResponseEntity<?> atualizar(@PathVariable Integer id, @Valid @RequestBody FormularioDetalhadoRequest formularioRequest) {
         try {
             FormularioDetalhado formularioExistente = formularioDetalhadoService.buscarPorId(id);
 
@@ -201,7 +201,7 @@ public class FormularioDetalhadoController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable String id) {
+    public ResponseEntity<?> deletar(@PathVariable Integer id) {
         try {
             formularioDetalhadoService.deletar(id);
             return ResponseEntity.ok("Formulário com ID " + id + " foi deletado com sucesso.");
@@ -212,7 +212,7 @@ public class FormularioDetalhadoController {
         }
     }
 
-    public ResponseEntity<?> atualizarParcialmente(@PathVariable String id, @RequestBody FormularioDetalhadoUpdateRequest formularioDetalhadoUpdateRequest) {
+    public ResponseEntity<?> atualizarParcialmente(@PathVariable Integer id, @RequestBody FormularioDetalhadoUpdateRequest formularioDetalhadoUpdateRequest) {
         try {
             FormularioDetalhado formulario = formularioDetalhadoService.buscarPorId(id);
 

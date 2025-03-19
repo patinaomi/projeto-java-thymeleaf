@@ -7,9 +7,9 @@ import java.util.List;
 public interface SinistroService {
 
     Sinistro criar(Sinistro sinistro);
-    Sinistro buscarPorId(String id);
+    Sinistro buscarPorId(Integer id);
     List<Sinistro> buscarTodos();
-    Sinistro atualizar(String id, Sinistro sinistro);
-    void deletar(String id);
+    Sinistro atualizar(Integer id, Sinistro sinistro);
+    void deletar(Integer id);
 
 }

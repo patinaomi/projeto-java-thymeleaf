@@ -78,7 +78,7 @@ public class DentistaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DentistaResponse> buscarPorId(@PathVariable String id) {
+    public ResponseEntity<DentistaResponse> buscarPorId(@PathVariable Integer id) {
         return dentistaService.buscarPorId(id)
                 .map(dentista -> ResponseEntity.ok(DentistaResponse.builder()
                         .nome(dentista.getNome())
@@ -92,7 +92,7 @@ public class DentistaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DentistaResponse> atualizar(@PathVariable String id, @Valid @RequestBody DentistaRequest dentistaRequest) {
+    public ResponseEntity<DentistaResponse> atualizar(@PathVariable Integer id, @Valid @RequestBody DentistaRequest dentistaRequest) {
         Clinica clinica = clinicaRepository.findById(dentistaRequest.getClinica())
                 .orElseThrow(() -> new RuntimeException("Clínica não encontrada"));
         Especialidade especialidade = especialidadeRepository.findById(dentistaRequest.getEspecialidade())
@@ -120,14 +120,14 @@ public class DentistaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable String id) {
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         return dentistaService.deletar(id)
                 ? ResponseEntity.ok().build()
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<DentistaResponse> atualizarParcialmente(@PathVariable String id, @RequestBody DentistaUpdateRequest dentistaUpdateRequest) {
+    public ResponseEntity<DentistaResponse> atualizarParcialmente(@PathVariable Integer id, @RequestBody DentistaUpdateRequest dentistaUpdateRequest) {
         return dentistaService.buscarPorId(id)
                 .map(dentista -> {
                     if (dentistaUpdateRequest.getNome() != null) {

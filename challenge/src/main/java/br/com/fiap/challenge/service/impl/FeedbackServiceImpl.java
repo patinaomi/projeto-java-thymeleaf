@@ -20,7 +20,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public Feedback buscarPorId(String id) {
+    public Feedback buscarPorId(Integer id) {
         return feedbackRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Feedback não encontrado"));
     }
@@ -31,7 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public Feedback atualizar(String id, Feedback feedback) {
+    public Feedback atualizar(Integer id, Feedback feedback) {
         if (feedbackRepository.existsById(id)) {
             feedback.setIdFeedback(id);
             return feedbackRepository.save(feedback);
@@ -41,7 +41,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public boolean deletar(String id) {
+    public boolean deletar(Integer id) {
         if (feedbackRepository.existsById(id)) {
             feedbackRepository.deleteById(id);
             return true;
