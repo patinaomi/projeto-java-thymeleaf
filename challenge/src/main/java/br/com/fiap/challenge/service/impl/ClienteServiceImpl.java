@@ -4,6 +4,8 @@ import br.com.fiap.challenge.domains.Cliente;
 import br.com.fiap.challenge.gateways.repository.ClienteRepository;
 import br.com.fiap.challenge.service.ClienteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,6 +60,10 @@ public class ClienteServiceImpl implements ClienteService {
         } else {
             throw new RuntimeException("Cliente não encontrado");
         }
+    }
+
+    public Page<Cliente> buscarTodosPaginado(Pageable pageable) {
+        return clienteRepository.findAll(pageable);
     }
 
     // Método utilitário para limpar caracteres não numéricos do telefone

@@ -22,22 +22,22 @@ public class Cliente {
     @Column(name = "id_cliente", nullable = false)
     private Integer idCliente;
 
-    @Column(name = "nome", length = 100, nullable = false)
+    @Column(name = "nome", length = 100)
     private String nome;
 
-    @Column(name = "sobrenome", length = 100, nullable = false)
+    @Column(name = "sobrenome", length = 100)
     private String sobrenome;
 
-    @Column(name = "email", length = 100, nullable = false)
+    @Column(name = "email", length = 100)
     private String email;
 
-    @Column(name = "telefone", length = 15, nullable = false)
+    @Column(name = "telefone", length = 15)
     private String telefone;
 
-    @Column(name = "data_nasc", nullable = false)
+    @Column(name = "data_nasc")
     private LocalDate dataNasc;
 
-    @Column(name = "endereco", length = 255, nullable = false)
+    @Column(name = "endereco", length = 255)
     private String endereco;
 
 }
