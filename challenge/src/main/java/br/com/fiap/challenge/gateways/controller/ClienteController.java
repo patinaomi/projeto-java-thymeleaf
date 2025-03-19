@@ -11,45 +11,43 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
-@RequestMapping( "/clientes")
+@RequestMapping("/clientes")
 @RequiredArgsConstructor
 public class ClienteController {
 
     private final ClienteService clienteService;
 
-    private final ClienteRepository clienteRepository;
-
     @GetMapping
-    public String getClientPage(@RequestParam(required = false, name="login") String login,
-                                @RequestParam(required = false) String email,
-                                Model model) {
-        System.out.println("login: " + login);
-        model.addAttribute("clienteLogin", login);
+    public String getClientPage(Model model) {
+        List<Cliente> clientes = clienteService.buscarTodos();
+        model.addAttribute("clientes", clientes);
         return "cliente_page";
     }
 
-    @GetMapping("/formulario")
+    @GetMapping("/criar")
+    public String getCreatClientPage(Model model) {
+        model.addAttribute("newCliente", new Cliente());
+        return "create_cliente_page";
+    }
+
+    @PostMapping("/criar")
+    public String createCliente(@ModelAttribute Cliente cliente) {
+        clienteService.criar(cliente);
+        return "redirect:/clientes";
+    }
+
+
+
+
+
+
+        @GetMapping("/formulario")
     public ModelAndView carregarFormulario(@RequestParam(required = false) Integer id) {
         Cliente cliente = (id != null) ? clienteService.buscarPorId(id) : new Cliente();
         return new ModelAndView("clientes/formulario-cliente", "cliente", cliente);
-    }
-
-    @PostMapping
-    public ModelAndView criar(@Valid @ModelAttribute("cliente") ClienteRequest clienteRequest) {
-        Cliente cliente = Cliente.builder()
-                .nome(clienteRequest.getNome())
-                .sobrenome(clienteRequest.getSobrenome())
-                .email(clienteRequest.getEmail())
-                .telefone(clienteRequest.getTelefone())
-                .dataNasc(clienteRequest.getDataNasc())
-                .endereco(clienteRequest.getEndereco())
-                .build();
-
-        clienteService.criar(cliente);
-        clienteRepository.save(cliente);
-
-        return new ModelAndView("redirect:/clientes?sucesso");
     }
 
 

@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <h2>Bem-vindo, <span th:text="${clienteLogin}"></span></h2>
-    <a href="/">Voltar para Home</a>
+<div th:insert="~{componentes/navigation::navigation}"></div>
+<h1>Lista de Clientes</h1>
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Data de Nascimento</th>
+        <th>Endereço</th>
+    </tr>
+    <th:block th:each="cliente : ${clientes}">
+        <tr>
+            <td th:text="${cliente.nome}"></td>
+            <td th:text="${cliente.sobrenome}"></td>
+            <td th:text="${cliente.email}"></td>
+            <td th:text="${cliente.telefone}"></td>
+            <td th:text="${cliente.dataNasc}"></td>
+            <td th:text="${cliente.endereco}"></td>
+            <td></td>
+        </tr>
+    </th:block>
+</table>
+<a href="clientes/criar">Novo Cliente</a>
+<div th:insert="~{componentes/footer::footer}"></div>
 </body>
 </html>
