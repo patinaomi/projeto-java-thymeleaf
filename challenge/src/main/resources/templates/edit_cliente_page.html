@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Cliente</title>
+</head>
+<body>
+<div th:insert="~{componentes/navigation::navigation}"></div>
+<form method="post" action="/clientes/editar" th:object="${clienteEdit}">
+     <input type="hidden" name="id" th:value="${clienteEdit.idCliente}">
+
+        <label>Nome:</label>
+    <input type="text" name="nome" th:value="${clienteEdit.nome}" required>
+    <label>Sobrenome:</label>
+    <input type="text" name="sobrenome" th:value="${clienteEdit.sobrenome}" required>
+    <label>Email:</label>
+    <input type="email" name="email" th:value="${clienteEdit.email}" required>
+    <label>Telefone:</label>
+    <input type="text" name="telefone" th:value="${clienteEdit.telefone}" required>
+    <label>Data de Nascimento:</label>
+    <input type="date" name="dataNasc" th:value="${clienteEdit.dataNasc}" required>
+    <label>Endereço:</label>
+    <input type="text" name="endereco" th:value="${clienteEdit.endereco}" required>
+
+    <input type="submit" value="Salvar">
+
+
+</form>
+<div th:insert="~{componentes/footer::footer}"></div>
+</body>
+</html>
