@@ -22,8 +22,9 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
-    public Optional<Dentista> buscarPorId(Integer id) {
-        return dentistaRepository.findById(id);
+    public Dentista buscarPorId(Integer id) {
+        return dentistaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Dentista não encontrado"));
     }
 
     @Override

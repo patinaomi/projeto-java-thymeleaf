@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Clinica</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <meta charset="UTF-8">
+    <title>Bem-vindo à OdontoPrev</title>
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-<div th:insert="~{componentes/navigation::navigation}"></div>
-<h1>HomePage</h1>
-<form method="get" action="/clientes">
-    <label>
-        <input name="login" type="text" placeholder="Login">
-    </label>
-    <label>
-        <input name="senha" type="password" placeholder="Senha">
-    </label>
-    <input type="submit" value="Enviar">
-</form>
+
+<div class="home-container">
+    <h1 class="home-title">Bem-vindo à OdontoPrev</h1>
+    <p class="home-subtitle">Faça seu login para acessar o sistema</p>
+
+    <form method="get" action="/clientes" class="login-form">
+        <label for="login">Login</label>
+        <input id="login" name="login" type="text" placeholder="Digite seu login" required>
+
+        <label for="senha">Senha</label>
+        <input id="senha" name="senha" type="password" placeholder="Digite sua senha" required>
+
+        <button type="submit">ENTRAR</button>
+    </form>
+</div>
+
 <div th:insert="~{componentes/footer::footer}"></div>
+
 </body>
 </html>

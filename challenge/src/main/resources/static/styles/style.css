@@ -1,71 +1,645 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+
 body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f4f4;
+    color: #003ea6;
     margin: 0;
+    padding: 0;
 }
 
-.topnav {
-    overflow: hidden;
-    background-color: #fafafa;
-}
-
-.topnav a {
-    float: left;
-    color: #423d3d;
+/* DASHBOARD */
+.dashboard-container {
+    width: 90%;
+    margin: 40px auto;
     text-align: center;
-    padding: 14px 16px;
+}
+
+.dashboard-title {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* BOTÃO NOVO CLIENTE */
+.dashboard-actions {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.btn-novo-cliente {
+    background-color: #003ea6;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
     text-decoration: none;
-    font-size: 17px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
+.btn-novo-cliente:hover {
+    background-color: #002766;
 }
 
-.topnav a.active {
-    background-color: #a8abab;
-    color: white;
-}
-
-.all-browsers {
-    margin: 0;
-    padding: 5px;
-    background-color: lightgray;
-}
-
-.all-browsers > h1, .browser {
-    margin: 10px;
-    padding: 5px;
-}
-
-.browser {
-    background: white;
-}
-
-.browser > h2, p {
-    margin: 4px;
-    font-size: 90%;
-}
-
-footer {
-    margin-top: 400px;
-    text-align: center;
-    padding: 3px;
-    background-color: DarkSalmon;
-    color: white;
-}
-
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
+/* TABELA */
+.dashboard-table {
     width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-td, th {
-    border: 1px solid #dddddd;
+.dashboard-table th {
+    background-color: #003ea6;
+    color: white;
+    padding: 15px;
     text-align: left;
-    padding: 8px;
 }
 
-tr:nth-child(even) {
-    background-color: #dddddd;
+.dashboard-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
 }
+
+/* AÇÕES */
+.table-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-editar,
+.btn-deletar {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #007bff;
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+}
+
+.btn-deletar {
+    background-color: #ff5468;
+}
+
+.btn-deletar:hover {
+    background-color: #dc4c5d;
+}
+
+/* NAVBAR */
+.topnav {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0065FF; /* Fundo azul */
+    overflow: hidden;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* LOGO */
+.logo {
+    height: 30px; /* Ajuste o tamanho da logo */
+    margin-right: 20px;
+}
+
+/* LINKS */
+.topnav a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    font-weight: 400;
+    transition: 0.6s ease;
+}
+
+/* HOVER */
+.topnav a:hover {
+    font-size: 1.3em;
+}
+
+.footer {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f5f5; /* Fundo cinza claro */
+    color: #003ea6; /* Cor do texto */
+    text-align: center; /* Centralizar texto */
+    padding: 40px 0; /* Espaçamento interno */
+    border-top: 1px solid #003ea6; /* Linha superior azul */
+}
+
+.footer b {
+    font-size: 1.2em; /* Tamanho do título */
+    font-weight: 700; /* Negrito */
+}
+
+.footer p {
+    margin: 15px 0; /* Espaçamento entre os textos */
+    font-weight: 400; /* Peso médio da fonte */
+}
+
+/* CONTAINER PRINCIPAL */
+.home-container {
+    text-align: center;
+    background-color: #0065FF;
+    color: white;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* TÍTULO PRINCIPAL */
+.home-title {
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* SUBTÍTULO */
+.home-subtitle {
+    font-size: 1.5em;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+/* FORMULÁRIO */
+.login-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+/* CAMPOS DE INPUT */
+.login-form label {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #003ea6;
+    display: block;
+    margin-bottom: 7px;
+}
+
+.login-form input {
+    width: 90%;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.3em;
+
+}
+
+/* BOTÃO */
+.login-form button {
+    width: 95%;
+    background-color: #003ea6;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+    background-color: #002766;
+}
+
+/* ESTILIZAÇÃO DA PÁGINA DE EDIÇÃO */
+.edit-container {
+    width: 40%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.edit-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #003ea6;
+    margin-bottom: 20px;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-form label {
+    font-weight: 600;
+    color: #003ea6;
+    text-align: left;
+}
+
+.edit-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-salvar {
+    background-color: #003ea6;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-salvar:hover {
+    background-color: #002766;
+}
+
+.btn-voltar {
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #b02a37;
+}
+
+/* ESTILIZAÇÃO DA PÁGINA DE CADASTRO */
+.create-container {
+    width: 40%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.create-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #003ea6;
+    margin-bottom: 20px;
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.create-form label {
+    font-weight: 600;
+    color: #003ea6;
+    text-align: left;
+}
+
+.create-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.create-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-cadastrar {
+    background-color: #003ea6;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cadastrar:hover {
+    background-color: #002766;
+}
+
+.btn-voltar {
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #b02a37;
+}
+
+/* CONTAINER DA LISTAGEM DE FEEDBACKS */
+.feedback-container-feedback {
+    width: 70%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* HEADER: TÍTULO + BOTÃO NOVO */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.feedback-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #003ea6;
+}
+
+/* BOTÃO NOVO FEEDBACK */
+.btn-novo {
+    background-color: #003ea6;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-novo:hover {
+    background-color: #002766;
+}
+
+/* TABELA DE FEEDBACK */
+.feedback-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.feedback-table th, .feedback-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.feedback-table th {
+    background-color: #003ea6;
+    color: white;
+}
+
+.feedback-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.feedback-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* BOTÕES DE AÇÃO */
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-delete {
+    background-color: #ff5468;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: #dc4c5d;
+}
+
+/* CONTAINER DO FORMULÁRIO */
+.feedback-container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* TÍTULO */
+.feedback-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #003ea6;
+    margin-bottom: 20px;
+}
+
+/* FORMULÁRIO */
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* LABELS */
+.feedback-form label {
+    font-weight: 600;
+    color: #003ea6;
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* INPUTS E SELECT */
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* TEXTAREA */
+.feedback-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* BOTÕES */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background-color: #003ea6;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #002766;
+}
+
+.btn-back {
+    background-color: #ccc;
+    color: black;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #999;
+}
+
+/* Container do Formulário */
+.feedback-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.feedback-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Informações do Cliente */
+.feedback-info p {
+    background: #e3e6f0;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Campos do Formulário */
+.feedback-form label {
+    font-weight: 500;
+    display: block;
+    margin-top: 15px;
+}
+
+.feedback-form input,
+.feedback-form textarea,
+.feedback-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.feedback-form textarea {
+    resize: none;
+    height: 80px;
+}
+
+/* Botões */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background-color: #0065ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #004ab3;
+}
+
+.btn-back {
+    text-decoration: none;
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #c0c0c0;
+}
+

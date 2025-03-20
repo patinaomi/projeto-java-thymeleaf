@@ -1,60 +1,110 @@
 package br.com.fiap.challenge.gateways.controller;
 
+import br.com.fiap.challenge.domains.Cliente;
+import br.com.fiap.challenge.domains.Clinica;
+import br.com.fiap.challenge.domains.Dentista;
 import br.com.fiap.challenge.domains.Feedback;
-import br.com.fiap.challenge.gateways.repository.ClienteRepository;
-import br.com.fiap.challenge.gateways.repository.FeedbackRepository;
-import jakarta.validation.Valid;
+import br.com.fiap.challenge.service.ClienteService;
+import br.com.fiap.challenge.service.ClinicaService;
+import br.com.fiap.challenge.service.DentistaService;
+import br.com.fiap.challenge.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/feedbacks")
 @RequiredArgsConstructor
 public class FeedbackController {
 
-    private static final String PAGINA_LISTAGEM = "feedback/listagem-feedbacks";
-    private static final String PAGINA_CADASTRO = "feedback/formulario-feedback";
-    private static final String REDIRECT_LISTAGEM = "redirect:/feedbacks?sucesso";
-
-    private final FeedbackRepository feedbackRepository;
-
-    private final ClienteRepository clienteRepository;
+    private final FeedbackService feedbackService;
+    private final ClienteService clienteService;
+    private final DentistaService dentistaService;
+    private final ClinicaService clinicaService;
 
     @GetMapping
-    public String listarFeedbacks(Model model) {
-        var feedbacks = feedbackRepository.findAll();
+    public String getFeedbackPage(Model model) {
+        List<Feedback> feedbacks = feedbackService.buscarTodos();
         model.addAttribute("feedbacks", feedbacks);
-        return PAGINA_LISTAGEM;
+        return "feedback_page";
     }
 
-    @GetMapping("formulario")
-    public String carregarFormulario(@RequestParam(required = false) Integer id, Model model) {
-        if (id != null) {
-            model.addAttribute("feedback", feedbackRepository.findById(id).orElse(new Feedback()));
-        } else {
-            model.addAttribute("feedback", new Feedback());
+    @GetMapping("/criar")
+    public String getCadastroFeedbackPage(Model model) {
+        List<Cliente> clientes = clienteService.buscarTodos();
+        List<Dentista> dentistas = dentistaService.buscarTodos();
+        List<Clinica> clinicas = clinicaService.buscarTodos();
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("dentistas", dentistas);
+        model.addAttribute("clinicas", clinicas);
+        model.addAttribute("novoFeedback", new Feedback());
+        return "create_feedback_page";
+    }
+
+    @PostMapping("/criar")
+    public String criarFeedback(
+            @RequestParam("cliente") Integer idCliente,
+            @RequestParam("dentista") Integer idDentista,
+            @RequestParam("clinica") Integer idClinica,
+            @RequestParam("avaliacao") Float avaliacao,
+            @RequestParam("comentario") String comentario,
+            Model model) {
+
+        try {
+            Cliente cliente = clienteService.buscarPorId(idCliente);
+            Dentista dentista = dentistaService.buscarPorId(idDentista);
+            Clinica clinica = clinicaService.buscarPorId(idClinica);
+
+            Feedback feedback = Feedback.builder()
+                    .cliente(cliente)
+                    .dentista(dentista)
+                    .clinica(clinica)
+                    .avaliacao(avaliacao)
+                    .comentario(comentario)
+                    .build();
+
+            feedbackService.criar(feedback);
+
+            return "redirect:/feedbacks?sucesso";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Erro ao cadastrar feedback: " + e.getMessage());
+            return "feedbacks/formulario-feedback";
         }
-        model.addAttribute("clientes", clienteRepository.findAll());
-        return PAGINA_CADASTRO;
     }
 
-    @PostMapping
-    public String cadastrar(@Valid @ModelAttribute("feedback") Feedback feedback, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("feedback", feedback);
-            return PAGINA_CADASTRO;
+    @GetMapping("/editar/{id}")
+    public String getEditarFeedback(@PathVariable Integer id, Model model) {
+        Feedback feedback = feedbackService.buscarPorId(id);
+        model.addAttribute("feedbackEdit", feedback);
+        return "edit_feedback_page";
+    }
+
+    @PostMapping("/editar")
+    public String editarFeedback(@RequestParam Integer id, @ModelAttribute Feedback feedback) {
+        Feedback feedbackExistente = feedbackService.buscarPorId(id);
+
+        if (feedbackExistente == null) {
+            return "redirect:/feedbacks";
         }
 
-        feedbackRepository.save(feedback);
-        return REDIRECT_LISTAGEM;
+        feedbackExistente.setAvaliacao(feedback.getAvaliacao());
+        feedbackExistente.setComentario(feedback.getComentario());
+
+        feedbackService.atualizar(id, feedbackExistente);
+        return "redirect:/feedbacks";
     }
 
-    @DeleteMapping
-    public String deletar(@RequestParam Integer id) {
-        feedbackRepository.deleteById(id);
-        return REDIRECT_LISTAGEM;
+
+    @GetMapping("/deletar/{id}")
+    public String deletarFeedback(@PathVariable Integer id) {
+        try {
+            feedbackService.deletar(id);
+            return "redirect:/feedbacks";
+        } catch (Exception e) {
+            return "redirect:/feedbacks?erro=Não foi possível deletar. Este feedback está associado a outros registros.";
+        }
     }
 }

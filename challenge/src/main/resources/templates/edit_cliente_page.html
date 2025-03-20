@@ -3,29 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Cliente</title>
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
+
 <div th:insert="~{componentes/navigation::navigation}"></div>
-<form method="post" action="/clientes/editar" th:object="${clienteEdit}">
-     <input type="hidden" name="id" th:value="${clienteEdit.idCliente}">
 
-        <label>Nome:</label>
-    <input type="text" name="nome" th:value="${clienteEdit.nome}" required>
-    <label>Sobrenome:</label>
-    <input type="text" name="sobrenome" th:value="${clienteEdit.sobrenome}" required>
-    <label>Email:</label>
-    <input type="email" name="email" th:value="${clienteEdit.email}" required>
-    <label>Telefone:</label>
-    <input type="text" name="telefone" th:value="${clienteEdit.telefone}" required>
-    <label>Data de Nascimento:</label>
-    <input type="date" name="dataNasc" th:value="${clienteEdit.dataNasc}" required>
-    <label>Endereço:</label>
-    <input type="text" name="endereco" th:value="${clienteEdit.endereco}" required>
+<div class="edit-container">
+    <h1 class="edit-title">Editar Cliente</h1>
 
-    <input type="submit" value="Salvar">
+    <form method="post" action="/clientes/editar" th:object="${clienteEdit}" class="edit-form">
+        <input type="hidden" name="id" th:value="${clienteEdit.idCliente}">
 
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" th:value="${clienteEdit.nome}" required>
 
-</form>
+        <label for="sobrenome">Sobrenome:</label>
+        <input type="text" id="sobrenome" name="sobrenome" th:value="${clienteEdit.sobrenome}" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:value="${clienteEdit.email}" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" th:value="${clienteEdit.telefone}" required>
+
+        <label for="dataNasc">Data de Nascimento:</label>
+        <input type="date" id="dataNasc" name="dataNasc" th:value="${clienteEdit.dataNasc}" required>
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" th:value="${clienteEdit.endereco}" required>
+
+        <div class="edit-actions">
+            <button type="submit" class="btn-salvar">Salvar</button>
+            <a href="/clientes" class="btn-voltar">Cancelar</a>
+        </div>
+    </form>
+</div>
+
 <div th:insert="~{componentes/footer::footer}"></div>
+
 </body>
 </html>

@@ -3,36 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
+
 <div th:insert="~{componentes/navigation::navigation}"></div>
-<h1>Lista de Clientes</h1>
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Nome</th>
-        <th>Sobrenome</th>
-        <th>Email</th>
-        <th>Telefone</th>
-        <th>Data de Nascimento</th>
-        <th>Endereço</th>
-    </tr>
-    <th:block th:each="cliente : ${clientes}">
-        <tr>
-            <th th:text="${cliente.idCliente}"></th>
-            <td th:text="${cliente.nome}"></td>
-            <td th:text="${cliente.sobrenome}"></td>
-            <td th:text="${cliente.email}"></td>
-            <td th:text="${cliente.telefone}"></td>
-            <td th:text="${cliente.dataNasc}"></td>
-            <td th:text="${cliente.endereco}"></td>
-            <td><button><a th:href="@{|/clientes/editar/${cliente.idCliente}|}">Editar</a></button></td>
-            <td><button><a th:href="@{|/clientes/deletar/${cliente.idCliente}|}">Deletar</a></button></td>
-        </tr>
-    </th:block>
-</table>
-<a href="clientes/criar">Novo Cliente</a>
+
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Lista de Clientes</h1>
+
+    <div class="dashboard-actions">
+        <a href="/clientes/criar" class="btn-novo-cliente">+ Novo Cliente</a>
+    </div>
+
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Data de Nascimento</th>
+                <th>Endereço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="cliente : ${clientes}">
+                <tr>
+                    <td th:text="${cliente.idCliente}"></td>
+                    <td th:text="${cliente.nome}"></td>
+                    <td th:text="${cliente.sobrenome}"></td>
+                    <td th:text="${cliente.email}"></td>
+                    <td th:text="${cliente.telefone}"></td>
+                    <td th:text="${cliente.dataNasc}"></td>
+                    <td th:text="${cliente.endereco}"></td>
+                    <td class="table-actions">
+                        <a th:href="@{|/clientes/editar/${cliente.idCliente}|}" class="btn-editar">Editar</a>
+                        <a th:href="@{|/clientes/deletar/${cliente.idCliente}|}" class="btn-deletar">Deletar</a>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</div>
+
 <div th:insert="~{componentes/footer::footer}"></div>
+<script src="/js/script.js"></script>
+
 </body>
 </html>

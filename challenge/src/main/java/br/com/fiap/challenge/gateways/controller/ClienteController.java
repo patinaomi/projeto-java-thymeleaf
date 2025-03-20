@@ -50,7 +50,13 @@ public class ClienteController {
 
     @GetMapping("/deletar/{id}")
     public String deletarCliente(@PathVariable Integer id) {
-        clienteService.deletar(id);
-        return "redirect:/clientes";
+        try {
+            clienteService.deletar(id);
+            return "redirect:/clientes";
+        } catch (Exception e) {
+            return "redirect:/clientes?erro=Cliente não pode ser deletado. Ele está associado a outros registros.";
+        }
     }
+
+
 }

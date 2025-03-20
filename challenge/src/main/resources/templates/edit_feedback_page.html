@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Feedback</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="~{componentes/navigation::navigation}"></div>
+
+<div class="feedback-container">
+    <h2 class="feedback-title">Editar Feedback</h2>
+
+    <form method="post" action="/feedbacks/editar" th:object="${feedbackEdit}" class="feedback-form">
+        <input type="hidden" name="id" th:value="${feedbackEdit.idFeedback}">
+
+        <div class="feedback-info">
+            <p><strong>Cliente:</strong> <span th:text="${feedbackEdit.cliente.nome}"></span></p>
+            <p><strong>Dentista:</strong> <span th:text="${feedbackEdit.dentista.nome}"></span></p>
+            <p><strong>Clínica:</strong> <span th:text="${feedbackEdit.clinica.nome}"></span></p>
+        </div>
+
+        <label for="avaliacao">Avaliação:</label>
+        <input type="number" id="avaliacao" name="avaliacao" th:field="*{avaliacao}" min="1" max="5" step="0.5" required>
+
+        <label for="comentario">Comentário:</label>
+        <textarea id="comentario" name="comentario" th:field="*{comentario}" placeholder="Digite um comentário"></textarea>
+
+        <div class="button-group">
+            <button type="submit" class="btn-submit">Salvar</button>
+            <a href="/feedbacks" class="btn-back">Voltar</a>
+        </div>
+    </form>
+</div>
+
+<div th:insert="~{componentes/footer::footer}"></div>
+
+</body>
+</html>
