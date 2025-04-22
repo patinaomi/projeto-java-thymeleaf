@@ -40,6 +40,12 @@ public class Dentista {
     @Column(name = "avaliacao", nullable = false)
     private Float avaliacao;
 
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "senha", nullable = false)
+    private String senha;
+
     private Integer role;
 
     //TODO: adicionar usuario e senha

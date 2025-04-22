@@ -35,9 +35,13 @@ public class Clinica {
     @Column(name = "preco_medio", nullable = false)
     private Double precoMedio;
 
-    private Integer role;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    //TODO: adicionar usuario e senha
+    @Column(name = "senha", nullable = false)
+    private String senha;
+
+    private Integer role;
 
     public Role getRole() {
         return Role.toEnum(role);

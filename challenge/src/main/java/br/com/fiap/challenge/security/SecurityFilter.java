@@ -41,7 +41,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = recoverToken(request);
 
         if (token != null && jwtUtils.isTokenValid(token)) {
-            String username = jwtUtils.getUsernameFromToken(token); // geralmente o e-mail
+            String username = jwtUtils.getUsernameFromToken(token);
             List<String> roles = jwtUtils.getRolesFromToken(token);
 
             UserDetails userDetails = null;
