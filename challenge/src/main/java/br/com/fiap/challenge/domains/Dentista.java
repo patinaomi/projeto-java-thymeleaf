@@ -48,8 +48,6 @@ public class Dentista {
 
     private Integer role;
 
-    //TODO: adicionar usuario e senha
-
     public Role getRole() {
         return Role.toEnum(role);
     }

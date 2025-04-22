@@ -1,27 +1,35 @@
 package br.com.fiap.challenge.security;
 
+import br.com.fiap.challenge.domains.Clinica;
+import br.com.fiap.challenge.domains.Dentista;
+import br.com.fiap.challenge.domains.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
-public class UserDetailsImpl implements UserDetails UserDetails{
+public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
+
     private final Integer id;
     private final String username;
     private final String password;
     private final List<GrantedAuthority> authorities;
-    private final Integer organizerId;
 
-    public UserDetailsImpl(User user) {
-        this.id = user.getId();
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
-        this.organizerId = Objects.isNull(user.getOrganizer()) ? null : user.getOrganizer().getId();
+    public UserDetailsImpl(Dentista dentista) {
+        this.id = dentista.getIdDentista();
+        this.username = dentista.getEmail();
+        this.password = dentista.getSenha();
+        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + dentista.getRole().name()));
+    }
+
+    public UserDetailsImpl(Clinica clinica) {
+        this.id = clinica.getIdClinica();
+        this.username = clinica.getEmail();
+        this.password = clinica.getSenha();
+        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + clinica.getRole().name()));
     }
 
     public Integer getId() {
@@ -66,9 +74,5 @@ public class UserDetailsImpl implements UserDetails UserDetails{
     public boolean hasRole(Role role) {
         return authorities.stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_" + role.name()));
-    }
-
-    public Integer getOrganizerId() {
-        return organizerId;
     }
 }
