@@ -1,6 +1,7 @@
 package br.com.fiap.challenge.config;
 
 import br.com.fiap.challenge.domains.enums.Role;
+import br.com.fiap.challenge.security.SecurityFilter;
 import br.com.fiap.challenge.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
