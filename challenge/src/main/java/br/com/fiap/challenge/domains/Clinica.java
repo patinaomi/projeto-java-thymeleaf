@@ -1,5 +1,6 @@
 package br.com.fiap.challenge.domains;
 
+import br.com.fiap.challenge.domains.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,4 +35,14 @@ public class Clinica {
     @Column(name = "preco_medio", nullable = false)
     private Double precoMedio;
 
+    @Enumerated(EnumType.STRING)
+    private Integer role;
+
+    public Role getRole() {
+        return Role.toEnum(role);
+    }
+
+    public void setRole(Role role) {
+        this.role = role.getCod();
+    }
 }
