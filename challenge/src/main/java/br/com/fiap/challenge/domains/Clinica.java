@@ -35,7 +35,6 @@ public class Clinica {
     @Column(name = "preco_medio", nullable = false)
     private Double precoMedio;
 
-    @Enumerated(EnumType.STRING)
     private Integer role;
 
     public Role getRole() {

@@ -40,7 +40,6 @@ public class Dentista {
     @Column(name = "avaliacao", nullable = false)
     private Float avaliacao;
 
-    @Enumerated(EnumType.STRING)
     private Integer role;
 
     public Role getRole() {

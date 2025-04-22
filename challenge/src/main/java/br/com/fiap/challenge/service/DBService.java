@@ -1,6 +1,7 @@
 package br.com.fiap.challenge.service;
 
 import br.com.fiap.challenge.domains.*;
+import br.com.fiap.challenge.domains.enums.Role;
 import br.com.fiap.challenge.gateways.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -59,34 +60,34 @@ public class DBService {
         clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3, cliente4, cliente5, cliente6, cliente7, cliente8, cliente9, cliente10));
         System.out.println("Clientes criados com sucesso!");
         Clinica clinica1 = new Clinica(null, "Clínica Saúde e Sorriso", "Rua das Flores, 123", "11987654321",
-                4.5f, 150.0);
+                4.5f, 150.0, Role.CLINICA.getCod());
 
         Clinica clinica2 = new Clinica(null, "Clínica Odontológica São José", "Avenida Central, 456", "11976543210",
-                4.0f, 200.0);
+                4.0f, 200.0, Role.CLINICA.getCod());
 
         Clinica clinica3 = new Clinica(null, "Clínica Dental Plus", "Rua da Esperança, 789", "11965432109",
-                5.0f, 250.0);
+                5.0f, 250.0, Role.CLINICA.getCod());
 
         Clinica clinica4 = new Clinica(null, "OdontoCare", "Avenida Brasil, 321", "11954321098",
-                3.8f, 180.0);
+                3.8f, 180.0, Role.CLINICA.getCod());
 
         Clinica clinica5 = new Clinica(null, "Clínica do Sorriso", "Rua das Acácias, 654", "11943210987",
-                4.2f, 170.0);
+                4.2f, 170.0, Role.CLINICA.getCod());
 
         Clinica clinica6 = new Clinica(null, "Clínica OdontoMax", "Praça da Saúde, 135", "11932109876",
-                4.7f, 220.0d);
+                4.7f, 220.0d, Role.CLINICA.getCod());
 
         Clinica clinica7 = new Clinica(null, "Centro Dental", "Alameda dos Anjos, 246", "11921098765",
-                4.1f, 160.0);
+                4.1f, 160.0, Role.CLINICA.getCod());
 
         Clinica clinica8 = new Clinica(null, "Clínica Vida e Sorriso", "Rua do Progresso, 357", "11910987654",
-                4.6f, 190.0);
+                4.6f, 190.0, Role.CLINICA.getCod());
 
         Clinica clinica9 = new Clinica(null, "Consultório Odontológico Esperança", "Beco do Sorriso, 888", "11909876543",
-                3.9f, 175.0);
+                3.9f, 175.0, Role.CLINICA.getCod());
 
         Clinica clinica10 = new Clinica(null, "Clínica Nova Esperança", "Rua do Futuro, 101", "11998765432",
-                4.8f, 210.0);
+                4.8f, 210.0, Role.CLINICA.getCod());
 
         clinicaRepository.saveAll(Arrays.asList(clinica1, clinica2, clinica3, clinica4, clinica5, clinica6, clinica7, clinica8, clinica9, clinica10));
 
@@ -106,16 +107,16 @@ public class DBService {
                 especialidade6, especialidade7, especialidade8, especialidade9, especialidade10
         ));
 
-        Dentista dentista1 = new Dentista(null, "Carlos", "Menezes", "11987654321", clinica1, especialidade1, 4.5f);
-        Dentista dentista2 = new Dentista(null, "Fernanda", "Pereira", "11976543210", clinica1, especialidade2, 5.0f);
-        Dentista dentista3 = new Dentista(null, "Roberto", "Almeida", "11965432109", clinica2, especialidade3, 4.0f);
-        Dentista dentista4 = new Dentista(null, "Mariana", "Souza", "11954321098", clinica2, especialidade4, 4.7f);
-        Dentista dentista5 = new Dentista(null, "André", "Lima", "11943210987", clinica1, especialidade5, 3.5f);
-        Dentista dentista6 = new Dentista(null, "Juliana", "Silva", "11932109876", clinica3, especialidade6, 4.8f);
-        Dentista dentista7 = new Dentista(null, "Ricardo", "Santos", "11921098765", clinica3, especialidade7, 4.2f);
-        Dentista dentista8 = new Dentista(null, "Aline", "Costa", "11910987654", clinica1, especialidade8, 4.6f);
-        Dentista dentista9 = new Dentista(null, "Felipe", "Martins", "11909876543", clinica2, especialidade9, 3.9f);
-        Dentista dentista10 = new Dentista(null, "Tatiane", "Ferreira", "11998765432", clinica3, especialidade10, 5.0f);
+        Dentista dentista1 = new Dentista(null, "Carlos", "Menezes", "11987654321", clinica1, especialidade1, 4.5f, Role.DENTISTA.getCod());
+        Dentista dentista2 = new Dentista(null, "Fernanda", "Pereira", "11976543210", clinica1, especialidade2, 5.0f, Role.DENTISTA.getCod());
+        Dentista dentista3 = new Dentista(null, "Roberto", "Almeida", "11965432109", clinica2, especialidade3, 4.0f, Role.DENTISTA.getCod());
+        Dentista dentista4 = new Dentista(null, "Mariana", "Souza", "11954321098", clinica2, especialidade4, 4.7f, Role.DENTISTA.getCod());
+        Dentista dentista5 = new Dentista(null, "André", "Lima", "11943210987", clinica1, especialidade5, 3.5f, Role.DENTISTA.getCod());
+        Dentista dentista6 = new Dentista(null, "Juliana", "Silva", "11932109876", clinica3, especialidade6, 4.8f, Role.DENTISTA.getCod());
+        Dentista dentista7 = new Dentista(null, "Ricardo", "Santos", "11921098765", clinica3, especialidade7, 4.2f, Role.DENTISTA.getCod());
+        Dentista dentista8 = new Dentista(null, "Aline", "Costa", "11910987654", clinica1, especialidade8, 4.6f, Role.DENTISTA.getCod());
+        Dentista dentista9 = new Dentista(null, "Felipe", "Martins", "11909876543", clinica2, especialidade9, 3.9f, Role.DENTISTA.getCod());
+        Dentista dentista10 = new Dentista(null, "Tatiane", "Ferreira", "11998765432", clinica3, especialidade10, 5.0f, Role.DENTISTA.getCod());
 
         dentistaRepository.saveAll(Arrays.asList(
                 dentista1, dentista2, dentista3, dentista4, dentista5,

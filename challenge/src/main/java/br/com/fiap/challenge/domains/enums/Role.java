@@ -1,9 +1,8 @@
 package br.com.fiap.challenge.domains.enums;
 
 public enum Role {
-    CLIENTE(1, "Cliente"),
-    DENTISTA(2, "Dentista"),
-    CLINICA(3, "Clínica");
+    DENTISTA(1, "Dentista"),
+    CLINICA(2, "Clínica");
 
     private int cod;
     private String descricao;
