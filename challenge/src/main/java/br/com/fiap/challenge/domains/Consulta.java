@@ -1,9 +1,13 @@
 package br.com.fiap.challenge.domains;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +38,7 @@ public class Consulta {
     private String tipoServico;
 
     @Column(name = "data_consulta", nullable = false)
-    private LocalDate dataConsulta;
+    private LocalDateTime dataConsulta;
 
     @Column(name = "status_consulta", length = 1)
     private Character statusConsulta;
