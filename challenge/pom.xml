@@ -17,6 +17,45 @@
     <properties>
         <java.version>21</java.version>
     </properties>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <springProfilesActive>dev</springProfilesActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>test</value>
+                </property>
+            </activation>
+            <properties>
+                <springProfilesActive>test</springProfilesActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <springProfilesActive>prod</springProfilesActive>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
         <!-- Dependências Spring Boot -->
         <dependency>
