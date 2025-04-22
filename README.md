@@ -8,18 +8,19 @@
 1. [Sobre o Projeto](#sobre-o-projeto)  
 2. [Integrantes](#integrantes)  
 3. [Cronograma de Desenvolvimento](#cronograma-de-desenvolvimento)  
-4. [Atualização Sprint 3](#atualização-sprint-3)  
-5. [Como Rodar o Projeto](#como-rodar-o-projeto)  
-6. [Pré-requisitos](#pré-requisitos)  
-7. [Modelo Relacional (DER)](#modelo-relacional-der)  
-8. [Diagrama de Classes](#diagrama-de-classes)  
-9. [Documentação da API](#documentação-da-api)  
-10. [Vídeo Demonstrativo](#vídeo-demonstrativo)  
+4. [Atualização Sprint 3](#atualização-sprint-3)
+5. [Atualização Sprint 4](#atualização-sprint-4) 
+6. [Como Rodar o Projeto](#como-rodar-o-projeto)  
+7. [Pré-requisitos](#pré-requisitos)  
+8. [Modelo Relacional (DER)](#modelo-relacional-der)  
+9. [Diagrama de Classes](#diagrama-de-classes)  
+10. [Documentação da API](#documentação-da-api)  
+11. [Vídeo Demonstrativo](#vídeo-demonstrativo)  
 
 ---
 
 ## 💡 **Sobre o Projeto**
-O **OdontoPrev** é uma aplicação de gerenciamento para clínicas odontológicas, permitindo que dentistas, pacientes e clínicas possam administrar consultas, feedbacks e formulários detalhados.
+O **OdontoPrev** é uma aplicação de gerenciamento para clínicas odontológicas, permitindo que dentistas e clínicas possam administrar consultas, feedbacks e formulários detalhados.
 
 ### **⚙️ Funcionalidades principais**
 ✅ Cadastro e gerenciamento de pacientes, dentistas e clínicas.  
@@ -38,6 +39,12 @@ Nesta sprint, foram implementadas diversas melhorias, incluindo o **Thymeleaf** 
 - Criação de templates reutilizáveis, como **navbar e footer**.  
 - Estilização aprimorada com **Bootstrap e CSS**.  
 - Melhorias na experiência do usuário e usabilidade do sistema.  
+
+---
+
+## 🚀 **Atualização Sprint 4**
+
+[X] Implementação de Spring Security
 
 ---
 
