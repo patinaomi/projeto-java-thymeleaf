@@ -22,5 +22,5 @@ jobs:
         env:
           AZURE_PAT: ${{ secrets.AZURE_PAT }}
         run: |
-          git remote add azure https://RM552981%40fiap.com.br:$AZURE_PAT@dev.azure.com/DelfosMachine/_git/projeto-java-thymeleaf.git
+          git remote add azure https://RM552981%40fiap.com.br:$AZURE_PAT@dev.azure.com/DelfosMachine/_git/projeto-java-thymeleaf
           git push azure HEAD:main --force
