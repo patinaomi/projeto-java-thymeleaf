@@ -1,0 +1,26 @@
+name: Sync GitHub Repo to Azure DevOps
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "patricianaomiyama@gmail.com"
+          git config --global user.name "Patricia Naomi"
+
+      - name: Push to Azure DevOps
+        env:
+          AZURE_PAT: ${{ secrets.AZURE_PAT }}
+        run: |
+          git remote add azure https://RM552981@fiap.com.br:$AZURE_PAT@dev.azure.com/DelfosMachine/_git/projeto-java-thymeleaf.git
+          git push azure HEAD:main --force
