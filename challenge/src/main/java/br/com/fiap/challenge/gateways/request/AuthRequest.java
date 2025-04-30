@@ -1,5 +1,10 @@
 package br.com.fiap.challenge.gateways.request;
 
-public record AuthRequest(String username, String password) {
+import lombok.Data;
+
+@Data
+public class AuthRequest {
+    private String username;
+    private String password;
 }
 
