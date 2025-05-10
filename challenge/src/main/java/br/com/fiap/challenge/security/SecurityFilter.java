@@ -28,11 +28,11 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private JWTUtils jwtUtils;
 
-    @Autowired
-    private ClinicaRepository clinicaRepository;
-
-    @Autowired
-    private DentistaRepository dentistaRepository;
+//    @Autowired
+//    private ClinicaRepository clinicaRepository;
+//
+//    @Autowired
+//    private DentistaRepository dentistaRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -46,17 +46,17 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             UserDetails userDetails = null;
 
-            if (Objects.equals("ROLE_" + Role.CLINICA.name(), roles.getFirst())) {
-                Optional<Clinica> clinica = clinicaRepository.findByEmail(username);
-                if (clinica.isPresent()) {
-                    userDetails = new UserDetailsImpl(clinica.get());
-                }
-            } else if (Objects.equals("ROLE_" + Role.DENTISTA.name(), roles.getFirst())) {
-                Optional<Dentista> dentista = dentistaRepository.findByEmail(username);
-                if (dentista.isPresent()) {
-                    userDetails = new UserDetailsImpl(dentista.get());
-                }
-            }
+//            if (Objects.equals("ROLE_" + Role.CLINICA.name(), roles.getFirst())) {
+//                Optional<Clinica> clinica = clinicaRepository.findByEmail(username);
+//                if (clinica.isPresent()) {
+//                    userDetails = new UserDetailsImpl(clinica.get());
+//                }
+//            } else if (Objects.equals("ROLE_" + Role.DENTISTA.name(), roles.getFirst())) {
+//                Optional<Dentista> dentista = dentistaRepository.findByEmail(username);
+//                if (dentista.isPresent()) {
+//                    userDetails = new UserDetailsImpl(dentista.get());
+//                }
+//            }
 
             if (userDetails != null) {
                 UsernamePasswordAuthenticationToken auth =

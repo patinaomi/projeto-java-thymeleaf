@@ -8,6 +8,8 @@ public class ChallengeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ChallengeApplication.class, args);
+        System.out.println("DB URL: " + System.getenv("urlConnectionDB"));
+
     }
 
 }
