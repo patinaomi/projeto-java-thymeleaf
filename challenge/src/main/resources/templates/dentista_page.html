@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Dentistas</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+
+<div th:insert="~{componentes/navigation-clinica::navigation}"></div>
+
+<div class="dashboard-container">
+    <div class="header-container">
+        <h1 class="dashboard-title">Dentistas da Clínica</h1>
+        <a href="/dentistas/criar" class="btn-novo">+ Novo Dentista</a>
+    </div>
+
+    <table class="dashboard-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Telefone</th>
+            <th>Especialidade</th>
+            <th>Email</th>
+            <th>Avaliação</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="dentista : ${dentistas}">
+            <tr>
+                <td th:text="${dentista.idDentista}"></td>
+                <td th:text="${dentista.nome}"></td>
+                <td th:text="${dentista.sobrenome}"></td>
+                <td th:text="${dentista.telefone}"></td>
+                <td th:text="${dentista.especialidade.nome}"></td>
+                <td th:text="${dentista.user.username}"></td>
+                <td th:text="${dentista.avaliacao}"></td>
+                <td class="table-actions">
+                    <a th:href="@{|/dentistas/editar/${dentista.idDentista}|}" class="btn-editar">Editar</a>
+                    <a th:href="@{|/dentistas/deletar/${dentista.idDentista}|}" class="btn-deletar">Deletar</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+
+<div th:insert="~{componentes/footer::footer}"></div>
+
+</body>
+</html>

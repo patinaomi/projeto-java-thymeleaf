@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/styles/**").permitAll()
                                 .requestMatchers("/clientes/**").hasRole("CLINICA")
                                 .requestMatchers("/clinicas/**").hasRole("CLINICA")
+                                .requestMatchers("/dentistas/**").hasAnyRole("DENTISTA", "CLINICA")
                                 .requestMatchers("/feedbacks/**").hasAnyRole("DENTISTA", "CLINICA")
                                 .anyRequest().authenticated()
                 )
