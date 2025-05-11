@@ -56,4 +56,9 @@ public class DentistaServiceImpl implements DentistaService {
     private String limparCaracteresTel(String telefone) {
         return telefone != null ? telefone.replaceAll("\\D", "") : null;
     }
+
+    public List<Dentista> buscarPorIdClinica(Integer idClinica) {
+        return dentistaRepository.findAllByClinicaIdClinica(idClinica);
+    }
+
 }

@@ -31,6 +31,11 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
+    public List<Feedback> buscarPorUsuarioClinica(String username) {
+        return feedbackRepository.findByClinicaUserUsername(username);
+    }
+
+    @Override
     public Feedback atualizar(Integer id, Feedback feedback) {
         if (feedbackRepository.existsById(id)) {
             feedback.setIdFeedback(id);

@@ -4,11 +4,13 @@ import br.com.fiap.challenge.domains.Cliente;
 import br.com.fiap.challenge.domains.Clinica;
 import br.com.fiap.challenge.domains.Dentista;
 import br.com.fiap.challenge.domains.Feedback;
+import br.com.fiap.challenge.security.UserDetailsImpl;
 import br.com.fiap.challenge.service.ClienteService;
 import br.com.fiap.challenge.service.ClinicaService;
 import br.com.fiap.challenge.service.DentistaService;
 import br.com.fiap.challenge.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,23 +28,31 @@ public class FeedbackController {
     private final ClinicaService clinicaService;
 
     @GetMapping
-    public String getFeedbackPage(Model model) {
-        List<Feedback> feedbacks = feedbackService.buscarTodos();
+    public String getFeedbackPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        String email = userDetails.getUsername();
+        List<Feedback> feedbacks = feedbackService.buscarPorUsuarioClinica(email);
         model.addAttribute("feedbacks", feedbacks);
         return "feedback_page";
     }
 
     @GetMapping("/criar")
-    public String getCadastroFeedbackPage(Model model) {
+    public String getCadastroFeedbackPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        String email = userDetails.getUsername();
+
+        Clinica clinica = clinicaService.buscarPorUsername(email)
+                .orElseThrow(() -> new RuntimeException("Clínica não encontrada para o usuário: " + email));
+
         List<Cliente> clientes = clienteService.buscarTodos();
-        List<Dentista> dentistas = dentistaService.buscarTodos();
-        List<Clinica> clinicas = clinicaService.buscarTodos();
+        List<Dentista> dentistas = dentistaService.buscarPorIdClinica(clinica.getIdClinica());
+
         model.addAttribute("clientes", clientes);
         model.addAttribute("dentistas", dentistas);
-        model.addAttribute("clinicas", clinicas);
+        model.addAttribute("idClinica", clinica.getIdClinica());
         model.addAttribute("novoFeedback", new Feedback());
+
         return "create_feedback_page";
     }
+
 
     @PostMapping("/criar")
     public String criarFeedback(

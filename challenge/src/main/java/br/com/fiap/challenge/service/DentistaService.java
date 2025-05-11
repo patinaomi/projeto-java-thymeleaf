@@ -13,4 +13,5 @@ public interface DentistaService {
     Optional<Dentista> buscarPorUsername(String username);
     Optional<Dentista> atualizar(Integer id, Dentista dentista);
     boolean deletar(Integer id);
+    List<Dentista> buscarPorIdClinica(Integer idClinica);
 }
