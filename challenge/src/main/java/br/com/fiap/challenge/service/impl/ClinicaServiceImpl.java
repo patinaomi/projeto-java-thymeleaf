@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +31,11 @@ public class ClinicaServiceImpl implements ClinicaService {
     @Override
     public List<Clinica> buscarTodos() {
         return clinicaRepository.findAll();
+    }
+
+    @Override
+    public Optional<Clinica> buscarPorUsername(String username) {
+        return clinicaRepository.findByUserUsername(username);
     }
 
     @Override

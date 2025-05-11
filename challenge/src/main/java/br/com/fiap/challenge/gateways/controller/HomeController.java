@@ -12,7 +12,7 @@ public class HomeController {
 
     @GetMapping
     public String getHomePage() {
-        return "home_page";
+        return "login";
     }
 
     @GetMapping("/login")
@@ -25,12 +25,11 @@ public class HomeController {
         if(logout != null) {
             model.addAttribute("logout","Deslogado com sucesso");
         }
-        return "/login";
+        return "login";
     }
 
     @GetMapping("access-denied")
     public String accessDenied() {
         return "access-denied";
     }
-
 }

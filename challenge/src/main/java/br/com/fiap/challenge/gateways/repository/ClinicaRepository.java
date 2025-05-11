@@ -9,4 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface ClinicaRepository extends JpaRepository<Clinica, Integer> {
+    Optional<Clinica> findByUserUsername(String username);
+
 }

@@ -1,28 +1,34 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Bem-vindo à OdontoPrev</title>
     <link rel="preload" href="/styles/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/styles/style.css"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="/styles/style.css">
+    </noscript>
 </head>
 <body>
 
-<h1> Login</h1>
+<div class="home-container">
+    <h1 class="home-title">Bem-vindo à OdontoPrev</h1>
+    <p class="home-subtitle">Faça seu login para acessar o sistema</p>
 
-<form th:action="@{/login}" method="post">
-      <div>
-          <label for="username">Nome do usuário:</label>
-          <input type="text" id="username" name="username" required>
-      </div>
-      <div>
-          <label for="password">Senha:</label>
-          <input type="password" id="password" name="password" required>
-      </div>
-      <button type="submit">Login</button>
-</form>
+    <form th:action="@{/login}" method="post" class="login-form">
+        <div>
+            <label for="username">Login</label>
+            <input id="username" name="username" type="text" placeholder="Digite seu login" required>
+        </div>
+        <div>
+            <label for="password">Senha</label>
+            <input id="password" name="password" type="password" placeholder="Digite sua senha" required>
+        </div>
+        <button type="submit">LOGIN</button>
+    </form>
+</div>
 <div th:if="${param.error}">Nome de usuário ou senha inválidos.</div>
 <div th:if="${param.logout}">Você foi desconectado.</div>
-</body>
+<div th:insert="~{componentes/footer::footer}"></div>
 
+</body>
+</html>
