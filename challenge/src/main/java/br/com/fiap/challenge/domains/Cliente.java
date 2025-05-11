@@ -1,5 +1,6 @@
 package br.com.fiap.challenge.domains;
 
+import br.com.fiap.challenge.domains.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,5 +40,10 @@ public class Cliente {
 
     @Column(name = "endereco", length = 255)
     private String endereco;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
 
 }

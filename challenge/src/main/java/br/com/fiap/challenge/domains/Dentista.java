@@ -40,19 +40,8 @@ public class Dentista {
     @Column(name = "avaliacao", nullable = false)
     private Float avaliacao;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "senha", nullable = false)
-    private String senha;
-
-    private Integer role;
-
-    public Role getRole() {
-        return Role.toEnum(role);
-    }
-
-    public void setRole(Role role) {
-        this.role = role.getCod();
-    }
 }

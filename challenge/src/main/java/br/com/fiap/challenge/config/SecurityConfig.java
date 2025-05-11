@@ -4,6 +4,7 @@ import br.com.fiap.challenge.domains.enums.Role;
 import br.com.fiap.challenge.security.CustomAuthenticationFailureHandler;
 import br.com.fiap.challenge.security.SecurityFilter;
 import br.com.fiap.challenge.utils.JWTUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +39,11 @@ public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {
             "/auth/login",
             "/auth/register",
+            "/access-denied",
             "/actuator/**",
-            "/public/**"
+            //TODO: Ver se o que é necessário liberar
+            "/static/**",
+            "/styles/**",
     };
 
     @Bean
@@ -58,6 +62,14 @@ public class SecurityConfig {
                  .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                  .addFilterBefore(new JWTAuthenticationFilter(authenticationManager, jwtUtils, failureHandler), UsernamePasswordAuthenticationFilter.class)
                  .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler((req, res, e) -> {
+                            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            res.setContentType("application/json");
+                            res.getWriter().write("{\"error\":\"Acesso negado\"}");
+                        })
+                )
+
                 .build();
     }
 
