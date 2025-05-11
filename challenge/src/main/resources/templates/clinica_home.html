@@ -8,9 +8,18 @@
 <body>
 <div th:insert="~{componentes/navigation-clinica::navigation}"></div>
 
-<div class="dashboard-container">
-    <h1 class="dashboard-title">Painel da Clínica</h1>
-    <h2 class="feedback-title">Bem-vindo(a) <span th:text="${nomeClinica}">[Nome da clínica]</span></h2>
+<div class="feedback-container-feedback">
+    <h1 class="dashboard-title">Bem-Vindo, <span th:text="${nomeClinica}">[Nome]</span></h1>
+    <div class="header-container">
+        <h1 class="feedback-title">Seus Dados</h1>
+        <a href="/clinica/editar" class="btn-novo">+ Alterar Dados</a>
+    </div>
+    <div class="clinica-info">
+        <p><strong>Nome:</strong> <span th:text="${nomeClinica}"></span></p>
+        <p><strong>Telefone:</strong> <span th:text="${telefoneClinica}"></span></p>
+        <p><strong>Endereço:</strong> <span th:text="${enderecoClinica}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${emailClinica}"></span></p>
+    </div>
 </div>
 
 <div th:insert="~{componentes/footer::footer}"></div>

@@ -1,7 +1,6 @@
 package br.com.fiap.challenge.gateways.controller;
 
 import br.com.fiap.challenge.domains.Clinica;
-import br.com.fiap.challenge.gateways.repository.ClinicaRepository;
 import br.com.fiap.challenge.security.UserDetailsImpl;
 import br.com.fiap.challenge.service.ClinicaService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,10 @@ public class ClinicaController {
         Clinica clinica = service.buscarPorUsername(email)
                 .orElseThrow(() -> new RuntimeException("Clínica não encontrada para o usuário: " + email));
         model.addAttribute("nomeClinica", clinica.getNome());
-        return "clinica/home";
+        model.addAttribute("telefoneClinica", clinica.getTelefone());
+        model.addAttribute("enderecoClinica", clinica.getEndereco());
+        model.addAttribute("emailClinica", clinica.getUser().getUsername());
+        return "clinica_home";
     }
 
 }

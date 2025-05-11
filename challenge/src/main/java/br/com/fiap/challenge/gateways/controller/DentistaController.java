@@ -23,6 +23,6 @@ public class DentistaController {
         Dentista dentista = service.buscarPorUsername(email)
                 .orElseThrow(() -> new RuntimeException("Dentista não encontrado para o usuário: " + email));
         model.addAttribute("nomeDentista", dentista.getNome());
-        return "dentista/home";
+        return "dentista_home";
     }
 }

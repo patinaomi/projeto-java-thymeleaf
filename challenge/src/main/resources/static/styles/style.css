@@ -161,6 +161,11 @@ body {
     align-items: center;
 }
 
+/*//TODO: deixar pra direita*/
+.logout {
+    text-align: end;
+}
+
 /* TÍTULO PRINCIPAL */
 .home-title {
     font-size: 3em;
@@ -582,6 +587,11 @@ body {
     border-radius: 5px;
     font-size: 16px;
     margin-bottom: 10px;
+}
+
+.clinica-info p {
+    font-size: 21px;
+    margin-bottom: 20px;
 }
 
 /* Campos do Formulário */

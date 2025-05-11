@@ -17,19 +17,15 @@ public class HomeController {
 
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "error",required = false)String error,
-                            @RequestParam(value = "logout",required = false)String logout,
                             Model model) {
         if(error !=null) {
             model.addAttribute("error","Usuário ou senha incorretos");
-        }
-        if(logout != null) {
-            model.addAttribute("logout","Deslogado com sucesso");
         }
         return "login";
     }
 
     @GetMapping("access-denied")
     public String accessDenied() {
-        return "access-denied";
+        return "403";
     }
 }

@@ -32,7 +32,7 @@ public class ClienteController {
     @PostMapping("/criar")
     public String createCliente(@ModelAttribute Cliente cliente) {
         clienteService.criar(cliente);
-        return "redirect:/clientes";
+        return "redirect:/cliente";
     }
 
     @GetMapping("/editar/{id}")
