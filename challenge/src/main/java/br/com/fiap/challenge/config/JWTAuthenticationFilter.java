@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
@@ -22,12 +21,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtils jwtUtils;
-    private final AuthenticationFailureHandler failureHandler;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtils jwtUtils, AuthenticationFailureHandler failureHandler) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
-        this.failureHandler = failureHandler;
         setFilterProcessesUrl("/auth/login");
     }
 
@@ -54,13 +51,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader("Authorization", "Bearer " + token);
         response.getWriter().write("{\"token\": \"" + token + "\"}");
         response.getWriter().flush();
-    }
-
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request,
-                                              HttpServletResponse response,
-                                              AuthenticationException failed) throws IOException, ServletException {
-        failureHandler.onAuthenticationFailure(request, response, failed);
     }
 }
 

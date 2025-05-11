@@ -25,72 +25,113 @@ public class DBService {
     private final ConsultaRepository consultaRepository;
     private final SinistroRepository sinistroRepository;
     private final FeedbackRepository feedbackRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder pe;
 
     @Transactional
     public void instantiateTestDatabase() {
 
-        Cliente cliente1 = new Cliente(null, "Alice", "Silva", "alice.silva@example.com", "11987654321",
-                LocalDate.parse("1990-01-15"), "Rua das Flores, 123");
+        User user1 = new User(null, "clinica1@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user2 = new User(null, "clinica2@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user3 = new User(null, "clinica3@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user4 = new User(null, "clinica4@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user5 = new User(null, "clinica5@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user6 = new User(null, "clinica6@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user7 = new User(null, "clinica7@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user8 = new User(null, "clinica8@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user9 = new User(null, "clinica9@email.com", pe.encode("senha123"), true, Role.CLINICA);
+        User user10 = new User(null, "clinica10@email.com", pe.encode("senha123"), true, Role.CLINICA);
 
-        Cliente cliente2 = new Cliente(null, "Bruno", "Santos", "bruno.santos@example.com", "11976543210",
-                LocalDate.parse("1985-03-20"), "Avenida Central, 456");
+        User user11 = new User(null, "dentista1@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user12 = new User(null, "dentista2@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user13 = new User(null, "dentista3@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user14 = new User(null, "dentista4@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user15 = new User(null, "dentista5@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user16 = new User(null, "dentista6@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user17 = new User(null, "dentista7@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user18 = new User(null, "dentista8@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user19 = new User(null, "dentista9@email.com", pe.encode("senha123"), true, Role.DENTISTA);
+        User user20 = new User(null, "dentista10@email.com", pe.encode("senha123"), true, Role.DENTISTA);
 
-        Cliente cliente3 = new Cliente(null, "Carlos", "Oliveira", "carlos.oliveira@example.com", "11965432109",
-                LocalDate.parse("1992-07-11"), "Rua dos Lírios, 789");
+        User user21 = new User(null, "cliente1@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user22 = new User(null, "cliente2@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user23 = new User(null, "cliente3@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user24 = new User(null, "cliente4@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user25 = new User(null, "cliente5@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user26 = new User(null, "cliente6@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user27 = new User(null, "cliente7@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user28 = new User(null, "cliente8@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user29 = new User(null, "cliente9@email.com", pe.encode("senha123"), true, Role.CLIENTE);
+        User user30 = new User(null, "cliente10@email.com", pe.encode("senha123"), true, Role.CLIENTE);
 
-        Cliente cliente4 = new Cliente(null, "Diana", "Pereira", "diana.pereira@example.com", "11954321098",
-                LocalDate.parse("1988-04-22"), "Praça das Árvores, 321");
+        userRepository.saveAll(Arrays.asList(
+                user1, user2, user3, user4, user5, user6, user7, user8, user9, user10,
+                user11, user12, user13, user14, user15, user16, user17, user18, user19, user20,
+                user21, user22, user23, user24, user25, user26, user27, user28, user29, user30
+        ));
 
-        Cliente cliente5 = new Cliente(null, "Eduardo", "Melo", "eduardo.melo@example.com", "11943210987",
-                LocalDate.parse("1980-09-05"), "Avenida do Sol, 654");
 
-        Cliente cliente6 = new Cliente(null, "Fernanda", "Costa", "fernanda.costa@example.com", "11932109876",
-                LocalDate.parse("1995-12-30"), "Rua das Estrelas, 852");
+        Cliente cliente1 = new Cliente(null, "Alice", "Silva", "11987654321",
+                LocalDate.parse("1990-01-15"), "Rua das Flores, 123", user1);
 
-        Cliente cliente7 = new Cliente(null, "Gabriel", "Santos", "gabriel.santos@example.com", "11921098765",
-                LocalDate.parse("1991-11-19"), "Rua das Palmeiras, 963");
+        Cliente cliente2 = new Cliente(null, "Bruno", "Santos","11976543210",
+                LocalDate.parse("1985-03-20"), "Avenida Central, 456", user2);
 
-        Cliente cliente8 = new Cliente(null, "Helena", "Lima", "helena.lima@example.com", "11910987654",
-                LocalDate.parse("1989-06-15"), "Avenida das Rosas, 147");
+        Cliente cliente3 = new Cliente(null, "Carlos", "Oliveira", "11965432109",
+                LocalDate.parse("1992-07-11"), "Rua dos Lírios, 789", user3);
 
-        Cliente cliente9 = new Cliente(null, "Igor", "Barros", "igor.barros@example.com", "11898765432",
-                LocalDate.parse("1994-03-29"), "Rua das Acácias, 258");
+        Cliente cliente4 = new Cliente(null, "Diana", "Pereira", "11954321098",
+                LocalDate.parse("1988-04-22"), "Praça das Árvores, 321", user4);
 
-        Cliente cliente10 = new Cliente(null, "Juliana", "Martins", "juliana.martins@example.com", "11787654321",
-                LocalDate.parse("1993-08-10"), "Avenida da Paz, 369");
+        Cliente cliente5 = new Cliente(null, "Eduardo", "Melo", "11943210987",
+                LocalDate.parse("1980-09-05"), "Avenida do Sol, 654", user5);
+
+        Cliente cliente6 = new Cliente(null, "Fernanda", "Costa", "11932109876",
+                LocalDate.parse("1995-12-30"), "Rua das Estrelas, 852", user6);
+
+        Cliente cliente7 = new Cliente(null, "Gabriel", "Santos", "11921098765",
+                LocalDate.parse("1991-11-19"), "Rua das Palmeiras, 963", user7);
+
+        Cliente cliente8 = new Cliente(null, "Helena", "Lima","11910987654",
+                LocalDate.parse("1989-06-15"), "Avenida das Rosas, 147", user8);
+
+        Cliente cliente9 = new Cliente(null, "Igor", "Barros", "11898765432",
+                LocalDate.parse("1994-03-29"), "Rua das Acácias, 258", user9);
+
+        Cliente cliente10 = new Cliente(null, "Juliana", "Martins","11787654321",
+                LocalDate.parse("1993-08-10"), "Avenida da Paz, 369", user10);
 
         clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3, cliente4, cliente5, cliente6, cliente7, cliente8, cliente9, cliente10));
 
         Clinica clinica1 = new Clinica(null, "Clínica Saúde e Sorriso", "Rua das Flores, 123", "11987654321",
-                4.5f, 150.0, "saude.sorriso@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                4.5f, 150.0, user21);
 
         Clinica clinica2 = new Clinica(null, "Clínica Odontológica São José", "Avenida Central, 456", "11976543210",
-                4.0f, 200.0, "saojose@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                4.0f, 200.0, user22);
 
         Clinica clinica3 = new Clinica(null, "Clínica Dental Plus", "Rua da Esperança, 789", "11965432109",
-                5.0f, 250.0, "dentalplus@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                5.0f, 250.0, user23);
 
         Clinica clinica4 = new Clinica(null, "OdontoCare", "Avenida Brasil, 321", "11954321098",
-                3.8f, 180.0, "odontocare@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                3.8f, 180.0, user24);
 
         Clinica clinica5 = new Clinica(null, "Clínica do Sorriso", "Rua das Acácias, 654", "11943210987",
-                4.2f, 170.0, "sorriso@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                4.2f, 170.0, user25);
 
         Clinica clinica6 = new Clinica(null, "Clínica OdontoMax", "Praça da Saúde, 135", "11932109876",
-                4.7f, 220.0, "odontomax@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                4.7f, 220.0, user26);
 
         Clinica clinica7 = new Clinica(null, "Centro Dental", "Alameda dos Anjos, 246", "11921098765",
-                4.1f, 160.0, "centrodental@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                4.1f, 160.0, user27);
 
         Clinica clinica8 = new Clinica(null, "Clínica Vida e Sorriso", "Rua do Progresso, 357", "11910987654",
-                4.6f, 190.0, "vida.sorriso@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                4.6f, 190.0, user28);
 
         Clinica clinica9 = new Clinica(null, "Consultório Odontológico Esperança", "Beco do Sorriso, 888", "11909876543",
-                3.9f, 175.0, "esperanca@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                3.9f, 175.0, user29);
 
         Clinica clinica10 = new Clinica(null, "Clínica Nova Esperança", "Rua do Futuro, 101", "11998765432",
-                4.8f, 210.0, "nova.esperanca@clinicas.com", pe.encode("senha123"), Role.CLINICA.getCod());
+                4.8f, 210.0, user30);
 
 
         clinicaRepository.saveAll(Arrays.asList(clinica1, clinica2, clinica3, clinica4, clinica5, clinica6, clinica7, clinica8, clinica9, clinica10));
@@ -112,34 +153,34 @@ public class DBService {
         ));
 
         Dentista dentista1 = new Dentista(null, "Carlos", "Menezes", "11987654321", clinica1, especialidade1,
-                4.5f, "carlos.menezes@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                4.5f, user11);
 
         Dentista dentista2 = new Dentista(null, "Fernanda", "Pereira", "11976543210", clinica1, especialidade2,
-                5.0f, "fernanda.pereira@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                5.0f, user12);
 
         Dentista dentista3 = new Dentista(null, "Roberto", "Almeida", "11965432109", clinica2, especialidade3,
-                4.0f, "roberto.almeida@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                4.0f, user13);
 
         Dentista dentista4 = new Dentista(null, "Mariana", "Souza", "11954321098", clinica2, especialidade4,
-                4.7f, "mariana.souza@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                4.7f, user14);
 
         Dentista dentista5 = new Dentista(null, "André", "Lima", "11943210987", clinica1, especialidade5,
-                3.5f, "andre.lima@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                3.5f, user15);
 
         Dentista dentista6 = new Dentista(null, "Juliana", "Silva", "11932109876", clinica3, especialidade6,
-                4.8f, "juliana.silva@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                4.8f, user16);
 
         Dentista dentista7 = new Dentista(null, "Ricardo", "Santos", "11921098765", clinica3, especialidade7,
-                4.2f, "ricardo.santos@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                4.2f, user17);
 
         Dentista dentista8 = new Dentista(null, "Aline", "Costa", "11910987654", clinica1, especialidade8,
-                4.6f, "aline.costa@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                4.6f, user18);
 
         Dentista dentista9 = new Dentista(null, "Felipe", "Martins", "11909876543", clinica2, especialidade9,
-                3.9f, "felipe.martins@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                3.9f, user19);
 
         Dentista dentista10 = new Dentista(null, "Tatiane", "Ferreira", "11998765432", clinica3, especialidade10,
-                5.0f, "tatiane.ferreira@dentistas.com", pe.encode("senha123"), Role.DENTISTA.getCod());
+                5.0f, user20);
 
 
         dentistaRepository.saveAll(Arrays.asList(

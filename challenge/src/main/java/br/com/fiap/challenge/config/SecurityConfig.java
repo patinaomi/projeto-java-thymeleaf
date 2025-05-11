@@ -33,9 +33,6 @@ public class SecurityConfig {
     @Autowired
     private JWTUtils jwtUtils;
 
-    @Autowired
-    private AuthenticationFailureHandler failureHandler;
-
     private final String[] PUBLIC_ENDPOINTS = {
             "/auth/login",
             "/auth/register",
@@ -60,7 +57,7 @@ public class SecurityConfig {
                 )
 
                  .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                 .addFilterBefore(new JWTAuthenticationFilter(authenticationManager, jwtUtils, failureHandler), UsernamePasswordAuthenticationFilter.class)
+                 .addFilterBefore(new JWTAuthenticationFilter(authenticationManager, jwtUtils), UsernamePasswordAuthenticationFilter.class)
                  .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler((req, res, e) -> {
@@ -83,8 +80,4 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-     @Bean
-     public AuthenticationFailureHandler authenticationFailureHandler() {
-         return new CustomAuthenticationFailureHandler();
-     }
 }

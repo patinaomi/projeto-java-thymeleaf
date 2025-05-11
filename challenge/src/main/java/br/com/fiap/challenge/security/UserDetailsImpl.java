@@ -1,7 +1,6 @@
 package br.com.fiap.challenge.security;
 
-import br.com.fiap.challenge.domains.Clinica;
-import br.com.fiap.challenge.domains.Dentista;
+import br.com.fiap.challenge.domains.User;
 import br.com.fiap.challenge.domains.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,29 +10,28 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
-    private static final long serialVersionUID = 1L;
 
     private final Integer id;
     private final String username;
     private final String password;
     private final List<GrantedAuthority> authorities;
+    private final boolean enabled;
 
-    public UserDetailsImpl(Dentista dentista) {
-        this.id = dentista.getIdDentista();
-        this.username = dentista.getEmail();
-        this.password = dentista.getSenha();
-        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + dentista.getRole().name()));
-    }
-
-    public UserDetailsImpl(Clinica clinica) {
-        this.id = clinica.getIdClinica();
-        this.username = clinica.getEmail();
-        this.password = clinica.getSenha();
-        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + clinica.getRole().name()));
+    public UserDetailsImpl(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.enabled = user.isEnabled();
+        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public boolean hasRole(Role role) {
+        return authorities.stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_" + role.name()));
     }
 
     @Override
@@ -68,11 +66,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
-    }
-
-    public boolean hasRole(Role role) {
-        return authorities.stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_" + role.name()));
+        return enabled;
     }
 }
