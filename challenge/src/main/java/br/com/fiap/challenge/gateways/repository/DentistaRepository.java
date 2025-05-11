@@ -10,5 +10,4 @@ import java.util.Optional;
 @Repository
 public interface DentistaRepository extends JpaRepository<Dentista, Integer> {
 
-    Optional<Dentista> findByEmail(String email);
 }

@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{home.title}">Home</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+</head>
+<body>
+<h1 th:text="#{access.denied}">Acesso indevido!</h1>
+<p th:text="#{access.denied.message}">Você não tem permissão para acessar esta página!</p>
+<a href="/" th:text="#{go.home}">Ir para Home</a>
+
+<!-- Seletor de Idioma -->
+<div>
+    <a th:href="@{?lang=pt}" th:text="#{language.portuguese}">Português</a> |
+    <a th:href="@{?lang=en}" th:text="#{language.english}">English</a> |
+    <a th:href="@{?lang=es}" th:text="#{language.spanish}">Español</a>
+</div>
+</body>
+</html>

@@ -27,7 +27,8 @@ public class ClienteServiceImpl implements ClienteService {
                 cliente.getNome()
         );
 
-        emailService.enviarEmail(cliente.getEmail(), "Cadastro Realizado", mensagemEmail);
+        //TODO: Ajustar envio de email
+//        emailService.enviarEmail(cliente.getEmail(), "Cadastro Realizado", mensagemEmail);
         return clienteSalvo;
     }
 

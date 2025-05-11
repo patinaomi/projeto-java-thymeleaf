@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preload" href="/styles/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/styles/style.css"></noscript>
+</head>
+<body>
+
+<h1> Login</h1>
+
+<form th:action="@{/login}" method="post">
+      <div>
+          <label for="username">Nome do usuário:</label>
+          <input type="text" id="username" name="username" required>
+      </div>
+      <div>
+          <label for="password">Senha:</label>
+          <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Login</button>
+</form>
+<div th:if="${param.error}">Nome de usuário ou senha inválidos.</div>
+<div th:if="${param.logout}">Você foi desconectado.</div>
+</body>
+

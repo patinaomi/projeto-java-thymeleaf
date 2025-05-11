@@ -1,83 +1,57 @@
 package br.com.fiap.challenge.config;
 
-import br.com.fiap.challenge.domains.enums.Role;
-import br.com.fiap.challenge.security.CustomAuthenticationFailureHandler;
-import br.com.fiap.challenge.security.SecurityFilter;
-import br.com.fiap.challenge.utils.JWTUtils;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
-    private SecurityFilter securityFilter;
+    private UserDetailsService userDetailsService;
 
     @Autowired
-    private JWTUtils jwtUtils;
-
-    private final String[] PUBLIC_ENDPOINTS = {
-            "/auth/login",
-            "/auth/register",
-            "/access-denied",
-            "/actuator/**",
-            //TODO: Ver se o que é necessário liberar
-            "/static/**",
-            "/styles/**",
-    };
+    private PasswordEncoder passwordEncoder;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager) throws Exception {
-        return httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-                        .requestMatchers("/clientes/**").hasAuthority(Role.CLINICA.name())
-                        .requestMatchers("/dentistas/**").hasAuthority(Role.DENTISTA.name())
-                        .requestMatchers("/feedbacks/**").hasAuthority(Role.CLINICA.name())
-                        .anyRequest().authenticated()
-                )
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        builder.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+        return builder.build();
+    }
 
-                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                 .addFilterBefore(new JWTAuthenticationFilter(authenticationManager, jwtUtils), UsernamePasswordAuthenticationFilter.class)
-                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(auth ->
+                        auth
+                                .requestMatchers("/", "/styles/**").permitAll()
+                                .requestMatchers("/clientes").hasRole("DENTISTA")
+                                .requestMatchers("/feedbacks").hasAnyRole("DENTISTA", "CLINICA")
+                                .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                )
                 .exceptionHandling(exception -> exception
-                        .accessDeniedHandler((req, res, e) -> {
-                            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                            res.setContentType("application/json");
-                            res.getWriter().write("{\"error\":\"Acesso negado\"}");
-                        })
-                )
-
-                .build();
+                        .accessDeniedPage("/access-denied")
+                );
+        return http.build();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
 }

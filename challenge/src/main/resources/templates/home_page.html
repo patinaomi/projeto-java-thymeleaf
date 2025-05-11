@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Bem-vindo à OdontoPrev</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="preload" href="/styles/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/styles/style.css">
+    </noscript>
 </head>
 <body>
 
@@ -11,17 +14,20 @@
     <h1 class="home-title">Bem-vindo à OdontoPrev</h1>
     <p class="home-subtitle">Faça seu login para acessar o sistema</p>
 
-    <form method="get" action="/clientes" class="login-form">
-        <label for="login">Login</label>
-        <input id="login" name="login" type="text" placeholder="Digite seu login" required>
-
-        <label for="senha">Senha</label>
-        <input id="senha" name="senha" type="password" placeholder="Digite sua senha" required>
-
-        <button type="submit">ENTRAR</button>
+    <form th:action="@{/login}" method="post" class="login-form">
+        <div>
+            <label for="username">Login</label>
+            <input id="username" name="username" type="text" placeholder="Digite seu login" required>
+        </div>
+        <div>
+            <label for="password">Senha</label>
+            <input id="password" name="password" type="password" placeholder="Digite sua senha" required>
+        </div>
+        <button type="submit">LOGIN</button>
     </form>
 </div>
-
+<div th:if="${param.error}">Nome de usuário ou senha inválidos.</div>
+<div th:if="${param.logout}">Você foi desconectado.</div>
 <div th:insert="~{componentes/footer::footer}"></div>
 
 </body>

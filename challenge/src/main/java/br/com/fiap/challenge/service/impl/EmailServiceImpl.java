@@ -47,7 +47,8 @@ public class EmailServiceImpl implements EmailService {
                     cliente.getNome(),
                     mensagemErro
             );
-            enviarEmail(cliente.getEmail(), "Erro na Transação", mensagemErroTransacao);
+            //TODO: Ajustar e-mail
+//            enviarEmail(cliente.getEmail(), "Erro na Transação", mensagemErroTransacao);
         } else {
             enviarEmail(remetente, "Erro na Transação", "Ocorreu um erro durante uma transação: " + mensagemErro);
         }
