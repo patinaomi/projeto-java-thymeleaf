@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
 
 * {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
     background-color: #f4f4f4;
-    color: #fd920b;
+    color: #003ea6;
     margin: 0;
     padding: 0;
 }
@@ -152,7 +152,7 @@ body {
 /* CONTAINER PRINCIPAL */
 .home-container {
     text-align: center;
-    background-color: #fd920b;
+    background-color: #0065FF;
     color: white;
     height: 80vh;
     display: flex;
