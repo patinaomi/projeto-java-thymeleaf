@@ -33,6 +33,11 @@ public class DentistaServiceImpl implements DentistaService {
     }
 
     @Override
+    public Optional<Dentista> buscarPorUsername(String username) {
+        return dentistaRepository.findByUserUsername(username);
+    }
+
+    @Override
     public Optional<Dentista> atualizar(Integer id, Dentista dentista) {
         return dentistaRepository.findById(id).map(dentistaExistente -> {
             dentista.setIdDentista(id);

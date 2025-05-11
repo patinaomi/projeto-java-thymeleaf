@@ -10,6 +10,7 @@ public interface DentistaService {
     Dentista criar(Dentista dentista);
     Dentista buscarPorId(Integer id);
     List<Dentista> buscarTodos();
+    Optional<Dentista> buscarPorUsername(String username);
     Optional<Dentista> atualizar(Integer id, Dentista dentista);
     boolean deletar(Integer id);
 }
