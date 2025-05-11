@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Dentista</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+<div class="topnav">
+    <span style="color: white; font-weight: bold;">Bem-vindo(a) ao painel, Dr(a).  <span th:text="${nomeDentista}">[Nome do Dentista]</span></span>
+    <div style="margin-left: auto;">
+        <a href="/clientes">Listar Clientes</a>
+        <a href="/clientes/criar">Novo Cliente</a>
+        <a href="/logout">Logout</a>
+        //TODO: Ver ainda o que colocar aqui
+    </div>
+</div>
+
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Painel do Dentista</h1>
+    <p class="home-subtitle">Escolha uma ação no menu acima.</p>
+</div>
+
+<div th:insert="~{componentes/footer::footer}"></div>
+
+</body>
+</html>

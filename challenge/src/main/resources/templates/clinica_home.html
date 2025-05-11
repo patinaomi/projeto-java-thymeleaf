@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel da Clínica</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+<div th:insert="~{componentes/navigation-clinica::navigation}"></div>
+
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Painel da Clínica</h1>
+    <h2 class="feedback-title">Bem-vindo(a) <span th:text="${nomeClinica}">[Nome da clínica]</span></h2>
+</div>
+
+<div th:insert="~{componentes/footer::footer}"></div>
+
+</body>
+</html>

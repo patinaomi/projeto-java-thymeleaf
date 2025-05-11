@@ -40,8 +40,8 @@
                     <td th:text="${cliente.dataNasc}"></td>
                     <td th:text="${cliente.endereco}"></td>
                     <td class="table-actions">
-                        <a th:href="@{|/clientes/editar/${cliente.idCliente}|}" class="btn-editar">Editar</a>
-                        <a th:href="@{|/clientes/deletar/${cliente.idCliente}|}" class="btn-deletar">Deletar</a>
+                        <a th:href="@{|/templates/cliente/editar/${cliente.idCliente}|}" class="btn-editar">Editar</a>
+                        <a th:href="@{|/templates/cliente/deletar/${cliente.idCliente}|}" class="btn-deletar">Deletar</a>
                     </td>
                 </tr>
             </th:block>
