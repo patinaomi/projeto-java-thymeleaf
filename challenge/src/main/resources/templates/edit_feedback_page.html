@@ -7,12 +7,12 @@
 </head>
 <body>
 
-<div th:insert="~{componentes/navigation::navigation}"></div>
+<div th:insert="~{componentes/navigation-clinica::navigation}"></div>
 
 <div class="feedback-container">
     <h2 class="feedback-title">Editar Feedback</h2>
 
-    <form method="post" action="/feedbacks/editar" th:object="${feedbackEdit}" class="feedback-form">
+    <form method="post" th:action="@{/feedbacks/editar}" th:object="${feedbackEdit}" class="feedback-form">
         <input type="hidden" name="id" th:value="${feedbackEdit.idFeedback}">
 
         <div class="feedback-info">

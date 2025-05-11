@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Feedbacks</title>
@@ -7,12 +7,13 @@
 </head>
 <body>
 
-<div th:insert="~{componentes/navigation::navigation}"></div>
+<div th:insert="~{componentes/navigation-clinica::navigation}"></div>
 
 <div class="feedback-container-feedback">
     <div class="header-container">
         <h1 class="feedback-title">Lista de Feedbacks</h1>
-        <a href="/feedbacks/criar" class="btn-novo">+ Novo Feedback</a>
+        <a href="/feedbacks/criar" class="btn-novo" sec:authorize="hasRole('CLINICA')">+ Novo Feedback</a>
+
     </div>
 
     <table class="feedback-table">
@@ -36,10 +37,14 @@
                     <td th:text="${feedback.clinica.nome}"></td>
                     <td th:text="${feedback.avaliacao}"></td>
                     <td th:text="${feedback.comentario}"></td>
-                    <td class="actions">
-                        <a th:href="@{|/templates/feedback/editar/${feedback.idFeedback}|}" class="btn-edit">Editar</a>
-                        <a th:href="@{|/templates/feedback/deletar/${feedback.idFeedback}|}" class="btn-delete">Deletar</a>
+                    <td class="actions" sec:authorize="hasRole('CLINICA')">
+                        <a th:href="@{|/feedbacks/editar/${feedback.idFeedback}|}"
+                           class="btn-edit">Editar</a>
+
+                        <a th:href="@{|/feedbacks/deletar/${feedback.idFeedback}|}"
+                           class="btn-delete">Deletar</a>
                     </td>
+
                 </tr>
             </th:block>
         </tbody>

@@ -10,6 +10,7 @@ import br.com.fiap.challenge.service.ClinicaService;
 import br.com.fiap.challenge.service.DentistaService;
 import br.com.fiap.challenge.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,19 +94,30 @@ public class FeedbackController {
     }
 
     @PostMapping("/editar")
-    public String editarFeedback(@RequestParam Integer id, @ModelAttribute Feedback feedback) {
+    public String editarFeedback(@AuthenticationPrincipal UserDetailsImpl userDetails,
+                                 @RequestParam Integer id,
+                                 @ModelAttribute Feedback feedbackForm,
+                                 Model model) {
+
+        String email = userDetails.getUsername();
+        Clinica clinica = clinicaService.buscarPorUsername(email)
+                .orElseThrow(() -> new RuntimeException("Clínica não encontrada para o usuário: " + email));
+
         Feedback feedbackExistente = feedbackService.buscarPorId(id);
 
-        if (feedbackExistente == null) {
-            return "redirect:/feedbacks";
+        if (!feedbackExistente.getClinica().getIdClinica().equals(clinica.getIdClinica())) {
+            return "redirect:/403";
         }
-
-        feedbackExistente.setAvaliacao(feedback.getAvaliacao());
-        feedbackExistente.setComentario(feedback.getComentario());
+        if (!feedbackExistente.getClinica().getUser().getUsername().equals(userDetails.getUsername())) {
+            throw new AccessDeniedException("Você não tem permissão para isso.");
+        }
+        feedbackExistente.setAvaliacao(feedbackForm.getAvaliacao());
+        feedbackExistente.setComentario(feedbackForm.getComentario());
 
         feedbackService.atualizar(id, feedbackExistente);
         return "redirect:/feedbacks";
     }
+
 
 
     @GetMapping("/deletar/{id}")
