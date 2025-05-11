@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.gateways.controller;
 
-import br.com.fiap.challenge.gateways.request.AuthRequest;
+import br.com.fiap.challenge.gateways.dtos.request.AuthRequest;
 import br.com.fiap.challenge.security.UserDetailsImpl;
 import br.com.fiap.challenge.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;

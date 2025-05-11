@@ -1,19 +1,14 @@
-package br.com.fiap.challenge.gateways.request;
+package br.com.fiap.challenge.gateways.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class SinistroRequest {
+public class SinistroUpdateRequest {
 
-    @NotNull(message = "Consulta não pode ser nula")
-    private Integer consulta;
-
-    @NotNull(message = "Nome não pode ser nulo")
     @Size(max = 100, message = "O nome do sinistro deve ter no máximo 100 caracteres")
     private String nome;
 

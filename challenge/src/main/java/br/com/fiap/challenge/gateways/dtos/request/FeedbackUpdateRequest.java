@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.gateways.request;
+package br.com.fiap.challenge.gateways.dtos.request;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;

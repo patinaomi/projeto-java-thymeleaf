@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.gateways.request;
+package br.com.fiap.challenge.gateways.dtos.request;
 
 import lombok.Data;
 

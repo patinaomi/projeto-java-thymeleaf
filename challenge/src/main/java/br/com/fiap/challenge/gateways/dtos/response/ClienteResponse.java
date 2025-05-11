@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.gateways.response;
+package br.com.fiap.challenge.gateways.dtos.response;
 
 import lombok.Builder;
 import lombok.Data;

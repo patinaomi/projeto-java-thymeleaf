@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.gateways.response;
+package br.com.fiap.challenge.gateways.dtos.response;
 
 import br.com.fiap.challenge.domains.Cliente;
 import br.com.fiap.challenge.domains.Clinica;

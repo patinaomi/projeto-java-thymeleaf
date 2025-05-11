@@ -38,9 +38,8 @@ public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {
             "/auth/login",
             "/auth/register",
-            "/clientes/**",
-            "/dentistas/**",
-            "/feedbacks/**",
+            "/actuator/**",
+            "/public/**"
     };
 
     @Bean
@@ -50,9 +49,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-                        .requestMatchers("/clinica/**").hasAuthority(Role.CLINICA.name())
-                        .requestMatchers("/dentista/**").hasAuthority(Role.DENTISTA.name())
-                        .requestMatchers("/feedback/**").hasAuthority(Role.CLINICA.name())
+                        .requestMatchers("/clientes/**").hasAuthority(Role.CLINICA.name())
+                        .requestMatchers("/dentistas/**").hasAuthority(Role.DENTISTA.name())
+                        .requestMatchers("/feedbacks/**").hasAuthority(Role.CLINICA.name())
                         .anyRequest().authenticated()
                 )
 

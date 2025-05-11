@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.gateways.request;
+package br.com.fiap.challenge.gateways.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Size;
