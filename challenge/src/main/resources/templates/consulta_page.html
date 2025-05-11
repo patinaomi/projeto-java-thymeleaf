@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Minhas Consultas</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+
+<div th:insert="~{componentes/navigation-dentista::navigation}"></div>
+
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Minhas Consultas</h1>
+
+    <table class="dashboard-table">
+        <thead>
+        <tr class="table-header-consulta">
+            <th>Paciente</th>
+            <th>Tipo</th>
+            <th>Data/Hora</th>
+            <th>Status</th>
+            <th>Tratamento</th>
+            <th>Retorno</th>
+            <th>Custo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="consulta : ${consultas}">
+            <td th:text="${consulta.cliente.nome}">Paciente</td>
+            <td th:text="${consulta.tipoServico}">Tipo</td>
+            <td th:text="${consulta.dataConsulta}">Data</td>
+            <td th:text="${consulta.statusConsulta == 'S' ? 'Realizada' : 'Pendente'}">Status</td>
+            <td th:text="${consulta.tratamentoRecomendado}">Tratamento</td>
+            <td th:text="${consulta.dataRetorno}">Retorno</td>
+            <td th:text="${consulta.custo}">R$</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:insert="~{componentes/footer::footer}"></div>
+
+</body>
+</html>

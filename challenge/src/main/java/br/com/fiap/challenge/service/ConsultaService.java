@@ -11,5 +11,6 @@ public interface ConsultaService {
     Optional<Consulta> buscarPorId(Integer id);
     List<Consulta> buscarTodas();
     Optional<Consulta> atualizar(Integer id, Consulta consulta);
+    List<Consulta> buscarPorDentista(Integer id);
     boolean deletar(Integer id);
 }

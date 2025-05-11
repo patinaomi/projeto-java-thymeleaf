@@ -35,10 +35,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/", "/styles/**").permitAll()
-                                .requestMatchers("/clientes/**").hasRole("CLINICA")
+                                .requestMatchers("/consultas/**").hasRole("DENTISTA")
                                 .requestMatchers("/clinicas/**").hasRole("CLINICA")
                                 .requestMatchers("/dentistas/**").hasAnyRole("DENTISTA", "CLINICA")
-                                .requestMatchers("/feedbacks/**").hasAnyRole("DENTISTA", "CLINICA")
+                                .requestMatchers("/feedbacks/**").hasRole("CLINICA")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

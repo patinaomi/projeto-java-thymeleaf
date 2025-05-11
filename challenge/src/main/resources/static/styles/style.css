@@ -110,6 +110,12 @@ body {
     align-items: center;
 }
 
+.topnav a {
+    color: white;
+    padding: 0 15px;
+    text-decoration: none;
+}
+
 /* LOGO */
 .logo {
     height: 30px; /* Ajuste o tamanho da logo */
@@ -592,6 +598,30 @@ body {
 .clinica-info p {
     font-size: 21px;
     margin-bottom: 20px;
+}
+
+.logout-form {
+    margin-left: auto;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 15px;
+    text-decoration: none;
+    transition: 0.6s ease;
+    }
+
+.table-header-consulta{
+    padding: 0 15px;
+}
+
+/* HOVER */
+.logout-button :hover {
+    font-size: 1.3em;
 }
 
 /* Campos do Formulário */

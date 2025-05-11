@@ -39,6 +39,11 @@ public class ConsultaServiceImpl implements ConsultaService {
     }
 
     @Override
+    public List<Consulta> buscarPorDentista(Integer id) {
+        return consultaRepository.findAllByDentistaIdDentista(id);
+    }
+
+    @Override
     public boolean deletar(Integer id) {
         return consultaRepository.findById(id).map(consulta -> {
             consultaRepository.deleteById(id);

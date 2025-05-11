@@ -1,11 +1,13 @@
 package br.com.fiap.challenge.gateways.controller;
 
+import br.com.fiap.challenge.domains.Consulta;
 import br.com.fiap.challenge.domains.Dentista;
 import br.com.fiap.challenge.domains.User;
 import br.com.fiap.challenge.domains.enums.Role;
 import br.com.fiap.challenge.gateways.repository.UserRepository;
 import br.com.fiap.challenge.security.UserDetailsImpl;
 import br.com.fiap.challenge.service.ClinicaService;
+import br.com.fiap.challenge.service.ConsultaService;
 import br.com.fiap.challenge.service.DentistaService;
 import br.com.fiap.challenge.service.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class DentistaController {
 
     private final DentistaService dentistaService;
     private final ClinicaService clinicaService;
+    private final ConsultaService consultaService;
     private final EspecialidadeService especialidadeService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -32,10 +35,18 @@ public class DentistaController {
     public String dentistaHome(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         String email = userDetails.getUsername();
         Dentista dentista = dentistaService.buscarPorUsername(email)
-                .orElseThrow(() -> new RuntimeException("Dentista não encontrado para o usuário: " + email));
+                .orElseThrow(() -> new RuntimeException("Dentista não encontrado"));
+
         model.addAttribute("nomeDentista", dentista.getNome());
+        model.addAttribute("sobrenomeDentista", dentista.getSobrenome());
+        model.addAttribute("telefoneDentista", dentista.getTelefone());
+        model.addAttribute("emailDentista", dentista.getUser().getUsername());
+        model.addAttribute("especialidadeDentista", dentista.getEspecialidade().getNome());
+        model.addAttribute("clinicaDentista", dentista.getClinica().getNome());
+
         return "dentista_home";
     }
+
 
     @GetMapping
     public String listarDentistas(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
