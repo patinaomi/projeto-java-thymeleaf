@@ -29,5 +29,57 @@
 <div th:if="${param.error}">Nome de usuário ou senha inválidos.</div>
 <div th:insert="~{componentes/footer::footer}"></div>
 
+<!-- Modal de Logout -->
+<div id="logoutModal" class="modal" th:if="${logoutMessage}">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p th:text="${logoutMessage}">Logout realizado com sucesso.</p>
+    </div>
+</div>
+
+<style>
+    .modal {
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function closeModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    // Fecha o modal automaticamente após 3 segundos
+    window.onload = function () {
+        setTimeout(closeModal, 3000);
+    };
+</script>
+
 </body>
 </html>
