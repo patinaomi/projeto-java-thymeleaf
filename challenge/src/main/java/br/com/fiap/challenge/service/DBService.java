@@ -194,6 +194,6 @@ public class DBService {
                 feedback1, feedback2, feedback3, feedback4, feedback5,
                 feedback6, feedback7, feedback8, feedback9, feedback10
         ));
-
+        System.out.println("Banco Criado com Sucesso!");
     }
 }
