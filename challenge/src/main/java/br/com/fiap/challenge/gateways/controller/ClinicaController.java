@@ -8,10 +8,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/clinica")
+@RequestMapping("/clinicas")
 @RequiredArgsConstructor
 public class ClinicaController {
 
@@ -27,6 +29,30 @@ public class ClinicaController {
         model.addAttribute("enderecoClinica", clinica.getEndereco());
         model.addAttribute("emailClinica", clinica.getUser().getUsername());
         return "clinica_home";
+    }
+
+    @GetMapping("/editar")
+    public String editarClinica(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        String email = userDetails.getUsername();
+        Clinica clinica = service.buscarPorUsername(email)
+                .orElseThrow(() -> new RuntimeException("Clínica não encontrada para o usuário: " + email));
+        model.addAttribute("clinica", clinica);
+        return "edit_clinica_page";
+    }
+
+
+    @PostMapping("/editar")
+    public String atualizarClinica(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute Clinica clinicaForm) {
+        String email = userDetails.getUsername();
+        Clinica clinicaExistente = service.buscarPorUsername(email)
+                .orElseThrow(() -> new RuntimeException("Clínica não encontrada para o usuário: " + email));
+
+        clinicaExistente.setNome(clinicaForm.getNome());
+        clinicaExistente.setEndereco(clinicaForm.getEndereco());
+        clinicaExistente.setTelefone(clinicaForm.getTelefone());
+
+        service.atualizar(clinicaExistente.getIdClinica(), clinicaExistente);
+        return "redirect:/clinicas/home";
     }
 
 }

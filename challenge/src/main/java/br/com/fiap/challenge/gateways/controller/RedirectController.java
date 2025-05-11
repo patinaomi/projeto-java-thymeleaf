@@ -12,9 +12,9 @@ public class RedirectController {
     @GetMapping("/redirect")
     public String redirectByRole(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         if (userDetails.hasRole(Role.DENTISTA)) {
-            return "redirect:/dentista/home";
+            return "redirect:/dentistas/home";
         } else if (userDetails.hasRole(Role.CLINICA)) {
-            return "redirect:/clinica/home";
+            return "redirect:/clinicas/home";
         }
         return "redirect:/access-denied";
     }

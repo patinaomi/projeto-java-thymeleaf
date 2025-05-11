@@ -35,8 +35,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/", "/styles/**").permitAll()
-                                .requestMatchers("/clientes").hasRole("DENTISTA")
-                                .requestMatchers("/feedbacks").hasAnyRole("DENTISTA", "CLINICA")
+                                .requestMatchers("/clientes/**").hasRole("DENTISTA")
+                                .requestMatchers("/clinicas/**").hasRole("CLINICA")
+                                .requestMatchers("/feedbacks/**").hasAnyRole("DENTISTA", "CLINICA")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -49,9 +50,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 )
-                .exceptionHandling(exception -> exception
-                        .accessDeniedPage("/error/403")
-                );
+                .exceptionHandling(exception -> exception.accessDeniedPage("/403"));
         return http.build();
     }
 }

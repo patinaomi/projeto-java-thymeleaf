@@ -45,7 +45,12 @@ public class ClinicaServiceImpl implements ClinicaService {
 
     @Override
     public Clinica atualizar(Integer id, Clinica clinica) {
-        return null;
+        if(clinicaRepository.existsById(id)) {
+            clinica.setIdClinica(id);
+            return clinicaRepository.save(clinica);
+        } else {
+            throw new RuntimeException("Clinica não encontrada");
+        }
     }
 
     @Override
