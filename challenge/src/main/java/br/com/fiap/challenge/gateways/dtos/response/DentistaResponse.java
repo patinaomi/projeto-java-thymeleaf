@@ -12,6 +12,7 @@ public class DentistaResponse {
     String nome;
     String sobrenome;
     String telefone;
+    String email;
     Clinica clinica;
     Especialidade especialidade;
     Float avaliacao;

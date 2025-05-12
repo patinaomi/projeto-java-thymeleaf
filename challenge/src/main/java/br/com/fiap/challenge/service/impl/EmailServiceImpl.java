@@ -1,9 +1,8 @@
 package br.com.fiap.challenge.service.impl;
 
-import br.com.fiap.challenge.gateways.repository.ClienteRepository;
+import br.com.fiap.challenge.domains.Dentista;
+import br.com.fiap.challenge.gateways.repository.DentistaRepository;
 import br.com.fiap.challenge.service.EmailService;
-import br.com.fiap.challenge.domains.Cliente;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,14 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    private final ClienteRepository clienteRepository;
+    private final DentistaRepository dentistaRepository;
     private final JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String remetente;
 
-    public EmailServiceImpl(ClienteRepository clienteRepository, JavaMailSender javaMailSender) {
-        this.clienteRepository = clienteRepository;
+    public EmailServiceImpl(DentistaRepository dentistaRepository, JavaMailSender javaMailSender) {
+        this.dentistaRepository = dentistaRepository;
         this.javaMailSender = javaMailSender;
     }
 
@@ -38,20 +37,19 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-        public void enviarEmailErroTransacao(Integer clienteId, String mensagemErro) {
-        Cliente cliente = clienteRepository.findById(clienteId).orElse(null);
+    public void enviarEmailErroTransacao(Integer dentistaId, String mensagemErro) {
+        Dentista dentista = dentistaRepository.findById(dentistaId).orElse(null);
 
-        if (cliente != null) {
-            String mensagemErroTransacao = String.format(
-                    "Olá, %s! Não foi possível fazer o cadastro devido ao seguinte erro:\n\n%s\n\nPor favor, tente novamente mais tarde.",
-                    cliente.getNome(),
+        if (dentista != null && dentista.getUser() != null) {
+            String destinatario = dentista.getUser().getUsername();
+            String mensagem = String.format(
+                    "Olá, %s! Não foi possível concluir a operação devido ao seguinte erro:\n\n%s\n\nPor favor, tente novamente mais tarde.",
+                    dentista.getNome(),
                     mensagemErro
             );
-            //TODO: Ajustar e-mail
-//            enviarEmail(cliente.getEmail(), "Erro na Transação", mensagemErroTransacao);
+            enviarEmail(destinatario, "Erro na Transação", mensagem);
         } else {
-            enviarEmail(remetente, "Erro na Transação", "Ocorreu um erro durante uma transação: " + mensagemErro);
+            enviarEmail(remetente, "Erro na Transação", "Erro ao localizar dentista ou e-mail: " + mensagemErro);
         }
     }
 }
-

@@ -1,7 +1,9 @@
 package br.com.fiap.challenge.service.impl;
 
 import br.com.fiap.challenge.domains.Dentista;
+import br.com.fiap.challenge.gateways.dtos.response.DentistaResponse;
 import br.com.fiap.challenge.gateways.repository.DentistaRepository;
+import br.com.fiap.challenge.producer.DentistaProducer;
 import br.com.fiap.challenge.service.DentistaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,25 @@ import java.util.Optional;
 public class DentistaServiceImpl implements DentistaService {
 
     private final DentistaRepository dentistaRepository;
+    private final DentistaProducer dentistaProducer;
 
     @Override
     public Dentista criar(Dentista dentista) {
         dentista.setTelefone(limparCaracteresTel(dentista.getTelefone()));
-        return dentistaRepository.save(dentista);
+        Dentista savedDentista = dentistaRepository.save(dentista);
+
+        dentistaProducer.enviarMensagem(DentistaResponse.builder()
+                .nome(savedDentista.getNome())
+                .sobrenome(savedDentista.getSobrenome())
+                .telefone(savedDentista.getTelefone())
+                .email(savedDentista.getUser().getUsername())
+                .avaliacao(savedDentista.getAvaliacao())
+                .clinica(savedDentista.getClinica())
+                .especialidade(savedDentista.getEspecialidade())
+                .build()
+        );
+
+        return savedDentista;
     }
 
     @Override
@@ -60,5 +76,4 @@ public class DentistaServiceImpl implements DentistaService {
     public List<Dentista> buscarPorIdClinica(Integer idClinica) {
         return dentistaRepository.findAllByClinicaIdClinica(idClinica);
     }
-
 }
