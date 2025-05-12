@@ -29,7 +29,7 @@
             <td th:text="${consulta.cliente.nome}">Paciente</td>
             <td th:text="${consulta.tipoServico}">Tipo</td>
             <td th:text="${consulta.dataConsulta}">Data</td>
-            <td th:text="${consulta.statusConsulta == 'S' ? #{consultas.status.realizada} : #{consultas.status.pendente}}">Status</td>
+            <td th:text="${consulta.statusConsulta == 'S'} ? #messages['consultas.status.realizada'] : #messages['consultas.status.pendente']">Status</td>
             <td th:text="${consulta.tratamentoRecomendado}">Tratamento</td>
             <td th:text="${consulta.dataRetorno}">Retorno</td>
             <td th:text="${consulta.custo}">R$</td>
