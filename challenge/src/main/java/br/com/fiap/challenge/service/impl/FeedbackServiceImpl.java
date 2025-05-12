@@ -4,6 +4,7 @@ import br.com.fiap.challenge.domains.Feedback;
 import br.com.fiap.challenge.gateways.repository.FeedbackRepository;
 import br.com.fiap.challenge.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 public class FeedbackServiceImpl implements FeedbackService {
 
     private final FeedbackRepository feedbackRepository;
+
+    private final ChatClient chatClient;
 
     @Override
     public Feedback criar(Feedback feedback) {
@@ -52,5 +55,20 @@ public class FeedbackServiceImpl implements FeedbackService {
             return true;
         }
         return false;
+    }
+
+    public String gerarResumo(List<Feedback> feedbacks) {
+        StringBuilder prompt = new StringBuilder("Resuma os seguintes feedbacks de clientes para uma clínica odontológica:\n\n");
+
+        for (Feedback f : feedbacks) {
+            prompt.append("- Cliente: ").append(f.getCliente().getNome())
+                    .append(" | Avaliação: ").append(f.getAvaliacao())
+                    .append(" | Comentário: ").append(f.getComentario()).append("\n");
+        }
+
+        return chatClient.prompt()
+                .user(prompt.toString())
+                .call()
+                .content();
     }
 }

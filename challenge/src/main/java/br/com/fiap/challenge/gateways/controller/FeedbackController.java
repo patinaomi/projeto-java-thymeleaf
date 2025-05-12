@@ -129,4 +129,10 @@ public class FeedbackController {
             return "redirect:/feedbacks?erro=Não foi possível deletar. Este feedback está associado a outros registros.";
         }
     }
+
+    @GetMapping("/feedbacks/resumo")
+    public String gerarResumo() {
+        List<Feedback> feedbacks = feedbackService.buscarTodos();
+        return feedbackService.gerarResumo(feedbacks);
+    }
 }

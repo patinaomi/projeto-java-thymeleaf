@@ -12,4 +12,5 @@ public interface FeedbackService {
     List<Feedback> buscarPorUsuarioClinica(String username);
     Feedback atualizar(Integer id, Feedback feedback);
     boolean deletar(Integer id);
+    String gerarResumo(List<Feedback> feedbacks);
 }

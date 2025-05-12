@@ -1,38 +1,30 @@
-services:
-  db:
-    image: postgres:14
-    container_name: postgres-db
-    restart: always
-    environment:
-      POSTGRES_DB: challenge
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-    ports:
-      - "5433:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+version: '3.8'
 
+services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
       - "5672:5672"
-      - "15672:15672" # painel web
+      - "15672:15672"
 
   app:
     build: .
     container_name: challenge-java
     depends_on:
-      - db
       - rabbitmq
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/challenge
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle.fiap.com.br:1521/orcl
+      SPRING_DATASOURCE_USERNAME: ${ORACLE_USER}
+      SPRING_DATASOURCE_PASSWORD: ${ORACLE_PASS}
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
+      SPRING_AI_OPENAI_API_KEY: ${OPENAI_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      SPRING_MAIL_USERNAME: ${EMAIL_USER}
+      SPRING_MAIL_PASSWORD: ${EMAIL_PASSWORD}
     ports:
       - "8080:8080"
 
@@ -53,5 +45,4 @@ services:
       - grafana-storage:/var/lib/grafana
 
 volumes:
-  pgdata:
   grafana-storage:
