@@ -33,10 +33,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/logout", "/redirect", "/styles/**", "/assets/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
-                .csrf(csrf -> csrf.disable()); // só para teste!
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/redirect", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/?logout=true")
+                        .permitAll()
+                )
+                .exceptionHandling(exception -> exception.accessDeniedPage("/403"));
         return http.build();
     }
 }
