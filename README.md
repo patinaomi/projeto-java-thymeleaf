@@ -1,57 +1,135 @@
-
 # **Challenge OdontoPrev**
 <p align="center">
     <img loading="lazy" src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
 </p>
 
 ## 📌 **Índice**
-1. [Sobre o Projeto](#sobre-o-projeto)  
-2. [Integrantes](#integrantes)  
-3. [Cronograma de Desenvolvimento](#cronograma-de-desenvolvimento)  
-4. [Atualização Sprint 3](#atualização-sprint-3)
-5. [Atualização Sprint 4](#atualização-sprint-4) 
-6. [Como Rodar o Projeto](#como-rodar-o-projeto)  
-7. [Pré-requisitos](#pré-requisitos)  
-8. [Modelo Relacional (DER)](#modelo-relacional-der)  
-9. [Diagrama de Classes](#diagrama-de-classes)  
-10. [Documentação da API](#documentação-da-api)  
-11. [Vídeo Demonstrativo](#vídeo-demonstrativo)  
+1. [Sobre o Projeto](#-sobre-o-projeto)  
+2. [Pipeline CI/CD - Azure DevOps](#-pipeline-cicd---azure-devops)  
+3. [Configuração das Pipelines](#-configuração-das-pipelines)  
+4. [Modelo Relacional (DER)](#-modelo-relacional-der)  
+5. [Diagrama de Classes](#-diagrama-de-classes)  
+6. [Vídeo Demonstrativo](#-vídeo-demonstrativo)  
+7. [Banco de Dados](#-banco-de-dados)  
+8. [Equipe](#-equipe)  
 
----
 
 ## 💡 **Sobre o Projeto**
-O **OdontoPrev** é uma aplicação de gerenciamento para clínicas odontológicas, permitindo que dentistas e clínicas possam administrar consultas, feedbacks e formulários detalhados.
+O sistema é uma aplicação Java com Spring Boot, desenvolvida para gerenciar clínicas odontológicas, com recursos para cadastro de clientes, dentistas, clínicas, consultas e feedbacks.
+Foi implementado um ambiente DevOps com CI/CD utilizando **Azure DevOps** e deploy em **na nuvem**. O banco de dados é **PostgreSQL**, também hospedado em container Docker.
 
 ### **⚙️ Funcionalidades principais**
 ✅ Cadastro e gerenciamento de pacientes, dentistas e clínicas.  
-✅ Agendamento e controle de consultas.  
-✅ Administração de formulários detalhados dos pacientes.  
+✅ Controle de consultas.  
 ✅ Recebimento e gestão de feedbacks dos atendimentos.  
 ✅ Dashboard moderno e responsivo para facilitar a navegação.  
 
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
+
+## 🚀 **Pipeline CI/CD - Azure DevOps**
+A pipeline foi configurada no **Azure DevOps** com foco na entrega contínua da aplicação Java em um ambiente Docker hospedado em uma VM na nuvem.
+
+Abaixo, o detalhamento de cada etapa:
+
+-   **Commit da Mudança**  
+    Desenvolvedor faz commit/push no repositório GitHub.
+    
+-   **Disparo da Build**  
+    Azure DevOps detecta mudança e inicia a pipeline automaticamente.
+    
+-   **Build da Aplicação**  
+    Executa `mvn clean package` para compilar o projeto Java Spring Boot.
+    
+-   **Notificação de Build**  
+    Azure DevOps registra o sucesso ou falha da etapa de build.
+    
+-   **Execução dos Testes**  
+    Executa testes automatizados (se implementados).
+    
+-   **Notificação de Testes**  
+    Informa se os testes passaram ou falharam.
+    
+-   **Deploy do Build**  
+    A imagem Docker gerada é enviada ao Docker Hub e usada para subir a aplicação na VM da Azure via SSH.
+    
+-   **Disponibilização do Sistema**  
+    Aplicação é exposta via WebApp e conectada ao banco PostgreSQL.
+
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
+
 ---
 
-## 🚀 **Atualização Sprint 3**
-Nesta sprint, foram implementadas diversas melhorias, incluindo o **Thymeleaf** para renderização de páginas no backend com Spring Boot.
+## 💡 **Configuração das Pipelines**
+Arquivo YAML da pipeline no Azure
+```
+pool: name: Azure Pipelines steps: - task: Docker@0 displayName: 'Docker Build an image' inputs: azureSubscription: 'Azure for Students (a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7)' azureContainerRegistry: '{"loginServer":"acrdelfosmachine.azurecr.io", "id" : "/subscriptions/a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7/resourceGroups/delfos-machine-sprint/providers/Microsoft.ContainerRegistry/registries/acrdelfosmachine"}' dockerFile: challenge/Dockerfile imageName: 'Fiap/delfosmachine:$(Build.BuildNumber)' - task: Docker@0 displayName: 'Push an image' inputs: azureSubscription: 'Azure for Students (a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7)' azureContainerRegistry: '{"loginServer":"acrdelfosmachine.azurecr.io", "id" : "/subscriptions/a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7/resourceGroups/delfos-machine-sprint/providers/Microsoft.ContainerRegistry/registries/acrdelfosmachine"}' action: 'Push an image' imageName: 'Fiap/delfosmachine:$(Build.BuildNumber)'
+```
 
-### **📌 Melhorias incluídas nesta atualização:**
-- Implementação de **Thymeleaf** para as páginas HTML dinâmicas.  
-- Criação de templates reutilizáveis, como **navbar e footer**.  
-- Estilização aprimorada com **Bootstrap e CSS**.  
-- Melhorias na experiência do usuário e usabilidade do sistema.  
+
+ **docker-compose.yml**
+ ```# Etapa de build
+FROM maven:3.9.4-eclipse-temurin-21 AS build
+WORKDIR /app
+
+# Copia o arquivo de configuração Maven e instala as dependências
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copia o código e executa o build
+COPY . .
+RUN mvn clean install -DskipTests
+
+# Etapa final - Imagem otimizada com JRE 21
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+EXPOSE 8080
+
+# Copia o JAR gerado na etapa de build
+COPY --from=build /app/target/challenge-0.0.1-SNAPSHOT.jar app.jar
+
+# Comando de execução
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+
+ **dockerfile**
+ ```
+# Copia o arquivo de configuração Maven e instala as dependências
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copia o código e executa o build
+COPY . .
+RUN mvn clean install -DskipTests
+
+# Etapa final - Imagem otimizada com JRE 21
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+EXPOSE 8080
+
+# Copia o JAR gerado na etapa de build
+COPY --from=build /app/target/challenge-0.0.1-SNAPSHOT.jar app.jar
+
+# Comando de execução
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+```
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
 
 ---
-
-## 🚀 **Atualização Sprint 4**
-
-[X] Implementação de Spring Security
-
----
-
 ## 📊 **Modelo Relacional (DER)**
 A modelagem relacional segue a estrutura abaixo para armazenar os dados de clientes, dentistas e feedbacks.
 
 ![Modelo Relacional](Relational_1.png)
+
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
 
 ---
 
@@ -61,40 +139,51 @@ O diagrama de classes abaixo representa a arquitetura do projeto e os relacionam
 ![Diagrama de Classes](diagrama-de-classes.png)  
 ![Domains](domains.png)
 
----
 
-## 📝 **Documentação da API**
-A API do OdontoPrev segue as melhores práticas REST, permitindo o gerenciamento completo dos clientes e feedbacks.
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
 
-### **📌 Cliente**
-| Método | Endpoint | Descrição |
-|--------|---------|-----------|
-| **GET** | `/clientes` | Lista todos os clientes |
-| **POST** | `/clientes/criar` | Cadastra um novo cliente |
-| **GET** | `/clientes/{id}` | Retorna detalhes de um cliente específico |
-| **PUT** | `/clientes/{id}` | Atualiza os dados de um cliente |
-| **PATCH** | `/clientes/{id}` | Atualiza um campo específico do cliente |
-| **DELETE** | `/clientes/{id}` | Remove um cliente |
-
----
-
-### **📌 Feedback**
-| Método | Endpoint | Descrição |
-|--------|---------|-----------|
-| **GET** | `/feedbacks` | Lista todos os feedbacks |
-| **POST** | `/feedbacks/criar` | Cadastra um novo feedback |
-| **GET** | `/feedbacks/{id}` | Retorna os detalhes de um feedback específico |
-| **PUT** | `/feedbacks/{id}` | Atualiza um feedback existente |
-| **PATCH** | `/feedbacks/{id}` | Modifica apenas um campo do feedback |
-| **DELETE** | `/feedbacks/{id}` | Remove um feedback |
 
 ---
 
 ## 🎥 **Vídeo Demonstrativo**
 Disponibilizamos um **vídeo no YouTube** apresentando a aplicação, as funcionalidades implementadas e o fluxo de uso.
+O vídeo mostra:
+-   Commit em branch
+-   Pipeline rodando no Azure DevOps
+-   Container sendo executado
+-   Acesso ao sistema pela URL pública
+-   Inserção de dados e persistência no banco PostgreSQL
 
 📌 **Acesse o vídeo aqui:**  
 [▶ Assista no YouTube](https://www.youtube.com/watch?v=A3Tw0jTuy60&ab_channel=PatriciaNaomi)
+
+**Observação**: O sistema foi testado com persistência de dados ativa e acesso ao WebApp funcional. A aplicação é protegida com Spring Security e autenticação via formulário, e o frontend foi customizado com Thymeleaf e CSS.
+
+
+Credenciais padrão:
+
+-   `clinica1@email.com` / `senha123`
+-   `dentista1@email.com` / `senha123`
+
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
+
+## 💡 **Banco de Dados**
+-   Banco relacional PostgreSQL
+-   Contêiner gerenciado pelo Docker
+-   Persistência dos dados testada via API e visualizada no sistema
+
+O banco de dados utiliza várias tabelas relacionais, incluindo `Cliente`, `Dentista`, `Clínica`, `Consulta`, `Feedback`, `Sinistro`, entre outras. Todas as entidades estão conectadas por meio de relacionamentos com chave estrangeira.
+
+-   Relações implementadas:
+    -   Cliente → Consulta → Dentista
+    -   Dentista → Clínica
+    -   Clínica → Feedback
+
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
 
 ---
 ## 🧑‍🤝‍🧑 Equipe
@@ -103,4 +192,5 @@ Disponibilizamos um **vídeo no YouTube** apresentando a aplicação, as funcion
 |--|--|
 
 
-[:arrow_up: voltar para o índice :arrow_up:](#índice)
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
