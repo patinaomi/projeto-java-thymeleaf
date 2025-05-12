@@ -2,11 +2,11 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Erro Interno</title>
+    <title th:text="#{error.internal.title}">Erro Interno</title>
 </head>
 <body>
-<h1>Erro 500</h1>
-<p>Ocorreu um erro interno no sistema. Por favor, tente novamente mais tarde.</p>
-<a href="/">Voltar para a página inicial</a>
+<h1 th:text="#{error.internal.code}">Erro 500</h1>
+<p th:text="#{error.internal.message}">Ocorreu um erro interno no sistema. Por favor, tente novamente mais tarde.</p>
+<a href="/" th:text="#{error.internal.back}">Voltar para a página inicial</a>
 </body>
 </html>

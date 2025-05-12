@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Feedbacks</title>
+    <title th:text="#{feedback.list.title}">Feedbacks</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
@@ -11,42 +11,37 @@
 
 <div class="feedback-container-feedback">
     <div class="header-container">
-        <h1 class="feedback-title">Lista de Feedbacks</h1>
-        <a href="/feedbacks/criar" class="btn-novo" sec:authorize="hasRole('CLINICA')">+ Novo Feedback</a>
-
+        <h1 class="feedback-title" th:text="#{feedback.list.heading}">Lista de Feedbacks</h1>
+        <a href="/feedbacks/criar" class="btn-novo" sec:authorize="hasRole('CLINICA')" th:text="#{feedback.list.new}">+ Novo Feedback</a>
     </div>
 
     <table class="feedback-table">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Dentista</th>
-                <th>Clínica</th>
-                <th>Avaliação</th>
-                <th>Comentário</th>
-                <th>Ações</th>
-            </tr>
+        <tr>
+            <th th:text="#{feedback.list.id}">ID</th>
+            <th th:text="#{feedback.cliente}">Cliente</th>
+            <th th:text="#{feedback.dentista}">Dentista</th>
+            <th th:text="#{feedback.clinica}">Clínica</th>
+            <th th:text="#{feedback.avaliacao}">Avaliação</th>
+            <th th:text="#{feedback.comentario}">Comentário</th>
+            <th th:text="#{feedback.acoes}">Ações</th>
+        </tr>
         </thead>
         <tbody>
-            <th:block th:each="feedback : ${feedbacks}">
-                <tr>
-                    <td th:text="${feedback.idFeedback}"></td>
-                    <td th:text="${feedback.cliente.nome}"></td>
-                    <td th:text="${feedback.dentista.nome}"></td>
-                    <td th:text="${feedback.clinica.nome}"></td>
-                    <td th:text="${feedback.avaliacao}"></td>
-                    <td th:text="${feedback.comentario}"></td>
-                    <td class="actions" sec:authorize="hasRole('CLINICA')">
-                        <a th:href="@{|/feedbacks/editar/${feedback.idFeedback}|}"
-                           class="btn-edit">Editar</a>
-
-                        <a th:href="@{|/feedbacks/deletar/${feedback.idFeedback}|}"
-                           class="btn-delete">Deletar</a>
-                    </td>
-
-                </tr>
-            </th:block>
+        <th:block th:each="feedback : ${feedbacks}">
+            <tr>
+                <td th:text="${feedback.idFeedback}"></td>
+                <td th:text="${feedback.cliente.nome}"></td>
+                <td th:text="${feedback.dentista.nome}"></td>
+                <td th:text="${feedback.clinica.nome}"></td>
+                <td th:text="${feedback.avaliacao}"></td>
+                <td th:text="${feedback.comentario}"></td>
+                <td class="actions" sec:authorize="hasRole('CLINICA')">
+                    <a th:href="@{|/feedbacks/editar/${feedback.idFeedback}|}" class="btn-edit" th:text="#{feedback.editar}">Editar</a>
+                    <a th:href="@{|/feedbacks/deletar/${feedback.idFeedback}|}" class="btn-delete" th:text="#{feedback.deletar}">Deletar</a>
+                </td>
+            </tr>
+        </th:block>
         </tbody>
     </table>
 </div>

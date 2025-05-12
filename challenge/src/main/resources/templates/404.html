@@ -2,11 +2,11 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Página não encontrada</title>
+    <title th:text="#{error.notfound.title}">Página não encontrada</title>
 </head>
 <body>
-<h1>Erro 404</h1>
-<p>A página que você está tentando acessar não existe.</p>
-<a href="/">Voltar para a página inicial</a>
+<h1 th:text="#{error.notfound.code}">Erro 404</h1>
+<p th:text="#{error.notfound.message}">A página que você está tentando acessar não existe.</p>
+<a href="/" th:text="#{error.notfound.back}">Voltar para a página inicial</a>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Clientes</title>
+    <title th:text="#{clientes.title}">Clientes</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
@@ -10,40 +10,40 @@
 <div th:insert="~{componentes/navigation-dentista::navigation}"></div>
 
 <div class="dashboard-container">
-    <h1 class="dashboard-title">Lista de Clientes</h1>
+    <h1 class="dashboard-title" th:text="#{clientes.heading}">Lista de Clientes</h1>
 
     <div class="dashboard-actions">
-        <a href="/clientes/criar" class="btn-novo-cliente">+ Novo Cliente</a>
+        <a href="/clientes/criar" class="btn-novo-cliente" th:text="#{clientes.new}">+ Novo Cliente</a>
     </div>
 
     <table class="dashboard-table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Sobrenome</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Data de Nascimento</th>
-                <th>Endereço</th>
-                <th>Ações</th>
-            </tr>
+        <tr>
+            <th th:text="#{clientes.id}">Id</th>
+            <th th:text="#{clientes.nome}">Nome</th>
+            <th th:text="#{clientes.sobrenome}">Sobrenome</th>
+            <th th:text="#{clientes.email}">Email</th>
+            <th th:text="#{clientes.telefone}">Telefone</th>
+            <th th:text="#{clientes.nascimento}">Data de Nascimento</th>
+            <th th:text="#{clientes.endereco}">Endereço</th>
+            <th th:text="#{clientes.acoes}">Ações</th>
+        </tr>
         </thead>
         <tbody>
-            <th:block th:each="cliente : ${clientes}">
-                <tr>
-                    <td th:text="${cliente.idCliente}"></td>
-                    <td th:text="${cliente.nome}"></td>
-                    <td th:text="${cliente.sobrenome}"></td>
-                    <td th:text="${cliente.telefone}"></td>
-                    <td th:text="${cliente.dataNasc}"></td>
-                    <td th:text="${cliente.endereco}"></td>
-                    <td class="table-actions">
-                        <a th:href="@{|/templates/cliente/editar/${cliente.idCliente}|}" class="btn-editar">Editar</a>
-                        <a th:href="@{|/templates/cliente/deletar/${cliente.idCliente}|}" class="btn-deletar">Deletar</a>
-                    </td>
-                </tr>
-            </th:block>
+        <th:block th:each="cliente : ${clientes}">
+            <tr>
+                <td th:text="${cliente.idCliente}"></td>
+                <td th:text="${cliente.nome}"></td>
+                <td th:text="${cliente.sobrenome}"></td>
+                <td th:text="${cliente.telefone}"></td>
+                <td th:text="${cliente.dataNasc}"></td>
+                <td th:text="${cliente.endereco}"></td>
+                <td class="table-actions">
+                    <a th:href="@{|/templates/cliente/editar/${cliente.idCliente}|}" class="btn-editar" th:text="#{clientes.editar}">Editar</a>
+                    <a th:href="@{|/templates/cliente/deletar/${cliente.idCliente}|}" class="btn-deletar" th:text="#{clientes.deletar}">Deletar</a>
+                </td>
+            </tr>
+        </th:block>
         </tbody>
     </table>
 </div>

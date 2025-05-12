@@ -2,23 +2,27 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Painel da Clínica</title>
+    <title th:text="#{clinica.painel.title}">Painel da Clínica</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
 <div th:insert="~{componentes/navigation-clinica::navigation}"></div>
 
 <div class="feedback-container-feedback">
-    <h1 class="dashboard-title">Bem-Vindo, <span th:text="${nomeClinica}">[Nome]</span></h1>
+    <h1 class="dashboard-title">
+        <span th:text="#{clinica.welcome}">Bem-Vindo,</span> <span th:text="${nomeClinica}">[Nome]</span>
+    </h1>
+
     <div class="header-container">
-        <h1 class="feedback-title">Seus Dados</h1>
-        <a href="/clinicas/editar" class="btn-novo">+ Alterar Dados</a>
+        <h1 class="feedback-title" th:text="#{clinica.seusdados}">Seus Dados</h1>
+        <a href="/clinicas/editar" class="btn-novo" th:text="#{clinica.alterar}">+ Alterar Dados</a>
     </div>
+
     <div class="clinica-info">
-        <p><strong>Nome:</strong> <span th:text="${nomeClinica}"></span></p>
-        <p><strong>Telefone:</strong> <span th:text="${telefoneClinica}"></span></p>
-        <p><strong>Endereço:</strong> <span th:text="${enderecoClinica}"></span></p>
-        <p><strong>Email:</strong> <span th:text="${emailClinica}"></span></p>
+        <p><strong th:text="#{clinica.nome}">Nome:</strong> <span th:text="${nomeClinica}"></span></p>
+        <p><strong th:text="#{clinica.telefone}">Telefone:</strong> <span th:text="${telefoneClinica}"></span></p>
+        <p><strong th:text="#{clinica.endereco}">Endereço:</strong> <span th:text="${enderecoClinica}"></span></p>
+        <p><strong th:text="#{clinica.email}">Email:</strong> <span th:text="${emailClinica}"></span></p>
     </div>
 </div>
 

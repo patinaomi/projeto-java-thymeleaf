@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Dentista</title>
+    <title th:text="#{dentista.create.title}">Cadastrar Dentista</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
@@ -10,33 +10,33 @@
 <div th:insert="~{componentes/navigation-clinica::navigation}"></div>
 
 <div class="create-container">
-    <h1 class="create-title">Cadastrar Novo Dentista</h1>
+    <h1 class="create-title" th:text="#{dentista.create.heading}">Cadastrar Novo Dentista</h1>
 
     <form method="post" th:action="@{/dentistas/criar}" th:object="${novoDentista}" class="create-form">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome" required>
+        <label for="nome" th:text="#{dentista.nome}">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" th:placeholder="#{dentista.placeholder.nome}" required>
 
-        <label for="sobrenome">Sobrenome:</label>
-        <input type="text" id="sobrenome" th:field="*{sobrenome}" placeholder="Digite o sobrenome" required>
+        <label for="sobrenome" th:text="#{dentista.sobrenome}">Sobrenome:</label>
+        <input type="text" id="sobrenome" th:field="*{sobrenome}" th:placeholder="#{dentista.placeholder.sobrenome}" required>
 
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" th:field="*{telefone}" placeholder="Digite o telefone" required>
+        <label for="telefone" th:text="#{dentista.telefone}">Telefone:</label>
+        <input type="text" id="telefone" th:field="*{telefone}" th:placeholder="#{dentista.placeholder.telefone}" required>
 
-        <label for="especialidade">Especialidade:</label>
+        <label for="especialidade" th:text="#{dentista.especialidade}">Especialidade:</label>
         <select id="especialidade" th:field="*{especialidade.idEspecialidade}" required>
-            <option value="">Selecione uma Especialidade</option>
+            <option value="" th:text="#{dentista.placeholder.especialidade}">Selecione uma Especialidade</option>
             <option th:each="esp : ${especialidades}" th:value="${esp.idEspecialidade}" th:text="${esp.nome}"></option>
         </select>
 
-        <label for="email">Email (Login):</label>
-        <input type="email" id="email" th:field="*{user.username}" placeholder="Digite o email do dentista" required>
+        <label for="email" th:text="#{dentista.email}">Email (Login):</label>
+        <input type="email" id="email" th:field="*{user.username}" th:placeholder="#{dentista.placeholder.email}" required>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" th:field="*{user.password}" placeholder="Digite a senha" required>
+        <label for="senha" th:text="#{dentista.senha}">Senha:</label>
+        <input type="password" id="senha" th:field="*{user.password}" th:placeholder="#{dentista.placeholder.senha}" required>
 
         <div class="create-actions">
-            <button type="submit" class="btn-cadastrar">Cadastrar</button>
-            <a href="/dentistas" class="btn-voltar">Cancelar</a>
+            <button type="submit" class="btn-cadastrar" th:text="#{dentista.cadastrar}">Cadastrar</button>
+            <a href="/dentistas" class="btn-voltar" th:text="#{dentista.cancelar}">Cancelar</a>
         </div>
     </form>
 </div>

@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Dentistas</title>
+    <title th:text="#{dentista.list.title}">Lista de Dentistas</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
@@ -11,21 +11,21 @@
 
 <div class="dashboard-container">
     <div class="header-container">
-        <h1 class="dashboard-title">Dentistas da Clínica</h1>
-        <a href="/dentistas/criar" class="btn-novo">+ Novo Dentista</a>
+        <h1 class="dashboard-title" th:text="#{dentista.list.heading}">Dentistas da Clínica</h1>
+        <a href="/dentistas/criar" class="btn-novo" th:text="#{dentista.list.new}">+ Novo Dentista</a>
     </div>
 
     <table class="dashboard-table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Sobrenome</th>
-            <th>Telefone</th>
-            <th>Especialidade</th>
-            <th>Email</th>
-            <th>Avaliação</th>
-            <th>Ações</th>
+            <th th:text="#{dentista.list.table.id}">ID</th>
+            <th th:text="#{dentista.list.table.nome}">Nome</th>
+            <th th:text="#{dentista.list.table.sobrenome}">Sobrenome</th>
+            <th th:text="#{dentista.list.table.telefone}">Telefone</th>
+            <th th:text="#{dentista.list.table.especialidade}">Especialidade</th>
+            <th th:text="#{dentista.list.table.email}">Email</th>
+            <th th:text="#{dentista.list.table.avaliacao}">Avaliação</th>
+            <th th:text="#{dentista.list.table.acoes}">Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -39,8 +39,8 @@
                 <td th:text="${dentista.user.username}"></td>
                 <td th:text="${dentista.avaliacao}"></td>
                 <td class="table-actions">
-                    <a th:href="@{|/dentistas/editar/${dentista.idDentista}|}" class="btn-editar">Editar</a>
-                    <a th:href="@{|/dentistas/deletar/${dentista.idDentista}|}" class="btn-deletar">Deletar</a>
+                    <a th:href="@{|/dentistas/editar/${dentista.idDentista}|}" class="btn-editar" th:text="#{dentista.list.table.editar}">Editar</a>
+                    <a th:href="@{|/dentistas/deletar/${dentista.idDentista}|}" class="btn-deletar" th:text="#{dentista.list.table.deletar}">Deletar</a>
                 </td>
             </tr>
         </th:block>

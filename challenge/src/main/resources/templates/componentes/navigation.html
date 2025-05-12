@@ -1,6 +1,11 @@
 <div class="topnav" th:fragment="navigation">
     <img src="/assets/logo.png" alt="Logo" class="logo">
-    <a href="/">Home</a>
-    <a href="/clientes">Clientes</a>
-    <a href="/feedbacks">Feedbacks</a>
+    <a href="/" th:text="#{nav.home}">Home</a>
+    <a href="/clientes" th:text="#{nav.clientes}">Clientes</a>
+    <a href="/feedbacks" th:text="#{nav.feedbacks}">Feedbacks</a>
+
+    <div style="float: right; margin-right: 1rem;">
+        <a href="?lang=pt">🇧🇷</a>
+        <a href="?lang=en">🇺🇸</a>
+    </div>
 </div>

@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Bem-vindo à OdontoPrev</title>
+    <title th:text="#{login.title}">Bem-vindo à OdontoPrev</title>
     <link rel="preload" href="/styles/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="/styles/style.css">
@@ -11,31 +11,31 @@
 <body>
 
 <div class="home-container">
-    <h1 class="home-title">Bem-vindo à OdontoPrev</h1>
-    <p class="home-subtitle">Faça seu login para acessar o sistema</p>
+    <h1 class="home-title" th:text="#{login.heading}">Bem-vindo à OdontoPrev</h1>
+    <p class="home-subtitle" th:text="#{login.subheading}">Faça seu login para acessar o sistema</p>
 
     <form th:action="@{/login}" method="post" class="login-form">
         <div>
-            <label for="username">E-mail</label>
-            <input id="username" name="username" type="text" placeholder="nome@email.com" required>
+            <label for="username" th:text="#{login.email.label}">E-mail</label>
+            <input id="username" name="username" type="text" th:placeholder="#{login.email.placeholder}" required>
         </div>
         <div>
-            <label for="password">Senha</label>
-            <input id="password" name="password" type="password" placeholder="sua senha" required>
+            <label for="password" th:text="#{login.password.label}">Senha</label>
+            <input id="password" name="password" type="password" th:placeholder="#{login.password.placeholder}" required>
         </div>
-        <button type="submit">LOGIN</button>
+        <button type="submit" th:text="#{login.button}">LOGIN</button>
     </form>
 </div>
+
 <div th:insert="~{componentes/footer::footer}"></div>
 
 <!-- Modal de Erro de Login -->
 <div id="errorModal" class="modal" th:if="${param.error}">
     <div class="modal-content">
         <span class="close" onclick="closeErrorModal()">&times;</span>
-        <p>Nome de usuário ou senha inválidos.</p>
+        <p th:text="#{login.error}">Nome de usuário ou senha inválidos.</p>
     </div>
 </div>
-
 
 <!-- Modal de Logout -->
 <div id="logoutModal" class="modal" th:if="${logoutMessage}">

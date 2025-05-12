@@ -2,26 +2,28 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Painel do Dentista</title>
+    <title th:text="#{dentista.painel.title}">Painel do Dentista</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
 <div th:insert="~{componentes/navigation-dentista::navigation}"></div>
 
 <div class="feedback-container-feedback">
-    <h1 class="dashboard-title">Bem-Vindo, <span th:text="${nomeDentista}">[Nome]</span></h1>
+    <h1 class="dashboard-title">
+        <span th:text="#{dentista.painel.welcome}">Bem-Vindo,</span> <span th:text="${nomeDentista}">[Nome]</span>
+    </h1>
 
     <div class="header-container">
-        <h1 class="feedback-title">Seus Dados</h1>
+        <h1 class="feedback-title" th:text="#{dentista.dados.title}">Seus Dados</h1>
     </div>
 
     <div class="clinica-info">
-        <p><strong>Nome:</strong> <span th:text="${nomeDentista}"></span></p>
-        <p><strong>Sobrenome:</strong> <span th:text="${sobrenomeDentista}"></span></p>
-        <p><strong>Telefone:</strong> <span th:text="${telefoneDentista}"></span></p>
-        <p><strong>Email:</strong> <span th:text="${emailDentista}"></span></p>
-        <p><strong>Especialidade:</strong> <span th:text="${especialidadeDentista}"></span></p>
-        <p><strong>Clínica:</strong> <span th:text="${clinicaDentista}"></span></p>
+        <p><strong th:text="#{dentista.nome}">Nome:</strong> <span th:text="${nomeDentista}"></span></p>
+        <p><strong th:text="#{dentista.sobrenome}">Sobrenome:</strong> <span th:text="${sobrenomeDentista}"></span></p>
+        <p><strong th:text="#{dentista.telefone}">Telefone:</strong> <span th:text="${telefoneDentista}"></span></p>
+        <p><strong th:text="#{dentista.email}">Email:</strong> <span th:text="${emailDentista}"></span></p>
+        <p><strong th:text="#{dentista.especialidade}">Especialidade:</strong> <span th:text="${especialidadeDentista}"></span></p>
+        <p><strong th:text="#{dentista.clinica}">Clínica:</strong> <span th:text="${clinicaDentista}"></span></p>
     </div>
 </div>
 
