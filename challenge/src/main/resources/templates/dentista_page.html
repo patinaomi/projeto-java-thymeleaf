@@ -48,7 +48,86 @@
     </table>
 </div>
 
+<div id="emptyDentistModal" class="modal" th:if="${#lists.isEmpty(dentistas)}">
+    <div class="modal-content">
+        <span class="close" onclick="closeDentistModal()">&times;</span>
+        <p th:text="#{dentista.modal.empty}">Nenhum dentista cadastrado até o momento.</p>
+    </div>
+</div>
+<!-- Modal de confirmação de edição -->
+<div id="editedDentistModal" class="modal" th:if="${param.edited}">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditedModal()">&times;</span>
+        <p th:text="#{dentista.modal.edited}">Dentista editado com sucesso.</p>
+    </div>
+</div>
+
+<!-- Modal de confirmação de deletado -->
+<div id="deletedDentistModal" class="modal" th:if="${param.deleted}">
+    <div class="modal-content">
+        <span class="close" onclick="closeDeletedModal()">&times;</span>
+        <p th:text="#{dentista.modal.deleted}">Dentista deletado com sucesso.</p>
+    </div>
+</div>
+
 <div th:insert="~{componentes/footer::footer}"></div>
+
+<style>
+    .modal {
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function closeDeletedModal() {
+        const modal = document.getElementById('deletedDentistModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    function closeEditedModal() {
+        const modal = document.getElementById('editedDentistModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    function closeDentistModal() {
+        const modal = document.getElementById('emptyDentistModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    window.onload = function () {
+        setTimeout(closeDeletedModal, 4000);
+        setTimeout(closeEditedModal, 4000);
+        setTimeout(closeDentistModal, 4000);
+    };
+</script>
+
 
 </body>
 </html>

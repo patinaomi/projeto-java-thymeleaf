@@ -25,11 +25,12 @@
         </tr>
         </thead>
         <tbody>
+<!--        TODO: Não tenho esses dados no banco-->
         <tr th:each="consulta : ${consultas}">
             <td th:text="${consulta.cliente.nome}">Paciente</td>
             <td th:text="${consulta.tipoServico}">Tipo</td>
             <td th:text="${consulta.dataConsulta}">Data</td>
-            <td th:text="${consulta.statusConsulta == 'S'} ? #messages['consultas.status.realizada'] : #messages['consultas.status.pendente']">Status</td>
+            <td th:text="${consulta.statusConsulta == 1} ? #messages['consultas.status.realizada'] : #messages['consultas.status.pendente']">Status</td>
             <td th:text="${consulta.tratamentoRecomendado}">Tratamento</td>
             <td th:text="${consulta.dataRetorno}">Retorno</td>
             <td th:text="${consulta.custo}">R$</td>

@@ -43,7 +43,6 @@ public class DentistaController {
         model.addAttribute("emailDentista", dentista.getUser().getUsername());
         model.addAttribute("especialidadeDentista", dentista.getEspecialidade().getNome());
         model.addAttribute("clinicaDentista", dentista.getClinica().getNome());
-
         return "dentista_home";
     }
 
@@ -57,6 +56,11 @@ public class DentistaController {
 
         List<Dentista> dentistas = dentistaService.buscarPorIdClinica(idClinica);
         model.addAttribute("dentistas", dentistas);
+
+        List<Dentista> dentistasDaClinica = dentistaService.buscarPorIdClinica(idClinica);
+        model.addAttribute("dentistas", dentistasDaClinica);
+        System.out.println("Dentistas encontrados para a clínica: " + dentistasDaClinica.size());
+
         return "dentista_page";
     }
 
@@ -114,12 +118,12 @@ public class DentistaController {
         dentistaForm.setAvaliacao(dentistaExistente.getAvaliacao());
 
         dentistaService.atualizar(dentistaForm.getIdDentista(), dentistaForm);
-        return "redirect:/dentistas";
+        return "redirect:/dentistas?edited=true";
     }
 
     @GetMapping("/deletar/{id}")
     public String deletarDentista(@PathVariable Integer id) {
         dentistaService.deletar(id);
-        return "redirect:/dentistas";
+        return "redirect:/dentistas?deleted=true";
     }
 }
