@@ -29,10 +29,18 @@ public class FeedbackController {
     private final ClinicaService clinicaService;
 
     @GetMapping
-    public String getFeedbackPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+    public String getFeedbackPage(@AuthenticationPrincipal UserDetailsImpl userDetails,
+                                  @RequestParam(value = "created", required = false) String created,
+                                  @RequestParam(value = "deleted", required = false) String deleted,
+                                  Model model) {
         String email = userDetails.getUsername();
         List<Feedback> feedbacks = feedbackService.buscarPorUsuarioClinica(email);
         model.addAttribute("feedbacks", feedbacks);
+
+        if (created != null) model.addAttribute("feedbackCreated", true);
+        if (deleted != null) model.addAttribute("feedbackDeleted", true);
+        if (feedbacks.isEmpty()) model.addAttribute("feedbackVazio", true);
+
         return "feedback_page";
     }
 
@@ -54,16 +62,13 @@ public class FeedbackController {
         return "create_feedback_page";
     }
 
-
     @PostMapping("/criar")
-    public String criarFeedback(
-            @RequestParam("cliente") Integer idCliente,
-            @RequestParam("dentista") Integer idDentista,
-            @RequestParam("clinica") Integer idClinica,
-            @RequestParam("avaliacao") Float avaliacao,
-            @RequestParam("comentario") String comentario,
-            Model model) {
-
+    public String criarFeedback(@RequestParam("cliente") Integer idCliente,
+                                @RequestParam("dentista") Integer idDentista,
+                                @RequestParam("clinica") Integer idClinica,
+                                @RequestParam("avaliacao") Float avaliacao,
+                                @RequestParam("comentario") String comentario,
+                                Model model) {
         try {
             Cliente cliente = clienteService.buscarPorId(idCliente);
             Dentista dentista = dentistaService.buscarPorId(idDentista);
@@ -78,11 +83,10 @@ public class FeedbackController {
                     .build();
 
             feedbackService.criar(feedback);
-
-            return "redirect:/feedbacks?sucesso";
+            return "redirect:/feedbacks?created=true";
         } catch (Exception e) {
             model.addAttribute("erro", "Erro ao cadastrar feedback: " + e.getMessage());
-            return "feedbacks/formulario-feedback";
+            return "create_feedback_page";
         }
     }
 
@@ -98,7 +102,6 @@ public class FeedbackController {
                                  @RequestParam Integer id,
                                  @ModelAttribute Feedback feedbackForm,
                                  Model model) {
-
         String email = userDetails.getUsername();
         Clinica clinica = clinicaService.buscarPorUsername(email)
                 .orElseThrow(() -> new RuntimeException("Clínica não encontrada para o usuário: " + email));
@@ -111,6 +114,7 @@ public class FeedbackController {
         if (!feedbackExistente.getClinica().getUser().getUsername().equals(userDetails.getUsername())) {
             throw new AccessDeniedException("Você não tem permissão para isso.");
         }
+
         feedbackExistente.setAvaliacao(feedbackForm.getAvaliacao());
         feedbackExistente.setComentario(feedbackForm.getComentario());
 
@@ -118,21 +122,25 @@ public class FeedbackController {
         return "redirect:/feedbacks";
     }
 
-
-
     @GetMapping("/deletar/{id}")
     public String deletarFeedback(@PathVariable Integer id) {
         try {
             feedbackService.deletar(id);
-            return "redirect:/feedbacks";
+            return "redirect:/feedbacks?deleted=true";
         } catch (Exception e) {
             return "redirect:/feedbacks?erro=Não foi possível deletar. Este feedback está associado a outros registros.";
         }
     }
 
-    @GetMapping("/feedbacks/resumo")
-    public String gerarResumo() {
-        List<Feedback> feedbacks = feedbackService.buscarTodos();
-        return feedbackService.gerarResumo(feedbacks);
+    @GetMapping("/resumo")
+    public String gerarResumo(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        String email = userDetails.getUsername();
+        List<Feedback> feedbacks = feedbackService.buscarPorUsuarioClinica(email);
+        String resumo = feedbackService.gerarResumo(feedbacks);
+
+        model.addAttribute("feedbacks", feedbacks);
+        model.addAttribute("resumoIA", resumo);
+        return "feedback_page";
     }
+
 }

@@ -50,4 +50,15 @@ public class ConsultaServiceImpl implements ConsultaService {
             return true;
         }).orElse(false);
     }
+
+    @Override
+    public void alterarStatus(Integer id) {
+        Consulta consulta = consultaRepository.findById(id).orElseThrow(() -> new RuntimeException("Consulta não encontrada"));
+        if (consulta.getStatusConsulta() == null || consulta.getStatusConsulta() == 'N') {
+            consulta.setStatusConsulta('S');
+        } else {
+            consulta.setStatusConsulta('N');
+        }
+        consultaRepository.save(consulta);
+    }
 }

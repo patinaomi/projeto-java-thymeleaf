@@ -22,24 +22,110 @@
             <th th:text="#{consultas.tratamento}">Tratamento</th>
             <th th:text="#{consultas.retorno}">Retorno</th>
             <th th:text="#{consultas.custo}">Custo</th>
+            <th th:text="#{consultas.acoes}">Ações</th>
         </tr>
         </thead>
         <tbody>
-<!--        TODO: Não tenho esses dados no banco-->
         <tr th:each="consulta : ${consultas}">
             <td th:text="${consulta.cliente.nome}">Paciente</td>
             <td th:text="${consulta.tipoServico}">Tipo</td>
-            <td th:text="${consulta.dataConsulta}">Data</td>
-            <td th:text="${consulta.statusConsulta == 1} ? #messages['consultas.status.realizada'] : #messages['consultas.status.pendente']">Status</td>
+            <td th:text="${#temporals.format(consulta.dataConsulta, 'dd/MM/yyyy HH:mm')}">Data</td>
+            <td th:text="${consulta.statusConsulta}">Status</td>
             <td th:text="${consulta.tratamentoRecomendado}">Tratamento</td>
             <td th:text="${consulta.dataRetorno}">Retorno</td>
             <td th:text="${consulta.custo}">R$</td>
+            <td>
+                <form th:action="@{/consultas/alterar-status}" method="post">
+                    <input type="hidden" name="idConsulta" th:value="${consulta.idConsulta}">
+                    <button type="submit" class="btn-alterar-status" th:text="#{consultas.alterarStatus}">Alterar
+                        Status
+                    </button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
 
+<!-- ✅ Modal de Status alterado -->
+<div id="statusUpdatedModal" class="modal" th:if="${param.statusUpdated}">
+    <div class="modal-content">
+        <span class="close" onclick="closeStatusModal()">&times;</span>
+        <p th:text="#{consultas.statusAtualizado}">Status da consulta alterado com sucesso.</p>
+    </div>
+</div>
+
 <div th:insert="~{componentes/footer::footer}"></div>
+
+<!-- ✅ CSS (pode estar no style.css se preferir) -->
+<style>
+    .modal {
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-alterar-status {
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .btn-alterar-status:hover {
+        background-color: #1565c0;
+    }
+
+    .status-ok {
+        color: #2e7d32;
+        font-weight: bold;
+    }
+
+    .status-pendente {
+        color: #c62828;
+        font-weight: bold;
+    }
+</style>
+
+<!-- ✅ JS para fechar modal -->
+<script>
+    function closeStatusModal() {
+        const modal = document.getElementById('statusUpdatedModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    window.onload = function () {
+        setTimeout(closeStatusModal, 4000);
+    };
+</script>
 
 </body>
 </html>

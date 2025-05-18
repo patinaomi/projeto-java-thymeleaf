@@ -1,61 +1,99 @@
+
 # **Challenge OdontoPrev**
-<p align="center">
-    <img loading="lazy" src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
-</p>
+[![Sync GitHub Repo to Azure DevOps](https://github.com/patinaomi/projeto-java-thymeleaf/actions/workflows/sync-to-azure-devops.yml/badge.svg)](https://github.com/patinaomi/projeto-java-thymeleaf/actions/workflows/sync-to-azure-devops.yml)
 
 ## 📌 **Índice**
-1. [Sobre o Projeto](#-sobre-o-projeto)  
-2. [Pipeline CI/CD - Azure DevOps](#-pipeline-cicd---azure-devops)  
-3. [Configuração das Pipelines](#-configuração-das-pipelines)  
-4. [Modelo Relacional (DER)](#-modelo-relacional-der)  
-5. [Diagrama de Classes](#-diagrama-de-classes)  
-6. [Vídeo Demonstrativo](#-vídeo-demonstrativo)  
-7. [Banco de Dados](#-banco-de-dados)  
-8. [Equipe](#-equipe)  
+1. [Sobre o Projeto](#-sobre-o-projeto)
+2. [Pipeline CI/CD - Azure DevOps](#-pipeline-cicd---azure-devops)
+3. [Configuração das Pipelines](#-configuração-das-pipelines)
+4. [Modelo Relacional (DER)](#-modelo-relacional-der)
+5. [Diagrama de Classes](#-diagrama-de-classes)
+6. [Vídeo Demonstrativo](#-vídeo-demonstrativo)
+7. [Banco de Dados](#-banco-de-dados)
+8. [Equipe](#-equipe)
 
 
 ## 💡 **Sobre o Projeto**
-O sistema é uma aplicação Java com Spring Boot, desenvolvida para gerenciar clínicas odontológicas, com recursos para cadastro de clientes, dentistas, clínicas, consultas e feedbacks.
-Foi implementado um ambiente DevOps com CI/CD utilizando **Azure DevOps** e deploy em **na nuvem**. O banco de dados é **PostgreSQL**, também hospedado em container Docker.
+O sistema é uma aplicação Java com Spring Boot, desenvolvida para gerenciar clínicas odontológicas, com recursos para cadastro de dentistas, clínicas e feedbacks. Foi implementado um ambiente DevOps com CI/CD utilizando **Azure DevOps** e deploy em **na nuvem**. O banco de dados é **Oracle**, também hospedado em container Docker.
 
-### **⚙️ Funcionalidades principais**
-✅ Cadastro e gerenciamento de pacientes, dentistas e clínicas.  
-✅ Controle de consultas.  
+#### **⚙️ Funcionalidades principais**
+✅ Cadastro e gerenciamento de dentistas, clínicas e consultas.  
 ✅ Recebimento e gestão de feedbacks dos atendimentos.  
-✅ Dashboard moderno e responsivo para facilitar a navegação.  
+✅ Dashboard moderno e responsivo para facilitar a navegação.
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
+## ⚙️ Implementações Java – Sprint 4
+Nesta 4ª Sprint, a aplicação Java foi finalizada com arquitetura **full MVC**, contemplando os requisitos funcionais propostos:
+
+-   🔐 **Autenticação e Autorização**  
+    Implementação do **Spring Security**, com autenticação baseada em formulário e controle de acesso por **perfis de usuário (roles)**, permitindo acesso diferenciado para clínicas e dentistas.
+
+-   🌐 **Internacionalização**  
+    A aplicação conta com suporte a múltiplos idiomas por meio do recurso de internacionalização do Spring. Os arquivos `.properties` foram configurados para exibir textos em português e inglês de forma dinâmica.
+
+-   📬 **Mensageria com RabbitMQ**  
+    Integração com o **RabbitMQ** para envio e consumo de mensagens assíncronas, como no envio de e-mails de cadastro. A configuração foi realizada com produtores e consumidores devidamente registrados.
+
+-   📊 **Monitoramento com Spring Boot Actuator**  
+    Endpoints de monitoramento e métricas foram habilitados com o **Spring Boot Actuator**, permitindo acompanhar a saúde da aplicação, consumo de recursos e estatísticas de uso.
+
+-   🤖 **Inteligência Artificial com Spring AI**  
+    Recursos de IA foram adicionados utilizando o **Spring AI** com integração à API da OpenAI (GPT-3.5 Turbo). O sistema é capaz de **gerar resumos automáticos de feedbacks dos pacientes**, proporcionando insights inteligentes para as clínicas.
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
+## ⚙️ Implementações DevOps – Sprint 4
+
+Nesta sprint, foi implementada uma esteira completa de **CI/CD** utilizando o **Azure DevOps**, com o objetivo de automatizar o build, push e deploy da aplicação na nuvem.
+
+-   🚀 **Integração Contínua (CI)**  
+    A pipeline é disparada automaticamente a cada push no repositório Git. Ela realiza o `build` do projeto com Maven, empacota a aplicação como **imagem Docker** e faz o push para o **Azure Container Registry (ACR)**.
+
+-   📦 **Entrega Contínua (CD)**  
+    Após a publicação da imagem no ACR, a pipeline de CD realiza o deploy automático para o **Azure Container Instance (ACI)**, expondo a aplicação com **IP público**, tornando possível acessá-la diretamente pelo navegador.
+
+-   🔄 **Automação e Rastreabilidade**  
+    O processo automatizado proporciona **velocidade, confiabilidade e versionamento controlado**, além de facilitar testes e validações em ambiente de produção.
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
+## 🎥 **Vídeos Demonstrativos**
+Disponibilizamos dois vídeos para apresentar as etapas e funcionalidades do projeto:
+### 📦 _1. DevOps: CI/CD com Azure DevOps_
+
+Neste vídeo, mostramos todo o fluxo da esteira de integração e entrega contínua:
+-   Push no repositório Git
+-   Execução da pipeline de CI (build da imagem Docker e push no Azure Container Registry)
+-   Execução da pipeline de CD (deploy automático no Azure Container Instances)
+-   Verificação do container em execução e acesso via IP público
+
+📌 **Assista aqui:**  
+[▶ CI/CD no Azure DevOps](https://youtu.be/P0mPnDin5T0)
+
+----------
+### 💻 _2. Demonstração do Sistema Java_
+Este vídeo apresenta as funcionalidades principais da aplicação:
+-   Login e navegação com interface desenvolvida em Thymeleaf
+-   Arquitetura final da solução
+-   Integrações com RabbitMQ e OpenAI
+
+📌 **Assista aqui:**  
+[▶ Demonstração do Sistema Java](https://www.youtube.com/watch?v=A3Tw0jTuy60&ab_channel=PatriciaNaomi)
+
+Credenciais usadas para testes:
+
+-   `clinica1@email.com` / `senha123`
+-   `dentista1@email.com` / `senha123`
 
 
 [:arrow_up: voltar para o índice :arrow_up:](#-índice)
 
+## 🏛️  **Arquitetura do Projeto**
 
-## 🚀 **Pipeline CI/CD - Azure DevOps**
-A pipeline foi configurada no **Azure DevOps** com foco na entrega contínua da aplicação Java em um ambiente Docker hospedado em uma VM na nuvem.
 
-Abaixo, o detalhamento de cada etapa:
+-   **COLOCAR DESENHO AQUI**
 
--   **Commit da Mudança**  
-    Desenvolvedor faz commit/push no repositório GitHub.
-    
--   **Disparo da Build**  
-    Azure DevOps detecta mudança e inicia a pipeline automaticamente.
-    
--   **Build da Aplicação**  
-    Executa `mvn clean package` para compilar o projeto Java Spring Boot.
-    
--   **Notificação de Build**  
-    Azure DevOps registra o sucesso ou falha da etapa de build.
-    
--   **Execução dos Testes**  
-    Executa testes automatizados (se implementados).
-    
--   **Notificação de Testes**  
-    Informa se os testes passaram ou falharam.
-    
--   **Deploy do Build**  
-    A imagem Docker gerada é enviada ao Docker Hub e usada para subir a aplicação na VM da Azure via SSH.
-    
--   **Disponibilização do Sistema**  
-    Aplicação é exposta via WebApp e conectada ao banco PostgreSQL.
 
 
 [:arrow_up: voltar para o índice :arrow_up:](#-índice)
@@ -64,128 +102,75 @@ Abaixo, o detalhamento de cada etapa:
 ---
 
 ## 💡 **Configuração das Pipelines**
-Arquivo YAML da pipeline no Azure
+#### 🛠️ Configuração da Pipeline de CI (Continuous Integration)
+
+Na pipeline de **Integração Contínua (CI)**, configurada no Azure DevOps, foi definido o uso do `pool` padrão do Azure Pipelines para execução das tarefas. O processo automatiza a construção da imagem Docker da aplicação Java. Primeiramente, a tarefa `Docker Build an image` é responsável por **compilar o projeto** e gerar a imagem Docker a partir do `Dockerfile` localizado na pasta `challenge/`. Em seguida, a tarefa `Push an image` faz o **envio da imagem criada para o Azure Container Registry (ACR)**, utilizando as credenciais fornecidas na configuração. A imagem recebe a tag correspondente ao número do build, garantindo versionamento e rastreabilidade para futuros deploys.
+👉 [`link do código de ci-pipeline.yml`](ci-)
+#### 🚀 Pipeline de CD (Entrega Contínua)
+
+A pipeline de **Continuous Deployment (CD)** foi configurada no **Azure DevOps** com o objetivo de automatizar o processo de publicação da aplicação Java na nuvem. Após a conclusão da etapa de build e push da imagem Docker (na pipeline de CI), a pipeline de CD é acionada para realizar o deploy da imagem no serviço **Azure Container Instance (ACI)**.
+
+O processo segue os seguintes passos:
+
+1.  **Autenticação na conta Azure** via Azure CLI.
+
+2.  **Criação do container** com base na imagem gerada e armazenada no **Azure Container Registry (ACR)**.
+
+3.  O container é criado com IP público, permitindo o acesso via navegador.
+
+4.  A aplicação roda em ambiente Linux e é configurada para escutar na porta 8080.
+
+    👉 [`link do código de cd-pipeline.yml`](ci-)
+
+[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+
+## 🐳 Rodando o Projeto com Docker
+
+Para rodar a aplicação completa com **Spring Boot + Oracle + RabbitMQ + Prometheus + Grafana**, siga os passos abaixo:
+
+### 📁 Pré-requisitos
+
+-   Docker instalado (link de instalação)
+-   Docker Compose instalado (link de instalação)
+
+### 🐑 1. Clone o repositório
 ```
-pool: name: Azure Pipelines steps: - task: Docker@0 displayName: 'Docker Build an image' inputs: azureSubscription: 'Azure for Students (a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7)' azureContainerRegistry: '{"loginServer":"acrdelfosmachine.azurecr.io", "id" : "/subscriptions/a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7/resourceGroups/delfos-machine-sprint/providers/Microsoft.ContainerRegistry/registries/acrdelfosmachine"}' dockerFile: challenge/Dockerfile imageName: 'Fiap/delfosmachine:$(Build.BuildNumber)' - task: Docker@0 displayName: 'Push an image' inputs: azureSubscription: 'Azure for Students (a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7)' azureContainerRegistry: '{"loginServer":"acrdelfosmachine.azurecr.io", "id" : "/subscriptions/a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7/resourceGroups/delfos-machine-sprint/providers/Microsoft.ContainerRegistry/registries/acrdelfosmachine"}' action: 'Push an image' imageName: 'Fiap/delfosmachine:$(Build.BuildNumber)'
-```
-
-
- **docker-compose.yml**
- ```# Etapa de build
-FROM maven:3.9.4-eclipse-temurin-21 AS build
-WORKDIR /app
-
-# Copia o arquivo de configuração Maven e instala as dependências
-COPY pom.xml .
-RUN mvn dependency:go-offline
-
-# Copia o código e executa o build
-COPY . .
-RUN mvn clean install -DskipTests
-
-# Etapa final - Imagem otimizada com JRE 21
-FROM eclipse-temurin:21-jre
-WORKDIR /app
-EXPOSE 8080
-
-# Copia o JAR gerado na etapa de build
-COPY --from=build /app/target/challenge-0.0.1-SNAPSHOT.jar app.jar
-
-# Comando de execução
-ENTRYPOINT ["java", "-jar", "app.jar"]
-```
-
- **dockerfile**
- ```
-# Copia o arquivo de configuração Maven e instala as dependências
-COPY pom.xml .
-RUN mvn dependency:go-offline
-
-# Copia o código e executa o build
-COPY . .
-RUN mvn clean install -DskipTests
-
-# Etapa final - Imagem otimizada com JRE 21
-FROM eclipse-temurin:21-jre
-WORKDIR /app
-EXPOSE 8080
-
-# Copia o JAR gerado na etapa de build
-COPY --from=build /app/target/challenge-0.0.1-SNAPSHOT.jar app.jar
-
-# Comando de execução
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
+git clone https://github.com/patinaomi/projeto-java-thymeleaf
+cd projeto-java-thymeleaf
 ```
 
-[:arrow_up: voltar para o índice :arrow_up:](#-índice)
+### ⚙️ 2. Configure o arquivo `.env`
 
+Crie um arquivo chamado `.env` na raiz do projeto com o seguinte conteúdo (ajuste os valores conforme suas credenciais):
+```ORACLE_USER=seu-usuario
+ORACLE_PASS=sua-senha
+OPENAI_KEY=sua-chave-openai-aqui
+JWT_SECRET_KEY=sua-chave-jwt-aqui
+EMAIL_USER=seuemail@gmail.com
+EMAIL_PASSWORD=sua-senha-email-smpt-aqui
+```
+### 🚀 3. Suba os containers
+Na raiz do projeto, execute o seguinte comando:
+``docker compose up --build
+``
 
----
-## 📊 **Modelo Relacional (DER)**
-A modelagem relacional segue a estrutura abaixo para armazenar os dados de clientes, dentistas e feedbacks.
+Esse comando irá:
+-   Construir a imagem do projeto Java.
+-   Subir os containers do **RabbitMQ**, **Oracle** (caso esteja local), **Prometheus** e **Grafana**.
+-   Inicializar a aplicação acessível em:  
+    👉 [`http://localhost:8080`](http://localhost:8080)
+### 📊 Interfaces disponíveis
+|Serviço|URL|
+|--|--|
+|🌐 Aplicação|[http://localhost:8080](http://localhost:8080)|
+|🐰 RabbitMQ|[http://localhost:15672](http://localhost:15672) _(user: guest / guest)_|
+|📊 Prometheus|[http://localhost:9090](http://localhost:9090)|
+|📈 Grafana|[http://localhost:3000](http://localhost:3000) _(login padrão: admin / admin)_|
 
-![Modelo Relacional](Relational_1.png)
-
-
-[:arrow_up: voltar para o índice :arrow_up:](#-índice)
-
-
----
-
-## 📌 **Diagrama de Classes**
-O diagrama de classes abaixo representa a arquitetura do projeto e os relacionamentos entre as entidades.
-
-![Diagrama de Classes](diagrama-de-classes.png)  
-![Domains](domains.png)
-
-
-[:arrow_up: voltar para o índice :arrow_up:](#-índice)
-
-
----
-
-## 🎥 **Vídeo Demonstrativo**
-Disponibilizamos um **vídeo no YouTube** apresentando a aplicação, as funcionalidades implementadas e o fluxo de uso.
-O vídeo mostra:
--   Commit em branch
--   Pipeline rodando no Azure DevOps
--   Container sendo executado
--   Acesso ao sistema pela URL pública
--   Inserção de dados e persistência no banco PostgreSQL
-
-📌 **Acesse o vídeo aqui:**  
-[▶ Assista no YouTube](https://www.youtube.com/watch?v=A3Tw0jTuy60&ab_channel=PatriciaNaomi)
-
-**Observação**: O sistema foi testado com persistência de dados ativa e acesso ao WebApp funcional. A aplicação é protegida com Spring Security e autenticação via formulário, e o frontend foi customizado com Thymeleaf e CSS.
-
-
-Credenciais padrão:
-
--   `clinica1@email.com` / `senha123`
--   `dentista1@email.com` / `senha123`
-
+### 🛠️ Inicialização do Banco de Dados
+Ao rodar o projeto pela primeira vez, é necessário garantir que o banco de dados seja criado automaticamente. Para isso, o projeto deve ser executado com a propriedade spring.jpa.hibernate.ddl-auto configurada como create. Isso fará com que todas as tabelas definidas pelas entidades JPA sejam geradas automaticamente no banco Oracle. Após a criação inicial, recomenda-se alterar esse modo para update ou none, evitando a recriação acidental do schema em execuções futuras.
 
 [:arrow_up: voltar para o índice :arrow_up:](#-índice)
-
-
-## 💡 **Banco de Dados**
--   Banco relacional PostgreSQL
--   Contêiner gerenciado pelo Docker
--   Persistência dos dados testada via API e visualizada no sistema
-
-O banco de dados utiliza várias tabelas relacionais, incluindo `Cliente`, `Dentista`, `Clínica`, `Consulta`, `Feedback`, `Sinistro`, entre outras. Todas as entidades estão conectadas por meio de relacionamentos com chave estrangeira.
-
--   Relações implementadas:
-    -   Cliente → Consulta → Dentista
-    -   Dentista → Clínica
-    -   Clínica → Feedback
-
-
-[:arrow_up: voltar para o índice :arrow_up:](#-índice)
-
-
----
 ## 🧑‍🤝‍🧑 Equipe
 
 | <h3>Claudio Bispo</h3><img src="https://avatars.githubusercontent.com/u/110735259?v=4" width=180px> <h6>RM553472</h6> <a href="https://github.com/claubis"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/claudiosbispo"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://www.instagram.com/_claudiobispo/"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"></a>|<h3>Patricia Naomi</h3> <img src="https://avatars.githubusercontent.com/u/132932532?v=4" width=180px><h6>RM552981</h6> <a href="https://github.com/patinaomi"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"></a> <a href="https://www.linkedin.com/in/patinaomi/"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"></a> <a href="https://www.instagram.com/naomipati/"><img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white"></a>|

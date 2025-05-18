@@ -11,6 +11,17 @@ body {
     padding: 0;
 }
 
+.status-ok {
+    color: #2e7d32; /* verde escuro */
+    font-weight: bold;
+}
+
+.status-pendente {
+    color: #c62828; /* vermelho escuro */
+    font-weight: bold;
+}
+
+
 /* DASHBOARD */
 .dashboard-container {
     width: 90%;
@@ -121,6 +132,21 @@ body {
     height: 30px; /* Ajuste o tamanho da logo */
     margin-right: 20px;
 }
+
+.btn-alterar-status {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-alterar-status:hover {
+    background-color: #1565c0;
+}
+
 
 /* LINKS */
 .topnav a {
@@ -617,6 +643,7 @@ body {
 
 .table-header-consulta{
     padding: 0 15px;
+    text-align: center;
 }
 
 /* HOVER */

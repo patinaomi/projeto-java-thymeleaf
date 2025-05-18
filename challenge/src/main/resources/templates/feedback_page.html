@@ -12,9 +12,13 @@
 <div class="feedback-container-feedback">
     <div class="header-container">
         <h1 class="feedback-title" th:text="#{feedback.list.heading}">Lista de Feedbacks</h1>
-        <a href="/feedbacks/criar" class="btn-novo" sec:authorize="hasRole('CLINICA')" th:text="#{feedback.list.new}">+ Novo Feedback</a>
+        <div>
+            <a href="/feedbacks/criar" class="btn-novo" sec:authorize="hasRole('CLINICA')" th:text="#{feedback.list.new}">+ Novo Feedback</a>
+            <form th:action="@{/feedbacks/resumo}" method="get" style="display: inline;">
+                <button type="submit" class="btn-gerar-resumo" th:text="#{feedback.list.gerarResumo}">Gerar Resumo</button>
+            </form>
+        </div>
     </div>
-
     <table class="feedback-table">
         <thead>
         <tr>
@@ -46,8 +50,112 @@
     </table>
 </div>
 
+<!-- Modal de Resumo IA -->
+<div id="resumoModal" class="modal" th:if="${resumoIA}">
+    <div class="modal-content">
+        <span class="close" onclick="closeResumoModal()">&times;</span>
+        <h2>Resumo dos Feedbacks</h2>
+        <p th:text="${resumoIA}">Aqui aparecerá o resumo gerado pela IA.</p>
+    </div>
+</div>
+<!-- Modal: Feedback Criado -->
+<div id="createdFeedbackModal" class="modal" th:if="${param.created}">
+    <div class="modal-content">
+        <span class="close" onclick="closeCreatedFeedbackModal()">&times;</span>
+        <p th:text="#{feedback.modal.created}">Feedback cadastrado com sucesso.</p>
+    </div>
+</div>
+
+<!-- Modal: Feedback Deletado -->
+<div id="deletedFeedbackModal" class="modal" th:if="${param.deleted}">
+    <div class="modal-content">
+        <span class="close" onclick="closeDeletedFeedbackModal()">&times;</span>
+        <p th:text="#{feedback.modal.deleted}">Feedback deletado com sucesso.</p>
+    </div>
+</div>
+
+<!-- Modal: Nenhum Feedback Cadastrado -->
+<div id="emptyFeedbackModal" class="modal" th:if="${#lists.isEmpty(feedbacks)}">
+    <div class="modal-content">
+        <span class="close" onclick="closeEmptyFeedbackModal()">&times;</span>
+        <p th:text="#{feedback.modal.empty}">Nenhum feedback cadastrado até o momento.</p>
+    </div>
+</div>
+
+
+
+
+<style>
+    .btn-gerar-resumo {
+        background-color: #6a1b9a;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .btn-gerar-resumo:hover {
+        background-color: #4a148c;
+    }
+
+    .modal {
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
 <div th:insert="~{componentes/footer::footer}"></div>
 <script src="/js/script.js"></script>
+<script>
+    function closeCreatedFeedbackModal() {
+        document.getElementById('createdFeedbackModal').style.display = 'none';
+    }
+    function closeDeletedFeedbackModal() {
+        document.getElementById('deletedFeedbackModal').style.display = 'none';
+    }
+    function closeEmptyFeedbackModal() {
+        document.getElementById('emptyFeedbackModal').style.display = 'none';
+    }
+    function closeResumoModal() {
+        document.getElementById('closeResumoModal').style.display = 'none';
+    }
+
+    window.onload = function () {
+        setTimeout(closeResumoModal, 8000);
+        setTimeout(closeCreatedFeedbackModal, 4000);
+        setTimeout(closeDeletedFeedbackModal, 4000);
+        setTimeout(closeEmptyFeedbackModal, 4000);
+    };
+
+</script>
 
 </body>
 </html>
