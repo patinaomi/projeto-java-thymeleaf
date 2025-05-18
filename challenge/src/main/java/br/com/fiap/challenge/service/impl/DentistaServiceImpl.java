@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.fiap.challenge.utils.FormatUtil.formatarNomeCompleto;
+import static br.com.fiap.challenge.utils.FormatUtil.limparTelefone;
+
 @Service
 @RequiredArgsConstructor
 public class DentistaServiceImpl implements DentistaService {
@@ -20,7 +23,9 @@ public class DentistaServiceImpl implements DentistaService {
 
     @Override
     public Dentista criar(Dentista dentista) {
-        dentista.setTelefone(limparCaracteresTel(dentista.getTelefone()));
+        dentista.setNome(formatarNomeCompleto(dentista.getNome()));
+        dentista.setSobrenome(formatarNomeCompleto(dentista.getSobrenome()));
+        dentista.setTelefone(limparTelefone(dentista.getTelefone()));
         Dentista savedDentista = dentistaRepository.save(dentista);
 
         dentistaProducer.enviarMensagem(DentistaResponse.builder()
@@ -57,6 +62,9 @@ public class DentistaServiceImpl implements DentistaService {
     public Optional<Dentista> atualizar(Integer id, Dentista dentista) {
         return dentistaRepository.findById(id).map(dentistaExistente -> {
             dentista.setIdDentista(id);
+            dentista.setNome(formatarNomeCompleto(dentista.getNome()));
+            dentista.setSobrenome(formatarNomeCompleto(dentista.getSobrenome()));
+            dentista.setTelefone(limparTelefone(dentista.getTelefone()));
             return dentistaRepository.save(dentista);
         });
     }
@@ -67,10 +75,6 @@ public class DentistaServiceImpl implements DentistaService {
             dentistaRepository.deleteById(id);
             return true;
         }).orElse(false);
-    }
-
-    private String limparCaracteresTel(String telefone) {
-        return telefone != null ? telefone.replaceAll("\\D", "") : null;
     }
 
     public List<Dentista> buscarPorIdClinica(Integer idClinica) {

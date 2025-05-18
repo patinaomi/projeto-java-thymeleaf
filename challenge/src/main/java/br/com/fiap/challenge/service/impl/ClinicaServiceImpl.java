@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.fiap.challenge.utils.FormatUtil.formatarNomeCompleto;
+import static br.com.fiap.challenge.utils.FormatUtil.limparTelefone;
+
 @Service
 @RequiredArgsConstructor
 public class ClinicaServiceImpl implements ClinicaService {
@@ -20,6 +23,8 @@ public class ClinicaServiceImpl implements ClinicaService {
 
     @Override
     public Clinica criar(Clinica clinica) {
+        clinica.setNome(formatarNomeCompleto(clinica.getNome()));
+        clinica.setTelefone(limparTelefone(clinica.getTelefone()));
         return clinicaRepository.save(clinica);
     }
 
@@ -47,6 +52,8 @@ public class ClinicaServiceImpl implements ClinicaService {
     public Clinica atualizar(Integer id, Clinica clinica) {
         if(clinicaRepository.existsById(id)) {
             clinica.setIdClinica(id);
+            clinica.setNome(formatarNomeCompleto(clinica.getNome()));
+            clinica.setTelefone(limparTelefone(clinica.getTelefone()));
             return clinicaRepository.save(clinica);
         } else {
             throw new RuntimeException("Clinica não encontrada");

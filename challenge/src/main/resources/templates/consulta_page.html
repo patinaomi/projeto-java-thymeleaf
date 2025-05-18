@@ -47,7 +47,7 @@
     </table>
 </div>
 
-<!-- ✅ Modal de Status alterado -->
+<!-- Modal de Status alterado -->
 <div id="statusUpdatedModal" class="modal" th:if="${param.statusUpdated}">
     <div class="modal-content">
         <span class="close" onclick="closeStatusModal()">&times;</span>
@@ -57,75 +57,6 @@
 
 <div th:insert="~{componentes/footer::footer}"></div>
 
-<!-- ✅ CSS (pode estar no style.css se preferir) -->
-<style>
-    .modal {
-        display: block;
-        position: fixed;
-        z-index: 1000;
-        padding-top: 100px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .modal-content {
-        background-color: #fff;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 40%;
-        border-radius: 8px;
-        text-align: center;
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 24px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .btn-alterar-status {
-        background-color: #1976d2;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.9rem;
-    }
-
-    .btn-alterar-status:hover {
-        background-color: #1565c0;
-    }
-
-    .status-ok {
-        color: #2e7d32;
-        font-weight: bold;
-    }
-
-    .status-pendente {
-        color: #c62828;
-        font-weight: bold;
-    }
-</style>
-
-<!-- ✅ JS para fechar modal -->
-<script>
-    function closeStatusModal() {
-        const modal = document.getElementById('statusUpdatedModal');
-        if (modal) modal.style.display = 'none';
-    }
-
-    window.onload = function () {
-        setTimeout(closeStatusModal, 4000);
-    };
-</script>
-
+<script src="/js/script.js"></script>
 </body>
 </html>

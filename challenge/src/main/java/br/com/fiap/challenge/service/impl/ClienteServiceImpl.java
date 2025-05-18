@@ -7,8 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import static br.com.fiap.challenge.utils.FormatUtil.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +22,9 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente criar(Cliente cliente) {
-        cliente.setTelefone(limparCaracteresTel(cliente.getTelefone()));
+        cliente.setNome(formatarNomeCompleto(cliente.getNome()));
+        cliente.setSobrenome(formatarNomeCompleto(cliente.getSobrenome()));
+        cliente.setTelefone(limparTelefone(cliente.getTelefone()));
         Cliente clienteSalvo = clienteRepository.save(cliente);
 
         String mensagemEmail = String.format(
@@ -45,7 +50,7 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente atualizar(Integer id, Cliente cliente) {
         if (clienteRepository.existsById(id)) {
             cliente.setIdCliente(id);
-            cliente.setTelefone(limparCaracteresTel(cliente.getTelefone())); // Limpeza do telefone antes de atualizar
+            cliente.setTelefone(limparTelefone(cliente.getTelefone())); // Limpeza do telefone antes de atualizar
             return clienteRepository.save(cliente);
         } else {
             throw new RuntimeException("Cliente não encontrado");
@@ -63,10 +68,5 @@ public class ClienteServiceImpl implements ClienteService {
 
     public Page<Cliente> buscarTodosPaginado(Pageable pageable) {
         return clienteRepository.findAll(pageable);
-    }
-
-    // Método utilitário para limpar caracteres não numéricos do telefone
-    private String limparCaracteresTel(String telefone) {
-        return telefone != null ? telefone.replaceAll("\\D", "") : null;
     }
 }

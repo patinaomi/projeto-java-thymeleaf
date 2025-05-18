@@ -119,7 +119,7 @@ public class FeedbackController {
         feedbackExistente.setComentario(feedbackForm.getComentario());
 
         feedbackService.atualizar(id, feedbackExistente);
-        return "redirect:/feedbacks";
+        return "redirect:/feedbacks?edited=true";
     }
 
     @GetMapping("/deletar/{id}")

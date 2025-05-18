@@ -52,7 +52,7 @@ public class ClinicaController {
         clinicaExistente.setTelefone(clinicaForm.getTelefone());
 
         service.atualizar(clinicaExistente.getIdClinica(), clinicaExistente);
-        return "redirect:/clinicas/home";
+        return "redirect:/clinicas/home?updated=true";
     }
 
 }
