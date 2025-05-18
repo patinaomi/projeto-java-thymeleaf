@@ -16,7 +16,6 @@ import java.util.Arrays;
 @Service
 @RequiredArgsConstructor
 public class DBService {
-    //TODO: Adicionar logger aqui
 
     private final ClienteRepository clienteRepository;
     private final ClinicaRepository clinicaRepository;

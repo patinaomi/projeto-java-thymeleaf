@@ -5,8 +5,13 @@ import br.com.fiap.challenge.gateways.repository.FeedbackRepository;
 import br.com.fiap.challenge.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -58,7 +63,16 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     public String gerarResumo(List<Feedback> feedbacks) {
-        StringBuilder prompt = new StringBuilder("Resuma os seguintes feedbacks de clientes para uma clínica odontológica:\n\n");
+        String promptBase;
+        try {
+            var resource = new ClassPathResource("prompts/prompt-base.txt");
+            byte[] bytes = resource.getInputStream().readAllBytes();
+            promptBase = new String(bytes, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException("Erro ao carregar o prompt base", e);
+        }
+
+        StringBuilder prompt = new StringBuilder(promptBase).append("\n");
 
         for (Feedback f : feedbacks) {
             prompt.append("- Cliente: ").append(f.getCliente().getNome())

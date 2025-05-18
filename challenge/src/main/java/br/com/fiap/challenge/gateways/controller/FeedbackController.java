@@ -128,7 +128,7 @@ public class FeedbackController {
             feedbackService.deletar(id);
             return "redirect:/feedbacks?deleted=true";
         } catch (Exception e) {
-            return "redirect:/feedbacks?erro=Não foi possível deletar. Este feedback está associado a outros registros.";
+            return "redirect:/feedbacks?deletedError=true";
         }
     }
 

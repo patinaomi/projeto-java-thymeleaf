@@ -1,13 +1,11 @@
 package br.com.fiap.challenge.gateways.controller;
 
-import br.com.fiap.challenge.domains.Consulta;
 import br.com.fiap.challenge.domains.Dentista;
 import br.com.fiap.challenge.domains.User;
 import br.com.fiap.challenge.domains.enums.Role;
 import br.com.fiap.challenge.gateways.repository.UserRepository;
 import br.com.fiap.challenge.security.UserDetailsImpl;
 import br.com.fiap.challenge.service.ClinicaService;
-import br.com.fiap.challenge.service.ConsultaService;
 import br.com.fiap.challenge.service.DentistaService;
 import br.com.fiap.challenge.service.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +13,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -26,7 +28,6 @@ public class DentistaController {
 
     private final DentistaService dentistaService;
     private final ClinicaService clinicaService;
-    private final ConsultaService consultaService;
     private final EspecialidadeService especialidadeService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

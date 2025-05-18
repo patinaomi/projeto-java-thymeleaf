@@ -5,7 +5,8 @@
     <a href="/feedbacks" th:text="#{nav.feedbacks}">Feedbacks</a>
 
     <div style="float: right; margin-right: 1rem;">
-        <a href="?lang=pt">🇧🇷</a>
-        <a href="?lang=en">🇺🇸</a>
+        <a th:href="@{${currentUrl}(lang='en')}">🇺🇸 English</a>
+        <a th:href="@{${currentUrl}(lang='pt')}">🇧🇷 Português</a>
+
     </div>
 </div>
