@@ -11,16 +11,6 @@ body {
     padding: 0;
 }
 
-.status-ok {
-    color: #2e7d32; /* verde escuro */
-    font-weight: bold;
-}
-
-.status-pendente {
-    color: #c62828; /* vermelho escuro */
-    font-weight: bold;
-}
-
 
 /* DASHBOARD */
 .dashboard-container {
@@ -39,21 +29,6 @@ body {
 .dashboard-actions {
     text-align: right;
     margin-bottom: 20px;
-}
-
-.btn-novo-cliente {
-    background-color: #003ea6;
-    color: white;
-    padding: 12px 20px;
-    font-size: 1.1em;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.btn-novo-cliente:hover {
-    background-color: #002766;
 }
 
 /* TABELA */
@@ -728,32 +703,4 @@ body {
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
-}
-
-.btn-gerar-resumo {
-    background-color: #6a1b9a;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.btn-gerar-resumo:hover {
-    background-color: #4a148c;
-}
-
-.btn-alterar-status {
-    background-color: #1976d2;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-.btn-alterar-status:hover {
-    background-color: #1565c0;
 }

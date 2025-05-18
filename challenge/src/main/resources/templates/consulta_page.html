@@ -32,7 +32,7 @@
             <td th:text="${#temporals.format(consulta.dataConsulta, 'dd/MM/yyyy HH:mm')}">Data</td>
             <td th:text="${consulta.statusConsulta}">Status</td>
             <td th:text="${consulta.tratamentoRecomendado}">Tratamento</td>
-            <td th:text="${consulta.dataRetorno}">Retorno</td>
+            <td th:text="${#temporals.format(consulta.dataRetorno, 'dd/MM/yyyy HH:mm')}">Retorno</td>
             <td th:text="${consulta.custo}">R$</td>
             <td>
                 <form th:action="@{/consultas/alterar-status}" method="post">
@@ -50,10 +50,19 @@
 <!-- Modal de Status alterado -->
 <div id="statusUpdatedModal" class="modal" th:if="${param.statusUpdated}">
     <div class="modal-content">
-        <span class="close" onclick="closeStatusModal()">&times;</span>
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
         <p th:text="#{consultas.statusAtualizado}">Status da consulta alterado com sucesso.</p>
     </div>
 </div>
+
+<!-- Modal: Nenhuma consulta agendada -->
+<div id="emptyConsultaModal" class="modal" th:if="${#lists.isEmpty(consultas)}">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
+        <p th:text="#{consultas.modal.empty}">Você ainda não possui consultas agendadas.</p>
+    </div>
+</div>
+
 
 <div th:insert="~{componentes/footer::footer}"></div>
 

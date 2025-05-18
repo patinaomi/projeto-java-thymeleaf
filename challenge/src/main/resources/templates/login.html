@@ -45,6 +45,20 @@
     </div>
 </div>
 
-<script src="/js/script.js"></script>
+<script>
+    function closeModal() {
+        document.getElementById('logoutModal').style.display = 'none';
+    }
+
+    function closeErrorModal() {
+        document.getElementById('errorModal').style.display = 'none';
+    }
+
+    window.onload = function () {
+        setTimeout(closeModal, 3000);
+        setTimeout(closeErrorModal, 3000);
+    };
+</script>
+
 </body>
 </html>

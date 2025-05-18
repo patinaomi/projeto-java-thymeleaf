@@ -124,7 +124,12 @@ public class DentistaController {
 
     @GetMapping("/deletar/{id}")
     public String deletarDentista(@PathVariable Integer id) {
-        dentistaService.deletar(id);
-        return "redirect:/dentistas?deleted=true";
+        try {
+            dentistaService.deletar(id);
+            return "redirect:/dentistas?deleted=true";
+        } catch (Exception e) {
+            return "redirect:/dentistas?deletedErrorDentist=true";
+        }
     }
+
 }

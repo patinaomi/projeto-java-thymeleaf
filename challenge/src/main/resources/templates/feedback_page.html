@@ -13,10 +13,10 @@
     <div class="header-container">
         <h1 class="feedback-title" th:text="#{feedback.list.heading}">Lista de Feedbacks</h1>
         <div>
-            <a href="/feedbacks/criar" class="btn-novo" sec:authorize="hasRole('CLINICA')" th:text="#{feedback.list.new}">+ Novo Feedback</a>
             <form th:action="@{/feedbacks/resumo}" method="get" style="display: inline;">
-                <button type="submit" class="btn-gerar-resumo" th:text="#{feedback.list.gerarResumo}">Gerar Resumo</button>
+                <button type="submit" class="btn-novo" th:text="#{feedback.list.gerarResumo}">Gerar Resumo</button>
             </form>
+            <a href="/feedbacks/criar" class="btn-novo" sec:authorize="hasRole('CLINICA')" th:text="#{feedback.list.new}">+ Novo Feedback</a>
         </div>
     </div>
     <table class="feedback-table">
@@ -51,9 +51,9 @@
 </div>
 
 <!-- Modal de Resumo IA -->
-<div id="resumoModal" class="modal" th:if="${resumoIA}">
+<div id="resumoModal" class="modal" th:if="${resumoIA} and ${not #lists.isEmpty(feedbacks)}">
     <div class="modal-content">
-        <span class="close" onclick="closeResumoModal()">&times;</span>
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
         <h2>Resumo dos Feedbacks</h2>
         <p th:text="${resumoIA}">Aqui aparecerá o resumo gerado pela IA.</p>
     </div>
@@ -62,7 +62,7 @@
 <!-- Modal: Feedback Criado -->
 <div id="createdFeedbackModal" class="modal" th:if="${param.created}">
     <div class="modal-content">
-        <span class="close" onclick="closeCreatedFeedbackModal()">&times;</span>
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
         <p th:text="#{feedback.modal.created}">Feedback cadastrado com sucesso.</p>
     </div>
 </div>
@@ -70,7 +70,7 @@
 <!-- Modal: Feedback Deletado -->
 <div id="deletedFeedbackModal" class="modal" th:if="${param.deleted}">
     <div class="modal-content">
-        <span class="close" onclick="closeDeletedFeedbackModal()">&times;</span>
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
         <p th:text="#{feedback.modal.deleted}">Feedback deletado com sucesso.</p>
     </div>
 </div>
@@ -78,7 +78,7 @@
 <!-- Modal: Nenhum Feedback Cadastrado -->
 <div id="emptyFeedbackModal" class="modal" th:if="${#lists.isEmpty(feedbacks)}">
     <div class="modal-content">
-        <span class="close" onclick="closeEmptyFeedbackModal()">&times;</span>
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
         <p th:text="#{feedback.modal.empty}">Nenhum feedback cadastrado até o momento.</p>
     </div>
 </div>
@@ -86,7 +86,7 @@
 <!-- Modal: Feedback Editado -->
 <div id="editedFeedbackModal" class="modal" th:if="${param.edited}">
     <div class="modal-content">
-        <span class="close" onclick="closeEditedFeedbackModal()">&times;</span>
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
         <p th:text="#{feedback.modal.edited}">Feedback editado com sucesso.</p>
     </div>
 </div>
@@ -94,7 +94,7 @@
 <!-- Modal: Erro ao deletar feedback -->
 <div id="deletedFeedbackErrorModal" class="modal" th:if="${param.deletedError}">
     <div class="modal-content">
-        <span class="close" onclick="closeDeletedFeedbackErrorModal()">&times;</span>
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
         <p th:text="#{feedback.modal.deletedError}">Não foi possível deletar. Este feedback está associado a outros registros.</p>
     </div>
 </div>
