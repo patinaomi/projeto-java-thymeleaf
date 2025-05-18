@@ -1,0 +1,18 @@
+pool:
+  name: Azure Pipelines
+steps:
+  - task: Docker@0
+    displayName: 'Docker Build an image'
+    inputs:
+      azureSubscription: 'Azure for Students (a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7)'
+      azureContainerRegistry: '{"loginServer":"acrdelfosmachine.azurecr.io", "id" : "/subscriptions/a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7/resourceGroups/delfos-machine-sprint/providers/Microsoft.ContainerRegistry/registries/acrdelfosmachine"}'
+      dockerFile: challenge/Dockerfile
+      imageName: 'Fiap/delfosmachine:$(Build.BuildNumber)'
+
+  - task: Docker@0
+    displayName: 'Push an image'
+    inputs:
+      azureSubscription: 'Azure for Students (a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7)'
+      azureContainerRegistry: '{"loginServer":"acrdelfosmachine.azurecr.io", "id" : "/subscriptions/a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7/resourceGroups/delfos-machine-sprint/providers/Microsoft.ContainerRegistry/registries/acrdelfosmachine"}'
+      action: 'Push an image'
+      imageName: 'Fiap/delfosmachine:$(Build.BuildNumber)'

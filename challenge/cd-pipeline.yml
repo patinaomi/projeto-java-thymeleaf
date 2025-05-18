@@ -1,0 +1,29 @@
+variables:
+  resourceGroup: 'delfos-machine-sprint'
+  appName: 'delfosmachine'
+  acrServer: 'acrdelfosmachine.azurecr.io'
+  acrName: 'acrdelfosmachine'
+  acrPassword: 'VLdLiQYyD1FXzIPDOnj9jx6TPU3atWii5ZL5eW+3YK+ACRBEdRSP'
+
+steps:
+  - task: AzureCLI@2
+    displayName: 'Azure CLI to Create Container Instance'
+    inputs:
+      azureSubscription: 'Azure for Students (a2ca17c1-13e6-4923-baf9-1ee48e8c4ad7)'
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        
+        az container create \
+          --resource-group $(resourceGroup) \
+          --name $(appName) \
+          --image $(acrServer)/fiap/$(appName):$(Build.BuildNumber) \
+          --cpu 1 \
+          --memory 1 \
+          --registry-login-server $(acrServer) \
+          --registry-username $(acrName) \
+          --registry-password $(acrPassword) \
+          --ports 8080 \
+          --ip-address Public \
+          --dns-name-label $(appName) \
+          --os-type Linux
