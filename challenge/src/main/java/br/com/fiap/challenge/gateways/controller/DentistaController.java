@@ -60,8 +60,6 @@ public class DentistaController {
 
         List<Dentista> dentistasDaClinica = dentistaService.buscarPorIdClinica(idClinica);
         model.addAttribute("dentistas", dentistasDaClinica);
-        System.out.println("Dentistas encontrados para a clínica: " + dentistasDaClinica.size());
-
         return "dentista_page";
     }
 
