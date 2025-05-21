@@ -4,12 +4,12 @@
 
 ## 📌 **Índice**
 1. [Sobre o Projeto](#-sobre-o-projeto)
-2. [Pipeline CI/CD - Azure DevOps](#-pipeline-cicd---azure-devops)
-3. [Configuração das Pipelines](#-configuração-das-pipelines)
-4. [Modelo Relacional (DER)](#-modelo-relacional-der)
-5. [Diagrama de Classes](#-diagrama-de-classes)
-6. [Vídeo Demonstrativo](#-vídeo-demonstrativo)
-7. [Banco de Dados](#-banco-de-dados)
+2. [Implementações Java – Sprint 4](#️-implementações-java--sprint-4)
+3. [Implementações DevOps – Sprint 4](#️-implementações-devops--sprint-4)
+4. [Vídeos Demonstrativos](#-vídeos-demonstrativos)
+5. [Arquitetura do Projeto](#-arquitetura-do-projeto)
+6. [Configuração das Pipelines](#-configuração-das-pipelines)
+7. [Rodando o Projeto com Docker](#-rodando-o-projeto-com-docker)
 8. [Equipe](#-equipe)
 
 
@@ -79,7 +79,7 @@ Este vídeo apresenta as funcionalidades principais da aplicação:
 -   Integrações com RabbitMQ e OpenAI
 
 📌 **Assista aqui:**  
-[▶ Demonstração do Sistema Java](https://www.youtube.com/watch?v=A3Tw0jTuy60&ab_channel=PatriciaNaomi)
+[▶ Demonstração do Sistema Java](COLOCAR LINK AQUI)
 
 Credenciais usadas para testes:
 
@@ -89,12 +89,11 @@ Credenciais usadas para testes:
 
 [:arrow_up: voltar para o índice :arrow_up:](#-índice)
 
-## 🏛️  **Arquitetura do Projeto**
+## 🏛️ **Arquitetura do Projeto**
 
+![arquitetura do projeto](https://github.com/patinaomi/projeto-java-thymeleaf/blob/main/diagrama.drawio.png)
 
--   **COLOCAR DESENHO AQUI**
-
-
+A arquitetura do projeto foi desenvolvida com foco em escalabilidade, monitoramento e integração contínua. Utilizando o Azure DevOps, o pipeline de CI/CD automatiza o processo de build e deploy da aplicação. A imagem Docker é gerada a partir do código Java com Spring Boot, enviada para o Azure Container Registry e, em seguida, implantada no Azure Container Instance como um container acessível por IP público. A aplicação se comunica com um banco de dados Oracle, hospedado em container, e com o RabbitMQ como serviço de mensageria para eventos assíncronos, como o envio de e-mails. O monitoramento é realizado com Prometheus e Grafana, também em containers, permitindo o acompanhamento em tempo real do estado e métricas da aplicação. Toda a estrutura é pensada para proporcionar uma experiência DevOps completa e robusta.
 
 [:arrow_up: voltar para o índice :arrow_up:](#-índice)
 
@@ -105,7 +104,7 @@ Credenciais usadas para testes:
 #### 🛠️ Configuração da Pipeline de CI (Continuous Integration)
 
 Na pipeline de **Integração Contínua (CI)**, configurada no Azure DevOps, foi definido o uso do `pool` padrão do Azure Pipelines para execução das tarefas. O processo automatiza a construção da imagem Docker da aplicação Java. Primeiramente, a tarefa `Docker Build an image` é responsável por **compilar o projeto** e gerar a imagem Docker a partir do `Dockerfile` localizado na pasta `challenge/`. Em seguida, a tarefa `Push an image` faz o **envio da imagem criada para o Azure Container Registry (ACR)**, utilizando as credenciais fornecidas na configuração. A imagem recebe a tag correspondente ao número do build, garantindo versionamento e rastreabilidade para futuros deploys.
-👉 [`link do código de ci-pipeline.yml`](ci-)
+👉 [`link do código de ci-pipeline.yml`](https://github.com/patinaomi/projeto-java-thymeleaf/blob/main/challenge/ci-pipeline.yml)
 #### 🚀 Pipeline de CD (Entrega Contínua)
 
 A pipeline de **Continuous Deployment (CD)** foi configurada no **Azure DevOps** com o objetivo de automatizar o processo de publicação da aplicação Java na nuvem. Após a conclusão da etapa de build e push da imagem Docker (na pipeline de CI), a pipeline de CD é acionada para realizar o deploy da imagem no serviço **Azure Container Instance (ACI)**.
@@ -120,7 +119,7 @@ O processo segue os seguintes passos:
 
 4.  A aplicação roda em ambiente Linux e é configurada para escutar na porta 8080.
 
-    👉 [`link do código de cd-pipeline.yml`](ci-)
+    👉 [`link do código de cd-pipeline.yml`](https://github.com/patinaomi/projeto-java-thymeleaf/blob/main/challenge/cd-pipeline.yml)
 
 [:arrow_up: voltar para o índice :arrow_up:](#-índice)
 
