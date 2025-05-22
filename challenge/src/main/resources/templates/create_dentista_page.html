@@ -43,6 +43,14 @@
 
 <div th:insert="~{componentes/footer::footer}"></div>
 
+<!-- Modal: E-mail de dentista já cadastrado -->
+<div id="integrityEmailErrorModal" class="modal" th:if="${param.emailError}">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalByElement(this)">&times;</span>
+        <p id="emailErrorMessage" th:text="#{dentista.modal.emailError}">Este e-mail já foi cadastrado.</p>
+    </div>
+</div>
+
 <script src="/js/script.js"></script>
 
 </body>

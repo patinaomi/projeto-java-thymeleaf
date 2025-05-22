@@ -9,6 +9,7 @@ import br.com.fiap.challenge.service.ClinicaService;
 import br.com.fiap.challenge.service.DentistaService;
 import br.com.fiap.challenge.service.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -76,27 +77,28 @@ public class DentistaController {
     @PostMapping("/criar")
     public String criarDentista(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                 @ModelAttribute Dentista dentistaForm) {
+        try {
+            var clinica = clinicaService.buscarPorUsername(userDetails.getUsername())
+                    .orElseThrow(() -> new RuntimeException("Clínica não encontrada"));
+            User novoUser = new User(
+                    null,
+                    dentistaForm.getUser().getUsername(),
+                    passwordEncoder.encode(dentistaForm.getUser().getPassword()),
+                    true,
+                    Role.DENTISTA
+            );
 
-        var clinica = clinicaService.buscarPorUsername(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("Clínica não encontrada"));
+            User usuarioSalvo = userRepository.save(novoUser);
 
-        User novoUser = new User(
-                null,
-                dentistaForm.getUser().getUsername(),
-                passwordEncoder.encode(dentistaForm.getUser().getPassword()),
-                true,
-                Role.DENTISTA
-        );
+            dentistaForm.setUser(usuarioSalvo);
+            dentistaForm.setClinica(clinica);
+            dentistaForm.setAvaliacao(0.0f);
 
-        User usuarioSalvo = userRepository.save(novoUser);
-
-        dentistaForm.setUser(usuarioSalvo);
-        dentistaForm.setClinica(clinica);
-        dentistaForm.setAvaliacao(0.0f);
-
-        dentistaService.criar(dentistaForm);
-
-        return "redirect:/dentistas";
+            dentistaService.criar(dentistaForm);
+            return "redirect:/dentistas?created=true";
+        } catch (DataIntegrityViolationException e) {
+            return "redirect:/dentistas/criar?emailError=true";
+        }
     }
 
 

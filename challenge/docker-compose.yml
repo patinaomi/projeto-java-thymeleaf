@@ -12,7 +12,7 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle.fiap.com.br:1521/orcl
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle:1521/XEPDB1
       SPRING_DATASOURCE_USERNAME: ${ORACLE_USER}
       SPRING_DATASOURCE_PASSWORD: ${ORACLE_PASS}
       SPRING_RABBITMQ_HOST: rabbitmq

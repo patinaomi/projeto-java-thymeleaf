@@ -20,7 +20,8 @@ window.onload = function () {
         logoutModal: 3000,
         errorModal: 3000,
         emptyConsultaModal: 4000,
-        deletedDentistErrorModal: 4000
+        deletedDentistErrorModal: 4000,
+        integrityEmailErrorModal: 4000
     };
 
     Object.entries(modaisComTempo).forEach(([id, tempo]) => closeModalById(id, tempo));
