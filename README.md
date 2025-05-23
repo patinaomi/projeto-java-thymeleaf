@@ -79,7 +79,7 @@ Este vídeo apresenta as funcionalidades principais da aplicação:
 -   Integrações com RabbitMQ e OpenAI
 
 📌 **Assista aqui:**  
-[▶ Demonstração do Sistema Java](COLOCAR LINK AQUI)
+[▶ Demonstração do Sistema Java](https://youtu.be/-vDVQu-9Jb0)
 
 Credenciais usadas para testes:
 
